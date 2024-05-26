@@ -1,6 +1,10 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.android.nav.safe.args)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.dagger.hilt)
 }
 
 android {
@@ -35,4 +39,12 @@ android {
 dependencies {
 
     implementation(project(":core"))
+
+    // hilt
+    ksp(libs.hilt.compiler)
+    implementation(libs.hilt)
+
+    // room
+    ksp(libs.androidx.room.compiler)
+    annotationProcessor(libs.androidx.room.compiler)
 }

@@ -1,6 +1,9 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.dagger.hilt)
 }
 
 android {
@@ -45,12 +48,38 @@ dependencies {
     api(libs.androidx.lifecycle.runtime.ktx)
 
     //compose
-    api(libs.androidx.activity.compose)
     api(platform(libs.androidx.compose.bom))
+    api(libs.androidx.activity.compose)
     api(libs.androidx.ui)
     api(libs.androidx.ui.graphics)
     api(libs.androidx.ui.tooling.preview)
     api(libs.androidx.material3)
     debugApi(libs.androidx.ui.tooling)
     debugApi(libs.androidx.ui.test.manifest)
+    implementation(libs.androidx.ui.util)
+
+    //lottie
+    api(libs.lottie.compose)
+
+    // navigation
+    api(libs.navigation.compose)
+
+    // serialization
+    api(libs.kotlinx.serialization)
+
+    // room
+    ksp(libs.androidx.room.compiler)
+    api(libs.androidx.room)
+    annotationProcessor(libs.androidx.room.compiler)
+    api(libs.androidx.room.ktx)
+
+    // hilt
+    ksp(libs.hilt.compiler)
+    api(libs.hilt)
+    api(libs.hilt.navigation.compose)
+
+    //firebase
+    api(platform(libs.firebase.bom))
+    api(libs.firebase.analytics)
+    api(libs.firebase.crashlytics)
 }
