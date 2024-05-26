@@ -21,3 +21,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "BookNotes"
 include(":app")
+include(":core")
+include(":authorization")
+include(":book_notes")
