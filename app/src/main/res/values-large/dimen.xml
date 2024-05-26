@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="gutter">16dp</dimen>
+    <dimen name="half_gutter">8dp</dimen>
+    <dimen name="double_gutter">32dp</dimen>
+</resources>

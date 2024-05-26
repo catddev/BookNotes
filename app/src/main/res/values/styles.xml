@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TextStyleBody1" parent="Widget.AppCompat.TextView">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">@dimen/body_text_size</item>
+        <item name="android:gravity">start</item>
+    </style>
+
+    <style name="TextStyleBody2" parent="TextStyleBody1">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="ButtonStyleDefault" parent="Widget.Material3.Button.ElevatedButton">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">@dimen/body_text_size</item>
+        <item name="cornerRadius">@dimen/half_gutter</item>
+    </style>
+
+    <style name="ToolbarTitleStyle" parent="Widget.AppCompat.TextView">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/header_text_size</item>
+    </style>
+
+    <style name="TextInputEditTextStyle" parent="ThemeOverlay.MaterialComponents.TextInputEditText">
+        <item name="colorControlHighlight">@color/color_primary</item>
+        <item name="colorControlNormal">@color/color_primary</item>
+        <item name="colorControlActivated">@color/color_primary</item>
+        <item name="android:textAppearance">@style/TextStyleBody1</item>
+    </style>
+<!--    todo <item name="colorOutline">@color/color_primary</item>-->
+<!--    <item name="boxBackgroundColor">@color/color_primary</item>-->
+<!--    <item name="cursorColor">@color/color_primary</item>-->
+
+</resources>

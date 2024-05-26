@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="color_primary">@color/blue_grey_900</color>
+    <color name="color_on_primary">@color/blue_grey_50</color>
+    <color name="color_primary_container">@color/blue_grey_800</color>
+    <color name="color_on_primary_container">@color/blue_grey_100</color>
+    <color name="color_secondary">@color/blue_grey_700</color>
+    <color name="color_on_secondary">@color/blue_grey_300</color>
+    <color name="color_secondary_container">@color/blue_grey_600</color>
+    <color name="color_on_secondary_container">@color/blue_grey_50</color>
+    <color name="color_tertiary">@color/blue_grey_800</color>
+    <color name="color_on_tertiary">@color/blue_grey_100</color>
+    <color name="color_tertiary_container">@color/blue_grey_200</color>
+    <color name="color_on_tertiary_container">@color/blue_grey_800</color>
+    <color name="color_background">@color/blue_grey_900</color>
+    <color name="color_on_background">@color/blue_grey_50</color>
+    <color name="color_accent">@color/lime_700</color>
+    <color name="color_error">@color/deep_orange_700</color>
+    <color name="color_on_error">@color/deep_orange_400</color>
+    <color name="color_surface">@color/blue_grey_900</color>
+    <color name="color_on_surface">@color/blue_grey_50</color>
+    <color name="color_on_surface_variant">@color/blue_grey_600</color>
+    <color name="color_outline">@color/blue_grey_100</color>
+    <color name="color_outline_variant">@color/blue_grey_200</color>
 </resources>
