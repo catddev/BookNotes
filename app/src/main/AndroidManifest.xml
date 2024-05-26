@@ -16,6 +16,7 @@
         <activity
             android:name=".SplashActivity"
             android:exported="true"
+            android:launchMode="singleTask"
             android:theme="@style/Theme.BookNotes">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,7 +27,12 @@
         <activity
             android:name=".MainActivity"
             android:exported="false"
-            android:theme="@style/Base.Theme.BookNotes" />
+            android:launchMode="singleInstance"
+            android:theme="@style/Base.Theme.BookNotes">
+            <intent-filter>
+                <action android:name="android.intent.action.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
