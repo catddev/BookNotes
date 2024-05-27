@@ -23,13 +23,13 @@
     </style>
 
     <style name="TextInputEditTextStyle" parent="ThemeOverlay.MaterialComponents.TextInputEditText">
-        <item name="colorControlHighlight">@color/color_primary</item>
-        <item name="colorControlNormal">@color/color_primary</item>
-        <item name="colorControlActivated">@color/color_primary</item>
+        <item name="colorControlHighlight">@color/color_accent</item>
+        <item name="colorControlNormal">@color/color_on_secondary</item>
+        <item name="colorControlActivated">@color/color_accent</item>
         <item name="android:textAppearance">@style/TextStyleBody1</item>
     </style>
-<!--    todo <item name="colorOutline">@color/color_primary</item>-->
-<!--    <item name="boxBackgroundColor">@color/color_primary</item>-->
-<!--    <item name="cursorColor">@color/color_primary</item>-->
+    <!--    todo <item name="colorOutline">@color/color_primary</item>-->
+    <!--    <item name="boxBackgroundColor">@color/color_primary</item>-->
+    <!--    <item name="cursorColor">@color/color_primary</item>-->
 
 </resources>

@@ -3,4 +3,5 @@
     <dimen name="gutter">8dp</dimen>
     <dimen name="half_gutter">4dp</dimen>
     <dimen name="double_gutter">16dp</dimen>
+    <dimen name="_64dp">64dp</dimen>
 </resources>
