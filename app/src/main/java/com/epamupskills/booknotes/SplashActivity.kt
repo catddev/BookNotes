@@ -36,7 +36,7 @@ class SplashActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-//            BookNotesTheme {
+            BookNotesTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     SplashScreen(
                         animation = R.raw.lottie_splash_animation,
@@ -46,7 +46,7 @@ class SplashActivity : ComponentActivity() {
                         finishAndRemoveTask() //todo Z-2 !!!
                     }
                 }
-//            }
+            }
         }
     }
 }
