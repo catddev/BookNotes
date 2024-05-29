@@ -1,35 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="TextStyleBody1" parent="Widget.AppCompat.TextView">
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
+
+    <style name="TextAppearance.BookNotes.Body1" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textColor">@color/color_on_primary</item>
+        <item name="android:textSize">@dimen/body1_text_size</item>
         <item name="android:textStyle">normal</item>
-        <item name="android:textSize">@dimen/body_text_size</item>
+        <item name="lineHeight">20sp</item>
+    </style>
+
+    <style name="TextAppearance.BookNotes.Body2" parent="TextAppearance.BookNotes.Body1">
+        <item name="android:textColorHint">@color/color_on_primary_container</item>
+        <item name="android:textSize">@dimen/body2_text_size</item>
+    </style>
+
+    <style name="TextAppearance.BookNotes.Header1" parent="TextAppearance.BookNotes.Body1">
+        <item name="android:textColorHint">@color/color_on_primary</item>
+        <item name="android:textSize">@dimen/header1_text_size</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.BookNotes.Header2" parent="TextAppearance.BookNotes.Body1">
+        <item name="android:textColorHint">@color/color_on_primary_container</item>
+        <item name="android:textSize">@dimen/header2_text_size</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Widget.BookNotes.TextBody1" parent="Widget.AppCompat.TextView">
         <item name="android:gravity">start</item>
+        <item name="android:textAppearance">@style/TextAppearance.BookNotes.Body1</item>
     </style>
 
-    <style name="TextStyleBody2" parent="TextStyleBody1">
-        <item name="android:textStyle">bold</item>
+    <style name="Widget.BookNotes.TextBody2" parent="Widget.AppCompat.TextView">
+        <item name="android:gravity">start</item>
+        <item name="android:textAppearance">@style/TextAppearance.BookNotes.Body2</item>
     </style>
 
-    <style name="ButtonStyleDefault" parent="Widget.Material3.Button.ElevatedButton">
+    <style name="Widget.BookNotes.OutlinedButton" parent="Widget.MaterialComponents.Button">
         <item name="android:textAllCaps">true</item>
-        <item name="android:textSize">@dimen/body_text_size</item>
+        <item name="android:textSize">@dimen/body2_text_size</item>
         <item name="cornerRadius">@dimen/half_gutter</item>
+        <item name="backgroundTint">@color/selector_button_color</item>
+        <item name="elevation">0dp</item>
+        <item name="android:padding">@dimen/_4dp</item>
+        <item name="android:elevation">0dp</item>
     </style>
 
-    <style name="ToolbarTitleStyle" parent="Widget.AppCompat.TextView">
-        <item name="android:textStyle">bold</item>
-        <item name="android:textSize">@dimen/header_text_size</item>
+    <style name="Widget.BookNotes.TextButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textAllCaps">true</item>
+        <item name="backgroundTint">@color/selector_button_color</item>
+        <item name="cornerRadius">@dimen/half_gutter</item>
+        <item name="android:textAppearance">@style/TextAppearance.BookNotes.Body2</item>
+        <item name="android:textAppearanceButton">@style/TextAppearance.BookNotes.Body2</item>
+        <item name="android:elevation">@dimen/_0dp</item>
+        <item name="elevation">@dimen/_0dp</item>
     </style>
 
-    <style name="TextInputEditTextStyle" parent="ThemeOverlay.MaterialComponents.TextInputEditText">
+    <style name="Widget.BookNotes.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="colorControlHighlight">@color/color_accent</item>
         <item name="colorControlNormal">@color/color_on_secondary</item>
         <item name="colorControlActivated">@color/color_accent</item>
-        <item name="android:textAppearance">@style/TextStyleBody1</item>
+        <item name="android:textColorHint">@color/blue_grey_300</item>
+        <item name="colorOutline">@color/blue_grey_300</item>
+        <item name="boxBackgroundColor">@color/blue_grey_800</item>
+        <item name="boxStrokeColor">@color/selector_text_input_layout_stroke_color</item>
+        <item name="boxStrokeWidth">@dimen/_2dp</item>
+        <item name="cursorColor">@color/blue_grey_300</item>
+        <item name="hintTextColor">@color/selector_text_input_layout_stroke_color</item>
+        <item name="android:textAppearance">@style/Widget.BookNotes.TextBody1</item>
     </style>
-    <!--    todo <item name="colorOutline">@color/color_primary</item>-->
-    <!--    <item name="boxBackgroundColor">@color/color_primary</item>-->
-    <!--    <item name="cursorColor">@color/color_primary</item>-->
+
+    <style name="Widget.BookNotes.Appbar" parent="Widget.MaterialComponents.AppBarLayout.Primary">
+        <item name="android:background">@color/color_primary</item>
+        <item name="android:fitsSystemWindows">true</item>
+        <item name="android:stateListAnimator">@null</item>
+    </style>
+
+    <style name="Widget.BookNotes.Toolbar" parent="Widget.MaterialComponents.Toolbar">
+        <item name="android:background">@color/color_primary_container</item>
+        <item name="contentInsetStartWithNavigation">0dp</item>
+        <item name="titleTextAppearance">@style/TextAppearance.BookNotes.Body1</item>
+    </style>
+
+    <style name="Widget.BookNotes.CardView" parent="Widget.MaterialComponents.CardView">
+        <item name="backgroundTint">@color/color_primary_container</item>
+        <item name="cardCornerRadius">@dimen/_24dp</item>
+        <item name="cardElevation">0dp</item>
+    </style>
+
+    <style name="Widget.BookNotes.Snackbar" parent="Widget.MaterialComponents.Snackbar.FullWidth">
+        <item name="android:textAppearance">@style/TextAppearance.BookNotes.Header1</item>
+        <item name="android:textColor">@color/color_on_primary</item>
+        <item name="android:background">@color/color_on_error</item>
+    </style>
+
+    <style name="ShapeAppearance.BookNotes.Rounded16" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/_16dp</item>
+    </style>
 
 </resources>

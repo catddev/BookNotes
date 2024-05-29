@@ -1,4 +1,4 @@
-package com.epamupskills.core.presentation
+package com.epamupskills.core
 
 import android.content.Context
 import android.net.Uri

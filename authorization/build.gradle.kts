@@ -42,6 +42,7 @@ android {
 dependencies {
 
     implementation(project(":core"))
+    api(libs.firebase.auth)
 
     // hilt
     ksp(libs.hilt.compiler)

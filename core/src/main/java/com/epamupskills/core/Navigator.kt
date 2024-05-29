@@ -1,4 +1,4 @@
-package com.epamupskills.core.presentation
+package com.epamupskills.core
 
 import androidx.navigation.NavController
 

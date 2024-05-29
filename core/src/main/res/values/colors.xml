@@ -22,4 +22,5 @@
     <color name="color_on_surface_variant">@color/blue_grey_600</color>
     <color name="color_outline">@color/blue_grey_100</color>
     <color name="color_outline_variant">@color/blue_grey_200</color>
+    <color name="color_background_translucent">@color/blue_grey_900_alpha_90</color>
 </resources>

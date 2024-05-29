@@ -9,9 +9,7 @@ import androidx.annotation.RawRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -21,7 +19,7 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.epamupskills.booknotes.ui.theme.BookNotesTheme
-import com.epamupskills.core.presentation.AppRouter
+import com.epamupskills.core.AppRouter
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -37,14 +35,14 @@ class SplashActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             BookNotesTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    SplashScreen(
-                        animation = R.raw.lottie_splash_animation,
-                        modifier = Modifier.padding(innerPadding)
-                    ) {
-                        router.openMainActivity(this)
-                        finishAndRemoveTask() //todo Z-2 !!!
-                    }
+                SplashScreen(
+                    animation = R.raw.lottie_splash_animation,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(MaterialTheme.colorScheme.background),
+                ) {
+                    router.openMainActivity(this)
+                    finishAndRemoveTask() //todo Z-2 !!!
                 }
             }
         }
@@ -57,11 +55,7 @@ fun SplashScreen(
     modifier: Modifier = Modifier,
     block: () -> Unit
 ) {
-    Box(
-        modifier = modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
-    ) {
+    Box(modifier = modifier) {
         val composition by rememberLottieComposition(spec = LottieCompositionSpec.RawRes(animation))
         val logoAnimationState = animateLottieCompositionAsState(composition = composition)
         LottieAnimation(composition = composition, progress = { logoAnimationState.progress })

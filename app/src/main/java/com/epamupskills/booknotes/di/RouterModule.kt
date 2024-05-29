@@ -1,7 +1,7 @@
 package com.epamupskills.booknotes.di
 
 import com.epamupskills.booknotes.AppRouterImpl
-import com.epamupskills.core.presentation.AppRouter
+import com.epamupskills.core.AppRouter
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

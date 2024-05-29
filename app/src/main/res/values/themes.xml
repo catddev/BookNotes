@@ -1,4 +1,5 @@
 <resources>
+
     <style name="Base.Theme.BookNotes" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:windowActionBarOverlay">true</item>
         <item name="android:statusBarColor">@color/color_primary</item>
@@ -24,8 +25,11 @@
         <item name="colorOnSurfaceVariant">@color/color_on_surface_variant</item>
         <item name="colorOutline">@color/color_outline</item>
         <item name="colorOutlineVariant">@color/color_outline_variant</item>
+        <item name="snackbarStyle">@style/Widget.BookNotes.Snackbar</item>
+        <item name="materialCardViewStyle">@style/Widget.BookNotes.CardView</item>
+        <item name="toolbarStyle">@style/Widget.BookNotes.Toolbar</item>
+        <item name="textInputStyle">@style/Widget.BookNotes.TextInputLayout</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
     <style name="Theme.BookNotes" parent="Base.Theme.BookNotes" />
 </resources>

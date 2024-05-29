@@ -62,6 +62,7 @@ hilt-nav-fragment = { group = "androidx.hilt", name = "hilt-navigation-fragment"
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase" }
 firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics" }
 firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics" }
+firebase-auth = { group = "com.google.firebase", name = "firebase-auth-ktx" }
 
 #testing
 junit = { group = "junit", name = "junit", version.ref = "junit" }

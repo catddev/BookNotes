@@ -10,6 +10,7 @@
     <color name="blue_grey_700">#455A64</color>
     <color name="blue_grey_800">#37474F</color>
     <color name="blue_grey_900">#263238</color>
+    <color name="blue_grey_900_alpha_90">#E6263238</color>
     <color name="deep_orange_400">#FF3D00</color>
     <color name="deep_orange_700">#FBE9E7</color>
     <color name="lime_700">#AEEA00</color>

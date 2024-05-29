@@ -3,7 +3,7 @@ package com.epamupskills.booknotes
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import com.epamupskills.core.presentation.AppRouter
+import com.epamupskills.core.AppRouter
 import javax.inject.Inject
 
 class AppRouterImpl @Inject constructor() : AppRouter {
