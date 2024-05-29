@@ -37,7 +37,7 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/delete_account_button"
         style="@style/Widget.BookNotes.TextButton"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/_304dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/double_gutter"
         android:layout_marginTop="@dimen/double_gutter"
@@ -50,7 +50,7 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/sign_out_button"
         style="@style/Widget.BookNotes.TextButton"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/_304dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/double_gutter"
         android:layout_marginTop="@dimen/double_gutter"
@@ -62,6 +62,11 @@
 
     <include
         android:id="@+id/loader"
-        layout="@layout/view_loader" />
+        layout="@layout/view_loader"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/_64dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

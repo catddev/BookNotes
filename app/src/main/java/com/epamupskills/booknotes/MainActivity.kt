@@ -2,15 +2,25 @@ package com.epamupskills.booknotes
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.epamupskills.booknotes.databinding.ActivityMainBinding
-import com.epamupskills.core.presentation.Navigator
+import com.epamupskills.core.Navigate
+import com.epamupskills.core.NavigateTo
+import com.epamupskills.core.NavigateToGraph
+import com.epamupskills.core.NavigateUp
+import com.epamupskills.core.NavigationEvent
+import com.epamupskills.core.Navigator
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), Navigator {
@@ -18,6 +28,7 @@ class MainActivity : AppCompatActivity(), Navigator {
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!
     private val navController by lazy { initNavController() }
+    private val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,8 +41,9 @@ class MainActivity : AppCompatActivity(), Navigator {
             insets
         }
         setListeners()
-        //todo set navigation gone when destination is Authorization nav
-        //todo enable SavedBackstack
+        initObservers()
+
+        //todo enable SavedBackstack (check)
     }
 
     override fun onDestroy() {
@@ -41,45 +53,60 @@ class MainActivity : AppCompatActivity(), Navigator {
 
     override fun getRootNavController(): NavController = navController
 
+    private fun initObservers() {
+        viewModel.isAuth.observe(this, ::renderViews)
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                viewModel.navEvents.collect { event -> onNavigationEvent(event) }
+            }
+        }
+    }
+
     private fun setListeners() {
         binding.bottomNavigation.setOnItemSelectedListener { item ->
             navController.run {
                 when (item.itemId) {
                     R.id.books -> navigate(R.id.to_book_notes)
-                    R.id.profile -> navigate(R.id.profileFragment)
-                    R.id.search -> navigate(R.id.searchBooksFragment)
+                    R.id.profile -> navigate(R.id.to_profile)
+                    R.id.search -> navigate(R.id.to_search)
                 }
             }
             return@setOnItemSelectedListener true
         }
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            binding.bottomNavigation.menu.run {
-                when {
-                    destination.id == R.id.searchBooksFragment -> {
-                        findItem(R.id.search).isChecked = true
+            binding.bottomNavigation.run {
+                when (destination.parent?.id) {
+                    com.epamupskills.book_notes.R.id.search_nav -> {
+                        menu.findItem(R.id.search).isChecked = true
                     }
 
-                    destination.id == R.id.profileFragment -> {
-                        findItem(R.id.profile).isChecked = true
+                    com.epamupskills.authorization.R.id.profile_nav -> {
+                        menu.findItem(R.id.profile).isChecked = true
                     }
 
-                    destination.parent?.id == com.epamupskills.book_notes.R.id.book_notes_nav -> {
-                        findItem(R.id.books).isChecked = true
+                    com.epamupskills.book_notes.R.id.book_notes_nav -> {
+                        menu.findItem(R.id.books).isChecked = true
                     }
                 }
             }
         }
     }
 
+    private fun onNavigationEvent(event: NavigationEvent) {
+        when (event) {
+            is Navigate -> navController.navigate(event.destinationId)
+            is NavigateToGraph -> navController.setGraph(event.graphId)
+            is NavigateTo -> navController.navigate(event.direction)
+            is NavigateUp -> navController.navigateUp()
+        }
+    }
+
     private fun initNavController(): NavController =
         (supportFragmentManager.findFragmentById(R.id.nav_host_container) as NavHostFragment).navController
 
-    private fun renderLoader(isLoading: Boolean) {
-        binding.loader.isVisible = isLoading
-    }
-
-    private fun renderError(hasError: Boolean) {
-        binding.errorView.isVisible = hasError
+    private fun renderViews(isVisible: Boolean) {
+        binding.bottomNavigation.isVisible = isVisible
     }
 }

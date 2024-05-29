@@ -28,38 +28,6 @@
             app:layout_constraintTop_toBottomOf="@id/nav_host_container"
             app:menu="@menu/menu_bottom_navigation" />
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/loader"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginTop="?attr/actionBarSize"
-            android:padding="@dimen/double_gutter"
-            android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/lottie_loading_animation"
-            tools:visibility="visible" />
-
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/error_view"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginTop="?attr/actionBarSize"
-            android:padding="@dimen/double_gutter"
-            android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/lottie_error_animation"
-            tools:visibility="visible" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

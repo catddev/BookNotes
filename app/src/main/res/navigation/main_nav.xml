@@ -1,30 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav"
     app:startDestination="@id/book_notes_nav">
 
     <include app:graph="@navigation/auth_nav" />
     <include app:graph="@navigation/book_notes_nav" />
-    <fragment
-        android:id="@+id/profileFragment"
-        android:name="com.epamupskills.authorization.presentation.ProfileFragment"
-        android:label="ProfileFragment"
-        tools:layout="@layout/fragment_profile" />
-    <fragment
-        android:id="@+id/searchBooksFragment"
-        android:name="com.epamupskills.book_notes.presentation.SearchBooksFragment"
-        android:label="SearchBooksFragment"
-        tools:layout="@layout/fragment_search_books" />
+    <include app:graph="@navigation/profile_nav" />
 
     <action
         android:id="@+id/to_book_notes"
         app:destination="@id/book_notes_nav"
-        app:popUpTo="@id/main_nav" />
+        app:popUpTo="@id/main_nav"
+        app:popUpToInclusive="false" />
 
     <action
-        android:id="@+id/to_auth"
+        android:id="@+id/to_search"
+        app:destination="@id/search_nav" />
+
+    <action
+        android:id="@+id/to_profile"
+        app:destination="@id/profile_nav" />
+
+    <action
+        android:id="@+id/to_main"
+        app:destination="@id/main_nav"
+        app:popUpTo="@id/main_nav"
+        app:popUpToInclusive="true" />
+
+    <action
+        android:id="@+id/to_authorization"
         app:destination="@id/auth_nav"
-        app:popUpTo="@id/main_nav" />
+        app:popUpTo="@id/main_nav"
+        app:popUpToInclusive="true" />
+    <include app:graph="@navigation/search_nav" />
 </navigation>

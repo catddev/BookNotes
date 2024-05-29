@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/sign_in_screen"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/book_animated_view"
+        android:layout_width="@dimen/_104dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/double_gutter"
+        app:layout_constraintBottom_toTopOf="@id/user_name_input_field"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/lottie_screensaver_animation" />
+
+    <include
+        android:id="@+id/user_name_input_field"
+        layout="@layout/text_input_field"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/double_gutter"
+        app:layout_constraintBottom_toTopOf="@id/password_input_field"
+        app:layout_constraintTop_toBottomOf="@id/book_animated_view" />
+
+    <include
+        android:id="@+id/password_input_field"
+        layout="@layout/text_input_field_masked"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/double_gutter"
+        android:layout_marginTop="@dimen/double_gutter"
+        app:layout_constraintBottom_toTopOf="@id/sign_in_button"
+        app:layout_constraintTop_toBottomOf="@id/user_name_input_field" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/sign_in_button"
+        style="@style/Widget.BookNotes.TextButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/double_gutter"
+        android:layout_marginTop="@dimen/double_gutter"
+        android:elevation="@dimen/_0dp"
+        android:text="@string/sign_in_button_title"
+        app:layout_constraintBottom_toTopOf="@id/sign_up_button"
+        app:layout_constraintTop_toBottomOf="@id/password_input_field" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/sign_up_button"
+        style="@style/Widget.BookNotes.TextButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/double_gutter"
+        android:layout_marginBottom="@dimen/double_gutter"
+        android:text="@string/sign_up_button_title"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <include
+        android:id="@+id/loader"
+        layout="@layout/view_loader" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

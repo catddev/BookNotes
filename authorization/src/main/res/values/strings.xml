@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="sign_in_button_title">sing in</string>
+    <string name="sign_up_button_title">sign up</string>
+    <string name="sign_out_button_title">sign out</string>
+    <string name="delete_account_button_title">delete account</string>
+    <string name="sign_up_confirm_password_hint">Confirm password</string>
+    <string name="auth_email_hint">Enter email</string>
+    <string name="auth_password_hint">Enter password</string>
+    <string name="email_text">e-mail:</string>
+</resources>

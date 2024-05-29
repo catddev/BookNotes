@@ -1,0 +1,20 @@
+<com.google.android.material.textfield.TextInputLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:hint="@string/auth_password_hint"
+    app:endIconMode="password_toggle">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/auth_password_hint"
+        android:inputType="textPassword"
+        android:maxLines="1"
+        android:padding="16dp"
+        android:textAppearance="@style/TextAppearance.BookNotes.Body1"
+        android:textColor="@color/color_on_primary"
+        tools:text="password" />
+
+</com.google.android.material.textfield.TextInputLayout>
