@@ -71,7 +71,29 @@ class SignUpFragment : BaseFragment() {
     }
 
     private fun renderViews(state: AuthViewState) {
-        binding.signUpButton.isEnabled = state.isSignUpButtonEnabled
+        with(binding) {
+            userNameInputField.root.apply {
+                isErrorEnabled = !state.isEmailValid && state.userCredentials.email.isNotBlank()
+                error = if (isErrorEnabled) getString(R.string.error_invalid_email_text) else null
+            }
+
+            passwordInputField.root.apply {
+                isErrorEnabled =
+                    !state.isPasswordValid && state.userCredentials.password.isNotBlank()
+                error =
+                    if (isErrorEnabled) getString(R.string.error_invalid_password_text) else null
+            }
+
+            confirmPasswordInputField.root.apply {
+                isErrorEnabled =
+                    !state.isPasswordConfirmedCorrectly && state.confirmedPassword.isNotBlank()
+                error =
+                    if (isErrorEnabled) getString(R.string.error_wrong_password_confirmation_text) else null
+            }
+
+            signUpButton.isEnabled = state.isSignUpButtonEnabled
+        }
+
     }
 
     private fun initViews() {

@@ -27,7 +27,10 @@ class AuthViewModel @Inject constructor(
         when (intent) {
             is SignUp -> onAuthChanged(interactor::signUp)
             is SignIn -> onAuthChanged(interactor::signIn)
-            else -> onInputChanged(intent)
+            is EnterEmail -> onEmailChanged(intent.email)
+            is EnterPassword -> onPasswordChanged(intent.password)
+            is ConfirmPassword -> onPasswordConfirmationChanged(intent.passwordConfirmed)
+            else -> throw UnsupportedOperationException()
         }
     }
 
@@ -38,14 +41,35 @@ class AuthViewModel @Inject constructor(
         }
     }
 
-    private fun onInputChanged(intent: AuthUserIntent) {
+    private fun onEmailChanged(input: String) {
         _state.update {
-            when (intent) {
-                is EnterEmail -> it.copy(userCredentials = it.userCredentials.copy(email = intent.email))
-                is EnterPassword -> it.copy(userCredentials = it.userCredentials.copy(password = intent.password))
-                is ConfirmPassword -> it.copy(confirmedPassword = intent.passwordConfirmed)
-                else -> throw UnsupportedOperationException()
-            }
+            it.copy(
+                userCredentials = it.userCredentials.copy(email = input),
+                isEmailValid = validator.validateEmail(input)
+            )
+        }
+        onValidateUserCredentials()
+    }
+
+    private fun onPasswordChanged(input: String) {
+        _state.update {
+            it.copy(
+                userCredentials = it.userCredentials.copy(password = input),
+                isPasswordValid = validator.validatePassword(input)
+            )
+        }
+        onValidateUserCredentials()
+    }
+
+    private fun onPasswordConfirmationChanged(input: String) {
+        _state.update {
+            it.copy(
+                confirmedPassword = input,
+                isPasswordConfirmedCorrectly = validator.validatePasswordConfirmation(
+                    it.userCredentials.password,
+                    input
+                )
+            )
         }
         onValidateUserCredentials()
     }
@@ -53,11 +77,8 @@ class AuthViewModel @Inject constructor(
     private fun onValidateUserCredentials() {
         _state.update {
             it.copy(
-                isSignInButtonEnabled = validator.invoke(mapper.transform(it.userCredentials)),
-                isSignUpButtonEnabled = validator.invoke(
-                    mapper.transform(it.userCredentials),
-                    it.confirmedPassword
-                )
+                isSignInButtonEnabled = it.isEmailValid && it.isPasswordValid,
+                isSignUpButtonEnabled = it.isEmailValid && it.isPasswordValid && it.isPasswordConfirmedCorrectly
             )
         }
     }

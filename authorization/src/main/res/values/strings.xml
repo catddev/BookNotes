@@ -7,5 +7,8 @@
     <string name="sign_up_confirm_password_hint">Confirm password</string>
     <string name="auth_email_hint">Enter email</string>
     <string name="auth_password_hint">Enter password</string>
-    <string name="email_text">e-mail:</string>
+    <string name="account_title">You are currently signed in as:</string>
+    <string name="error_invalid_email_text">Please enter valid e-mail</string>
+    <string name="error_invalid_password_text">Password must be at least 6 characters long, contain at least 1 uppercase letter, 1 lowercase letter and 1 digit</string>
+    <string name="error_wrong_password_confirmation_text">Passwords do not match</string>
 </resources>

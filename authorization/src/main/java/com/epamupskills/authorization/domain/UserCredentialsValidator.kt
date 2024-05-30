@@ -1,23 +1,20 @@
 package com.epamupskills.authorization.domain
 
 import androidx.core.util.PatternsCompat
-import com.epamupskills.authorization.domain.models.UserCredentials
 import javax.inject.Inject
 
 class UserCredentialsValidator @Inject constructor() {
 
-    operator fun invoke(userCredentials: UserCredentials): Boolean = validate(
-        mapOf(
-            ValidationType.EMAIL_REGEX to userCredentials.email,
-            ValidationType.PASSWORD_REGEX to userCredentials.password,
-        )
-    )
+    fun validateEmail(email: String): Boolean = validate(ValidationType.EMAIL_REGEX, email)
 
-    operator fun invoke(userCredentials: UserCredentials, passwordConfirmed: String): Boolean =
-        invoke(userCredentials) && userCredentials.password.trim() == passwordConfirmed.trim()
+    fun validatePassword(password: String): Boolean =
+        validate(ValidationType.PASSWORD_REGEX, password)
 
-    private fun validate(map: Map<ValidationType, String>): Boolean =
-        map.all { (regex, value) -> regex.pattern.matches(value.trim()) }
+    fun validatePasswordConfirmation(password: String, passwordConfirmation: String): Boolean =
+        password.trim() == passwordConfirmation.trim()
+
+    private fun validate(regex: ValidationType, value: String): Boolean =
+        regex.pattern.matches(value.trim())
 
     private enum class ValidationType(val pattern: Regex) {
         EMAIL_REGEX(PatternsCompat.EMAIL_ADDRESS.toRegex()),
