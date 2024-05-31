@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.epamupskills.core.NavigationEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -54,4 +56,9 @@ open class BaseViewModel @Inject constructor() : ViewModel(), DefaultLifecycleOb
             )
         }
     }
+
+    protected fun launchCatching(block: suspend CoroutineScope.() -> Unit) =
+        viewModelScope.launch(context = CoroutineExceptionHandler { _, throwable -> //todo Z!!!
+            //todo crashlytics Non fatal error
+        }, block = block)
 }

@@ -2,10 +2,10 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/search_nav"
-    app:startDestination="@id/searchBooksFragment">
+    app:startDestination="@id/bookSearchFragment">
 
     <fragment
-        android:id="@+id/searchBooksFragment"
-        android:name="com.epamupskills.book_notes.presentation.SearchBooksFragment"
+        android:id="@+id/bookSearchFragment"
+        android:name="com.epamupskills.book_notes.presentation.search.BookSearchFragment"
         android:label="SearchBooksFragment" />
 </navigation>

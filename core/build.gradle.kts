@@ -93,4 +93,15 @@ dependencies {
     api(platform(libs.firebase.bom))
     api(libs.firebase.analytics)
     api(libs.firebase.crashlytics)
+
+    //glide
+    api(libs.glide)
+
+    //retrofit
+    api(libs.retrofit)
+    api(libs.retrofit.serialization.converter)
+    api(libs.retrofit.coroutine.call.adapter)
+
+    //okhttp
+    api(libs.square.okhttp.logging)
 }

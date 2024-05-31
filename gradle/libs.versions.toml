@@ -3,26 +3,32 @@ agp = "8.4.1"
 kotlin = "2.0.0"
 composeCompiler = "2.0.0"
 coreKtx = "1.13.1"
-appcompat = "1.6.1"
+appcompat = "1.7.0"
 material = "1.12.0"
 activity = "1.9.0"
 constraintlayout = "2.1.4"
 fragmentKtx = "1.7.1"
-lifecycleRuntimeKtx = "2.8.0"
+lifecycleRuntimeKtx = "2.8.1"
 activityCompose = "1.9.0"
 composeBom = "2024.05.00"
 lottieCompose = "6.3.0"
 room = "2.6.1"
-navigation = "2.8.0-beta01"
+navigation = "2.8.0-beta02"
 ksp = "2.0.0-1.0.21"
+kapt = "2.0.0"
 serialization = "1.6.3"
 serializationPlugin = "2.0.0"
 daggerHilt = "2.51.1"
 hiltJetpack = "1.2.0"
 firebase = "33.0.0"
 firebasePlugin = "3.0.1"
-googleServicesPlugin = "4.4.1"
+googleServicesPlugin = "4.4.2"
 dataStore = "1.1.1"
+glide = "4.16.0"
+retrofit = "2.11.0"
+squareOkHttp = "4.9.1"
+retrofitSerializationConverter = "1.0.0"
+retrofirCoroutinesAdapter = "0.9.2"
 
 #testing
 junit = "4.13.2"
@@ -63,6 +69,12 @@ firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.r
 firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics" }
 firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics" }
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth-ktx" }
+glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
+glide-compiler = { group = "com.github.bumptech.glide", name = "ksp", version.ref = "glide" }
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+square-okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "squareOkHttp" }
+retrofit-serialization-converter = { group = "com.jakewharton.retrofit", name = "retrofit2-kotlinx-serialization-converter", version.ref = "retrofitSerializationConverter" }
+retrofit-coroutine-call-adapter = { group = "com.jakewharton.retrofit", name = "retrofit2-kotlin-coroutines-adapter", version.ref = "retrofirCoroutinesAdapter" }
 
 #testing
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -80,5 +92,5 @@ ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "daggerHilt" }
 firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebasePlugin" }
 google-services = { id = "com.google.gms.google-services", version.ref = "googleServicesPlugin" }
-
+kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kapt" }
 

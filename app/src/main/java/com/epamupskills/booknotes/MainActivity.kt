@@ -43,6 +43,7 @@ class MainActivity : AppCompatActivity(), Navigator {
         setListeners()
         initObservers()
 
+        //TODO: 1 - MR, then push commits
         //todo enable SavedBackstack (check)
     }
 

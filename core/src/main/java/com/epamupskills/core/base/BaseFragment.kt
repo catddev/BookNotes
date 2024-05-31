@@ -68,7 +68,7 @@ open class BaseFragment : Fragment() {
         }
     }
 
-    protected fun hideKeyboard() { //todo for search
+    protected fun hideKeyboard() {
         val inputManager =
             requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputManager.hideSoftInputFromWindow(view?.windowToken, 0)
