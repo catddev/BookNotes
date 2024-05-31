@@ -43,6 +43,11 @@ class SignInFragment : BaseFragment() {
         setListeners()
     }
 
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
+    }
+
     private fun initObservers() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
