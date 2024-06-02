@@ -23,35 +23,39 @@ class BookSearchViewModel @Inject constructor(
     fun onIntent(intent: SearchBookUserIntent) {
         when (intent) {
             is Search -> onSearchBook(intent.input)
-            is ToggleBook -> onToggleBook(intent.bookId)
+            is ToggleBookmark -> onToggleBookmark(intent.bookId)
         }
     }
 
     private fun onSearchBook(input: String) {
-        onLoading()
+        loading.value = true
         viewModelScope.launch {
             interactor.searchBooks(input.trim())
                 .onSuccess { books ->
                     _state.update {
                         it.copy(searchResults = mapper.transformAll(books))
                     }
-                }.onResult()
+                }
+                .onFailure { _state.update { it.copy(searchResults = emptyList()) } }
+                .renderBaseStateByResult()
         }
     }
 
-    private fun onToggleBook(id: String) {
+    private fun onToggleBookmark(id: String) {
         launchCatching {
-            val book = _state.value.resultMap[id]?.run {
-                copy(isAddedToCollection = !isAddedToCollection)
-            }
-            val updatedEntries = _state.value.resultMap.toMutableMap().also {
-                it[id] = requireNotNull(book)
-            }
-            _state.update {
-                it.copy(searchResults = updatedEntries.values.toList())
+            val results = _state.value.resultMap as MutableMap
+
+            results.let {
+                val book = requireNotNull(results[id])
+                results[id] = book.copy(isBookmarked = !book.isBookmarked)
             }
 
-            //todo change status in Room!
+            _state.update {
+                it.copy(searchResults = results.values.toList())
+            }
+
+            //todo change status in Room! async
+            // todo async mapper bookmarks in Repo, not here
         }
     }
 }

@@ -49,7 +49,7 @@
         <item name="cornerRadius">@dimen/half_gutter</item>
         <item name="backgroundTint">@color/selector_button_color</item>
         <item name="elevation">0dp</item>
-        <item name="android:padding">@dimen/_4dp</item>
+        <item name="android:padding">@dimen/size_4dp</item>
         <item name="android:elevation">0dp</item>
     </style>
 
@@ -59,8 +59,8 @@
         <item name="cornerRadius">@dimen/half_gutter</item>
         <item name="android:textAppearance">@style/TextAppearance.BookNotes.Body2</item>
         <item name="android:textAppearanceButton">@style/TextAppearance.BookNotes.Body2</item>
-        <item name="android:elevation">@dimen/_0dp</item>
-        <item name="elevation">@dimen/_0dp</item>
+        <item name="android:elevation">@dimen/size_0dp</item>
+        <item name="elevation">@dimen/size_0dp</item>
     </style>
 
     <style name="Widget.BookNotes.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -71,7 +71,7 @@
         <item name="colorOutline">@color/blue_grey_300</item>
         <item name="boxBackgroundColor">@color/blue_grey_800</item>
         <item name="boxStrokeColor">@color/selector_text_input_layout_stroke_color</item>
-        <item name="boxStrokeWidth">@dimen/_2dp</item>
+        <item name="boxStrokeWidth">@dimen/size_2dp</item>
         <item name="cursorColor">@color/blue_grey_300</item>
         <item name="hintTextColor">@color/selector_text_input_layout_stroke_color</item>
         <item name="boxStrokeErrorColor">@color/color_on_error</item>
@@ -92,11 +92,11 @@
 
     <style name="Widget.BookNotes.CardView" parent="Widget.MaterialComponents.CardView">
         <item name="backgroundTint">@color/color_primary_container</item>
-        <item name="cardCornerRadius">@dimen/_24dp</item>
+        <item name="cardCornerRadius">@dimen/size_24dp</item>
         <item name="cardElevation">0dp</item>
     </style>
 
-    <style name="Widget.BookNotes.Snackbar" parent="Widget.MaterialComponents.Snackbar.FullWidth">
+    <style name="Widget.BookNotes.Snackbar" parent="Widget.MaterialComponents.Snackbar">
         <item name="android:textAppearance">@style/TextAppearance.BookNotes.Header1</item>
         <item name="android:textColor">@color/color_on_primary</item>
         <item name="android:background">@color/color_on_error</item>
@@ -104,7 +104,7 @@
 
     <style name="ShapeAppearance.BookNotes.Rounded16" parent="ShapeAppearance.MaterialComponents.MediumComponent">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">@dimen/_16dp</item>
+        <item name="cornerSize">@dimen/size_16dp</item>
     </style>
 
 </resources>

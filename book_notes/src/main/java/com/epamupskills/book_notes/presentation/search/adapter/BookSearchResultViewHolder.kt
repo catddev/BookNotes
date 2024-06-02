@@ -8,10 +8,9 @@ import com.epamupskills.core.ImageLoader
 class BookSearchResultViewHolder(
     private val binding: ItemBookBinding,
     private val imageLoader: ImageLoader,
-    private val onClickListener: (id: String) -> Unit,
 ) : ViewHolder(binding.root) {
 
-    fun onBind(item: BookUi) {
+    fun bind(item: BookUi, onClickListener: (id: String) -> Unit) {
         with(binding) {
             imageLoader.loadImage(
                 coverImageView,
@@ -19,14 +18,9 @@ class BookSearchResultViewHolder(
                 coverImageView.layoutParams.width
             )
 
-            toggleBookImageButton.apply {
-                val icon =
-                    if (item.isAddedToCollection) com.epamupskills.core.R.drawable.icon_bookmark_filled else com.epamupskills.core.R.drawable.icon_bookmark_blank
-
-                setImageResource(icon)
-                setOnClickListener {
-                    onClickListener.invoke(item.id)
-                }
+            bindBookmarkState(item.isBookmarked)
+            toggleBookImageButton.setOnClickListener {
+                onClickListener.invoke(item.id)
             }
 
             titleTextView.text = item.title
@@ -36,6 +30,12 @@ class BookSearchResultViewHolder(
 
             descriptionTextView.text = item.description
         }
+    }
+
+    fun bindBookmarkState(isBookmarked: Boolean = false) {
+        val icon =
+            if (isBookmarked) com.epamupskills.core.R.drawable.icon_bookmark_filled else com.epamupskills.core.R.drawable.icon_bookmark_blank
+        binding.toggleBookImageButton.setImageResource(icon)
     }
 
     companion object {

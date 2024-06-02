@@ -7,7 +7,7 @@
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/book_animated_view"
-        android:layout_width="@dimen/_104dp"
+        android:layout_width="@dimen/size_104dp"
         android:layout_height="0dp"
         android:layout_marginBottom="@dimen/double_gutter"
         app:layout_constraintBottom_toTopOf="@id/user_name_input_field"
@@ -23,7 +23,7 @@
     <include
         android:id="@+id/user_name_input_field"
         layout="@layout/text_input_field"
-        android:layout_width="@dimen/_304dp"
+        android:layout_width="@dimen/size_304dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/double_gutter"
         app:layout_constraintBottom_toTopOf="@id/password_input_field"
@@ -34,7 +34,7 @@
     <include
         android:id="@+id/password_input_field"
         layout="@layout/text_input_field_masked"
-        android:layout_width="@dimen/_304dp"
+        android:layout_width="@dimen/size_304dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/double_gutter"
         android:layout_marginTop="@dimen/double_gutter"
@@ -46,11 +46,11 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/sign_in_button"
         style="@style/Widget.BookNotes.TextButton"
-        android:layout_width="@dimen/_304dp"
+        android:layout_width="@dimen/size_304dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/double_gutter"
         android:layout_marginTop="@dimen/double_gutter"
-        android:elevation="@dimen/_0dp"
+        android:elevation="@dimen/size_0dp"
         android:text="@string/sign_in_button_title"
         app:layout_constraintBottom_toTopOf="@id/sign_up_button"
         app:layout_constraintEnd_toEndOf="parent"
@@ -60,7 +60,7 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/sign_up_button"
         style="@style/Widget.BookNotes.TextButton"
-        android:layout_width="@dimen/_304dp"
+        android:layout_width="@dimen/size_304dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/double_gutter"
         android:layout_marginBottom="@dimen/double_gutter"

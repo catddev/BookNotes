@@ -8,6 +8,8 @@ data class AuthViewState(
     val isEmailValid: Boolean = false,
     val isPasswordValid: Boolean = false,
     val isPasswordConfirmedCorrectly: Boolean = false,
-    val isSignInButtonEnabled: Boolean = false,
-    val isSignUpButtonEnabled: Boolean = false,
-)
+) {
+    val isSignInButtonEnabled: Boolean = isEmailValid && isPasswordValid
+    val isSignUpButtonEnabled: Boolean =
+        isEmailValid && isPasswordValid && isPasswordConfirmedCorrectly
+}

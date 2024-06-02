@@ -6,5 +6,5 @@ data class BookSearchViewState(
     val searchInput: String = "",
     val searchResults: List<BookUi> = emptyList(),
 ) {
-    val resultMap: Map<String, BookUi> = searchResults.associateBy { book -> book.id }
+    val resultMap: Map<String, BookUi> = searchResults.associateBy { book -> book.id }.toMutableMap()
 }

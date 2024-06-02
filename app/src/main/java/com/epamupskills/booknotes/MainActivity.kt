@@ -12,6 +12,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupWithNavController
 import com.epamupskills.booknotes.databinding.ActivityMainBinding
 import com.epamupskills.core.Navigate
 import com.epamupskills.core.NavigateTo
@@ -27,7 +29,7 @@ class MainActivity : AppCompatActivity(), Navigator {
 
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!
-    private val navController by lazy { initNavController() }
+    private val navController by lazy { getNavHostFragment().navController }
     private val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,11 +42,9 @@ class MainActivity : AppCompatActivity(), Navigator {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        initViews()
         setListeners()
         initObservers()
-
-        //TODO: 1 - MR, then push commits
-        //todo enable SavedBackstack (check)
     }
 
     override fun onDestroy() {
@@ -69,8 +69,8 @@ class MainActivity : AppCompatActivity(), Navigator {
             navController.run {
                 when (item.itemId) {
                     R.id.books -> navigate(R.id.to_book_notes)
-                    R.id.profile -> navigate(R.id.to_profile)
                     R.id.search -> navigate(R.id.to_search)
+                    R.id.profile -> navigate(R.id.to_profile)
                 }
             }
             return@setOnItemSelectedListener true
@@ -104,8 +104,15 @@ class MainActivity : AppCompatActivity(), Navigator {
         }
     }
 
-    private fun initNavController(): NavController =
-        (supportFragmentManager.findFragmentById(R.id.nav_host_container) as NavHostFragment).navController
+    private fun getNavHostFragment(): NavHostFragment =
+        supportFragmentManager.findFragmentById(R.id.nav_host_container) as NavHostFragment
+
+    private fun initViews() {
+        with(binding.bottomNavigation) {
+            setupWithNavController(navController)
+            NavigationUI.setupWithNavController(this, navController)
+        }
+    }
 
     private fun renderViews(isVisible: Boolean) {
         binding.bottomNavigation.isVisible = isVisible

@@ -13,6 +13,6 @@ class BookUiMapper @Inject constructor() : BaseMapper<Book, BookUi>() {
         authors = input.authors,
         description = input.description,
         thumbnailUrl = input.thumbnailUrl,
-        isAddedToCollection = input.isAddedToCollection,
+        isBookmarked = input.isBookmarked,
     )
 }

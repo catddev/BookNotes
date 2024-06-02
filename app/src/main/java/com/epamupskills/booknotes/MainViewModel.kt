@@ -26,7 +26,7 @@ class MainViewModel @Inject constructor(
                         _isAuth.value = isAuthorized
                         onChangeDestination(isAuthorized)
                     }
-                }.onResult()
+                }.renderBaseStateByResult()
         }
     }
 

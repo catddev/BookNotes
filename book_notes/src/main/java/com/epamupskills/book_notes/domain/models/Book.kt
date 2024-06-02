@@ -6,5 +6,5 @@ data class Book(
     val authors: List<String>,
     val description: String,
     val thumbnailUrl: String,
-    val isAddedToCollection: Boolean = false,
+    val isBookmarked: Boolean = false,
 )

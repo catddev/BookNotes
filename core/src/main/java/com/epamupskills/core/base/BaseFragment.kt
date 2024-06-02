@@ -21,8 +21,6 @@ import kotlinx.coroutines.launch
 
 open class BaseFragment : Fragment() {
 
-    //todo for all fragments - clip to padding bottom - size of bottom navigation!!!
-
     protected fun initBaseObservers(
         baseViewModel: BaseViewModel,
         loader: View? = null,
@@ -38,8 +36,13 @@ open class BaseFragment : Fragment() {
                     baseViewModel.navEvents.collect { event -> onNavigateByEvent(event) }
                 }
                 launch {
-                    baseViewModel.errorState.collect { state ->
-                        renderError(state, errorView)
+                    baseViewModel.errorMessage.collect { message ->
+                        message?.let { showSnackBar(it) }
+                    }
+                }
+                launch {
+                    baseViewModel.hasError.collect { hasError ->
+                        renderErrorView(hasError, errorView)
                     }
                 }
             }
@@ -50,9 +53,8 @@ open class BaseFragment : Fragment() {
         loader?.isVisible = isLoading
     }
 
-    private fun renderError(state: BaseErrorState, errorView: View?) {
-        errorView?.isVisible = state.hasError
-        if (state.hasError) showSnackBar(state.errorMessage)
+    private fun renderErrorView(hasError: Boolean, errorView: View?) {
+        errorView?.isVisible = hasError
     }
 
     private fun showSnackBar(message: String) = view?.let { root ->

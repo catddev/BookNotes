@@ -7,7 +7,7 @@
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/book_animated_view"
-        android:layout_width="@dimen/_104dp"
+        android:layout_width="@dimen/size_104dp"
         android:layout_height="0dp"
         android:layout_marginBottom="@dimen/double_gutter"
         app:layout_constraintBottom_toTopOf="@id/user_name_input_field"

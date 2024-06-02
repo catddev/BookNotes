@@ -3,7 +3,6 @@ package com.epamupskills.core.presentation
 import android.content.Context
 import android.widget.ImageView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.epamupskills.core.ImageLoader
 import com.epamupskills.core.R
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -16,9 +15,8 @@ class GlideImageLoader @Inject constructor(
     override fun loadImage(into: ImageView, url: String, widthPx: Int) {
         Glide.with(context)
             .load(url)
-//            .override(widthPx, 0)
-//            .placeholder(R.drawable.) //todo + show LOADER, show placeholder
-//            .error()
+            .override(widthPx, 0) //todo cache strategy - check with no internet on main page
+            .error(R.drawable.icon_cover_placeholder)
             .into(into)
             .waitForLayout()
     }

@@ -6,6 +6,7 @@
 
     <include app:graph="@navigation/auth_nav" />
     <include app:graph="@navigation/book_notes_nav" />
+    <include app:graph="@navigation/search_nav" />
     <include app:graph="@navigation/profile_nav" />
 
     <action
@@ -33,5 +34,4 @@
         app:destination="@id/auth_nav"
         app:popUpTo="@id/main_nav"
         app:popUpToInclusive="true" />
-    <include app:graph="@navigation/search_nav" />
 </navigation>

@@ -1,12 +1,17 @@
 <com.google.android.material.textfield.TextInputLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/search_text_input"
     style="@style/Widget.BookNotes.TextInputLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:hint="@string/search_input_text_hint"
-    app:boxBackgroundMode="none">
+    android:paddingEnd="@dimen/double_gutter"
+    app:boxBackgroundMode="none"
+    app:endIconDrawable="@drawable/icon_search_24"
+    app:endIconMode="custom">
 
     <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/search_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textCapSentences"

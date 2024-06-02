@@ -35,9 +35,9 @@ class AuthViewModel @Inject constructor(
     }
 
     private fun <T> onAuthChanged(block: suspend (UserCredentials) -> Result<T>) {
-        onLoading()
+        loading.value = true
         viewModelScope.launch {
-            block.invoke(mapper.transform(_state.value.userCredentials)).onResult()
+            block.invoke(mapper.transform(_state.value.userCredentials)).renderBaseStateByResult()
         }
     }
 
@@ -48,7 +48,6 @@ class AuthViewModel @Inject constructor(
                 isEmailValid = validator.validateEmail(input)
             )
         }
-        onValidateUserCredentials()
     }
 
     private fun onPasswordChanged(input: String) {
@@ -58,7 +57,6 @@ class AuthViewModel @Inject constructor(
                 isPasswordValid = validator.validatePassword(input)
             )
         }
-        onValidateUserCredentials()
     }
 
     private fun onPasswordConfirmationChanged(input: String) {
@@ -69,16 +67,6 @@ class AuthViewModel @Inject constructor(
                     it.userCredentials.password,
                     input
                 )
-            )
-        }
-        onValidateUserCredentials()
-    }
-
-    private fun onValidateUserCredentials() {
-        _state.update {
-            it.copy(
-                isSignInButtonEnabled = it.isEmailValid && it.isPasswordValid,
-                isSignUpButtonEnabled = it.isEmailValid && it.isPasswordValid && it.isPasswordConfirmedCorrectly
             )
         }
     }

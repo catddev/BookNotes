@@ -1,6 +1,7 @@
 package com.epamupskills.book_notes.presentation.search
 
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.epamupskills.book_notes.databinding.FragmentBookSearchBinding
 import com.epamupskills.book_notes.presentation.search.adapter.BookSearchResultsAdapter
-import com.epamupskills.book_notes.presentation.utils.BookDiffUtils
+import com.epamupskills.book_notes.presentation.utils.BookDiffCallback
 import com.epamupskills.core.ImageLoader
 import com.epamupskills.core.base.BaseFragment
 import com.epamupskills.core.di.Glide
@@ -26,7 +27,7 @@ class BookSearchFragment : BaseFragment() {
     lateinit var imageLoader: ImageLoader
 
     @Inject
-    lateinit var diffUtils: BookDiffUtils
+    lateinit var diffUtils: BookDiffCallback
 
     private var _binding: FragmentBookSearchBinding? = null
     private val binding get() = _binding!!
@@ -66,13 +67,13 @@ class BookSearchFragment : BaseFragment() {
     }
 
     private fun onToggleBook(id: String) {
-        viewModel.onIntent(ToggleBook(id))
+        viewModel.onIntent(ToggleBookmark(id))
     }
 
     private fun initObservers() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                viewModel.state.collect { booksAdapter.setBooks(it.searchResults) }
+                viewModel.state.collect { booksAdapter.submitList(it.searchResults) }
             }
         }
     }
@@ -82,12 +83,21 @@ class BookSearchFragment : BaseFragment() {
     }
 
     private fun setClickListeners() {
-        //todo enter + search + hideKeyboard
-        //todo selector background color
-        binding.searchButton.setOnClickListener {
-            val input = binding.searchEditText.root.editText?.text.toString()
-            viewModel.onIntent(Search(input))
-            hideKeyboard()
+        binding.searchEditText.root.apply {
+            setEndIconOnClickListener { onSearchIntent() }
+
+            editText?.setOnKeyListener { _, keyCode, event ->
+                if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
+                    onSearchIntent()
+                    return@setOnKeyListener true
+                }
+                false
+            }
         }
+    }
+
+    private fun onSearchIntent() {
+        viewModel.onIntent(Search(binding.searchEditText.root.editText?.text.toString()))
+        hideKeyboard()
     }
 }

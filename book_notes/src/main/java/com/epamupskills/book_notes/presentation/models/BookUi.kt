@@ -6,5 +6,5 @@ data class BookUi(
     val authors: List<String>,
     val description: String,
     val thumbnailUrl: String,
-    val isAddedToCollection: Boolean,
+    val isBookmarked: Boolean,
 )

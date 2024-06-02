@@ -11,7 +11,9 @@ import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -22,11 +24,14 @@ open class BaseViewModel @Inject constructor() : ViewModel(), DefaultLifecycleOb
     private val _navEvents = Channel<NavigationEvent>()
     val navEvents = _navEvents.receiveAsFlow()
 
-    private val _errorState = MutableSharedFlow<BaseErrorState>(replay = 0)
-    val errorState = _errorState.asSharedFlow()
+    private val _errorMessage = MutableSharedFlow<String?>(replay = 0) //todo Z == Channel!!!
+    val errorMessage = _errorMessage.asSharedFlow()
 
-    private val _isLoading = MutableLiveData(false)
-    val isLoading: LiveData<Boolean> get() = _isLoading
+    private val _hasError = MutableStateFlow(false)
+    val hasError = _hasError.asStateFlow()
+
+    protected val loading = MutableLiveData(false)
+    val isLoading: LiveData<Boolean> get() = loading
 
     override fun onCleared() {
         _navEvents.close()
@@ -39,21 +44,14 @@ open class BaseViewModel @Inject constructor() : ViewModel(), DefaultLifecycleOb
         }
     }
 
-    protected fun onLoading() {
-        _isLoading.value = true
-    }
-
-    protected suspend fun <T> Result<T>.onResult() {
-        _isLoading.value = false
+    protected suspend fun <T> Result<T>.renderBaseStateByResult() {
+        loading.value = false
         onSuccess {
-            _errorState.emit(BaseErrorState(hasError = false, errorMessage = ""))
+            _errorMessage.emit(null)
+            _hasError.emit(false)
         }.onFailure { error ->
-            _errorState.emit(
-                BaseErrorState(
-                    hasError = true,
-                    errorMessage = error.message.orEmpty()
-                )
-            )
+            _errorMessage.emit(error.message.orEmpty())
+            _hasError.emit(true)
         }
     }
 

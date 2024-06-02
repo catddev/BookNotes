@@ -7,12 +7,20 @@
     android:padding="@dimen/gutter"
     tools:background="@color/color_primary">
 
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/cover_image_view"
+        app:layout_constraintEnd_toEndOf="@id/cover_image_view"
+        app:layout_constraintStart_toStartOf="@id/cover_image_view"
+        app:layout_constraintTop_toTopOf="@id/cover_image_view" />
+
     <ImageView
         android:id="@+id/cover_image_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginEnd="@dimen/half_gutter"
         android:contentDescription="@null"
-        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="3:4"
         app:layout_constraintEnd_toStartOf="@id/title_text_view"
@@ -24,7 +32,8 @@
         android:id="@+id/title_text_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/gutter"
+        android:layout_marginStart="@dimen/half_gutter"
+        android:layout_marginTop="@dimen/gutter"
         android:textAppearance="@style/TextAppearance.BookNotes.Body1"
         app:layout_constraintEnd_toStartOf="@id/toggle_book_image_button"
         app:layout_constraintStart_toEndOf="@id/cover_image_view"
@@ -47,8 +56,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/gutter"
+        android:layout_marginEnd="@dimen/double_gutter"
         android:ellipsize="end"
-        android:maxLines="10"
+        android:maxLines="6"
         android:textAppearance="@style/TextAppearance.BookNotes.Body3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

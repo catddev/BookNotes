@@ -28,7 +28,7 @@ class ProfileViewModel @Inject constructor(
                 .onSuccess { email ->
                     _state.value = _state.value.copy(email = email)
                 }
-                .onResult()
+                .renderBaseStateByResult()
         }
     }
 
@@ -42,9 +42,9 @@ class ProfileViewModel @Inject constructor(
     }
 
     private fun onAuthChanged(block: suspend () -> Result<Unit>) {
-        onLoading()
+        loading.value = true
         viewModelScope.launch {
-            block.invoke().onResult()
+            block.invoke().renderBaseStateByResult()
         }
     }
 }
