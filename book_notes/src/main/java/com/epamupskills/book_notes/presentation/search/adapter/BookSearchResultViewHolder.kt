@@ -24,10 +24,7 @@ class BookSearchResultViewHolder(
             }
 
             titleTextView.text = item.title
-
-            authorTextView.text =
-                item.authors.joinToString(separator = SEPARATOR, postfix = "") { it }
-
+            authorTextView.text = item.authors
             descriptionTextView.text = item.description
         }
     }
@@ -36,9 +33,5 @@ class BookSearchResultViewHolder(
         val icon =
             if (isBookmarked) com.epamupskills.core.R.drawable.icon_bookmark_filled else com.epamupskills.core.R.drawable.icon_bookmark_blank
         binding.toggleBookImageButton.setImageResource(icon)
-    }
-
-    companion object {
-        private const val SEPARATOR = ", "
     }
 }

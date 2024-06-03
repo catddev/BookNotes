@@ -13,8 +13,7 @@ import com.epamupskills.core.di.Glide
 class BookSearchResultsAdapter(
     @Glide private val imageLoader: ImageLoader,
     private val onClickListener: (id: String) -> Unit,
-    diffUtils: BookDiffCallback,
-) : ListAdapter<BookUi, BookSearchResultViewHolder>(diffUtils) {
+) : ListAdapter<BookUi, BookSearchResultViewHolder>(BookDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookSearchResultViewHolder {
         val binding = ItemBookBinding.inflate(LayoutInflater.from(parent.context), parent, false)

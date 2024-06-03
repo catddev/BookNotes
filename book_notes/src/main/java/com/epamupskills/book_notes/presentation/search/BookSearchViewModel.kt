@@ -33,7 +33,7 @@ class BookSearchViewModel @Inject constructor(
             interactor.searchBooks(input.trim())
                 .onSuccess { books ->
                     _state.update {
-                        it.copy(searchResults = mapper.transformAll(books))
+                        it.copy(searchResults = mapper.mapAll(books))
                     }
                 }
                 .onFailure { _state.update { it.copy(searchResults = emptyList()) } }
@@ -44,18 +44,19 @@ class BookSearchViewModel @Inject constructor(
     private fun onToggleBookmark(id: String) {
         launchCatching {
             val results = _state.value.resultMap as MutableMap
-
-            results.let {
-                val book = requireNotNull(results[id])
-                results[id] = book.copy(isBookmarked = !book.isBookmarked)
+            val bookUi = requireNotNull(results[id])
+            results[id] = bookUi.copy(isBookmarked = !bookUi.isBookmarked).also { book ->
+                launch {
+                    when {
+                        book.isBookmarked -> interactor.saveBook(mapper.mapTo(book))
+                        else -> interactor.removeBook(book.id)
+                    }
+                }
             }
 
             _state.update {
                 it.copy(searchResults = results.values.toList())
             }
-
-            //todo change status in Room! async
-            // todo async mapper bookmarks in Repo, not here
         }
     }
 }

@@ -14,4 +14,6 @@ class BookDtoMapper @Inject constructor() : BaseMapper<BookDto, Book>() {
         description = input.volumeInfo.description.orEmpty(),
         thumbnailUrl = input.volumeInfo.imageLinks?.thumbnail.orEmpty(),
     )
+
+    override fun transform(input: Book): BookDto = throw UnsupportedOperationException() //todo can i leave it like this?
 }

@@ -11,9 +11,7 @@
 
     <action
         android:id="@+id/to_book_notes"
-        app:destination="@id/book_notes_nav"
-        app:popUpTo="@id/main_nav"
-        app:popUpToInclusive="false" />
+        app:destination="@id/book_notes_nav" />
 
     <action
         android:id="@+id/to_search"
