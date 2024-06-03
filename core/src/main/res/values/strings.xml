@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="toolbar_title">Book Notes</string>
-    <string name="confirm_dialog_title">Are you sure to proceed?</string>
+    <string name="confirm_dialog_title">Are you sure you want to proceed?</string>
     <string name="confirm_button_title">Confirm</string>
     <string name="cancel_button_title">Cancel</string>
 </resources>

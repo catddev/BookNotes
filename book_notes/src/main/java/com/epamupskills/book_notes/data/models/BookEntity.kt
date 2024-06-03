@@ -1,16 +1,16 @@
 package com.epamupskills.book_notes.data.models
 
 import androidx.room.Entity
-import androidx.room.PrimaryKey
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-@Entity()
+@Entity(primaryKeys = [])
 @Serializable
 data class BookEntity(
-    @PrimaryKey
-    @SerialName("id")
-    val id: String,
+    @SerialName("book_id")
+    val bookId: String,
+    @SerialName("user_id")
+    val userId: String,
     @SerialName("title")
     val title: String,
     @SerialName("authors")
