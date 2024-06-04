@@ -10,4 +10,5 @@ class NoteFragment: BaseFragment() {
 //    }
 
     //initBaseObservers
+    //todo sm design in note apps, use icons to save/edit/delete, not buttons
 }

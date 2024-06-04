@@ -7,13 +7,20 @@ import javax.inject.Inject
 
 class BookDtoMapper @Inject constructor() : BaseMapper<BookDto, Book>() {
 
-    override fun transform(input: BookDto): Book = Book(
+    override fun mapFrom(input: BookDto): Book = Book(
         id = input.id,
         title = input.volumeInfo.title,
-        authors = input.volumeInfo.authors.orEmpty(),
+        authors = input.volumeInfo.authors
+            .orEmpty()
+            .joinToString(separator = SEPARATOR, postfix = "") { it },
         description = input.volumeInfo.description.orEmpty(),
         thumbnailUrl = input.volumeInfo.imageLinks?.thumbnail.orEmpty(),
     )
 
-    override fun transform(input: Book): BookDto = throw UnsupportedOperationException() //todo can i leave it like this?
+    override fun mapTo(input: Book): BookDto =
+        throw UnsupportedOperationException() //todo can i leave it like this?
+
+    companion object {
+        private const val SEPARATOR = ", "
+    }
 }
