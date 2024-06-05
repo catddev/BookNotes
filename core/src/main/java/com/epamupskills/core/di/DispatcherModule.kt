@@ -12,35 +12,11 @@ import javax.inject.Qualifier
 @InstallIn(SingletonComponent::class)
 object DispatcherModule {
 
-    @Default
-    @Provides
-    fun provideDefaultDispatcher(): CoroutineDispatcher = Dispatchers.Default
-
     @IO
     @Provides
     fun provideIoDispatcher(): CoroutineDispatcher = Dispatchers.IO
-
-    @Main
-    @Provides
-    fun provideMainDispatcher(): CoroutineDispatcher = Dispatchers.Main
-
-    @Unconfined
-    @Provides
-    fun provideUnconfinedDispatcher(): CoroutineDispatcher = Dispatchers.Unconfined
 }
 
-@Retention(AnnotationRetention.BINARY) //todo Z
-@Qualifier
-annotation class Default
-
-@Retention(AnnotationRetention.BINARY)
+@Retention(AnnotationRetention.BINARY) //todo Z Binary, Runtime, etc
 @Qualifier
 annotation class IO
-
-@Retention(AnnotationRetention.BINARY)
-@Qualifier
-annotation class Main
-
-@Retention(AnnotationRetention.BINARY)
-@Qualifier
-annotation class Unconfined

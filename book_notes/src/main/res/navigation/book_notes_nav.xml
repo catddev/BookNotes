@@ -15,10 +15,32 @@
             app:destination="@id/noteFragment"
             app:popUpTo="@id/booksFragment"
             app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_booksFragment_to_confirmDialog"
+            app:destination="@id/confirmDialog"
+            app:popUpTo="@id/booksFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/noteFragment"
         android:name="com.epamupskills.book_notes.presentation.notes.NoteFragment"
         android:label="NoteFragment"
-        tools:layout="@layout/fragment_note" />
+        tools:layout="@layout/fragment_note">
+        <action
+            android:id="@+id/action_noteFragment_to_confirmDialog"
+            app:destination="@id/confirmDialog"
+            app:popUpTo="@id/noteFragment"
+            app:popUpToInclusive="false" />
+        <argument
+            android:name="bookId"
+            app:argType="string" />
+    </fragment>
+    <dialog
+        android:id="@+id/confirmDialog"
+        android:name="com.epamupskills.core.presentation.ConfirmDialog"
+        android:label="ConfirmDialog" >
+        <argument
+            android:name="title"
+            app:argType="string" />
+    </dialog>
 </navigation>

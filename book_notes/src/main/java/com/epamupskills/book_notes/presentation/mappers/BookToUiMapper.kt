@@ -5,7 +5,7 @@ import com.epamupskills.book_notes.presentation.models.BookUi
 import com.epamupskills.core.base.BaseMapper
 import javax.inject.Inject
 
-class BookUiMapper @Inject constructor() : BaseMapper<Book, BookUi>() {
+class BookToUiMapper @Inject constructor() : BaseMapper<Book, BookUi>() {
 
     override fun transform(input: Book): BookUi = BookUi(
         id = input.id,
@@ -14,5 +14,6 @@ class BookUiMapper @Inject constructor() : BaseMapper<Book, BookUi>() {
         description = input.description,
         thumbnailUrl = input.thumbnailUrl,
         isBookmarked = input.isBookmarked,
+        noteId = input.noteId,
     )
 }

@@ -11,7 +11,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.epamupskills.book_notes.databinding.FragmentBookSearchBinding
 import com.epamupskills.book_notes.presentation.search.adapter.BookSearchResultsAdapter
-import com.epamupskills.book_notes.presentation.utils.BookDiffCallback
 import com.epamupskills.core.ImageLoader
 import com.epamupskills.core.base.BaseFragment
 import com.epamupskills.core.di.Glide
@@ -26,16 +25,12 @@ class BookSearchFragment : BaseFragment() {
     @Glide
     lateinit var imageLoader: ImageLoader
 
-    @Inject
-    lateinit var diffUtils: BookDiffCallback
-
     private var _binding: FragmentBookSearchBinding? = null
     private val binding get() = _binding!!
     private val booksAdapter by lazy {
         BookSearchResultsAdapter(
             imageLoader = imageLoader,
             onClickListener = ::onToggleBook,
-            diffUtils = diffUtils,
         )
     }
     private val viewModel by viewModels<BookSearchViewModel>()

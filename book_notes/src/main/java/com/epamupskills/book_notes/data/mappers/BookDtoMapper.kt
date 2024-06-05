@@ -10,8 +10,14 @@ class BookDtoMapper @Inject constructor() : BaseMapper<BookDto, Book>() {
     override fun transform(input: BookDto): Book = Book(
         id = input.id,
         title = input.volumeInfo.title,
-        authors = input.volumeInfo.authors.orEmpty(),
+        authors = input.volumeInfo.authors
+            .orEmpty()
+            .joinToString(separator = SEPARATOR, postfix = "") { it },
         description = input.volumeInfo.description.orEmpty(),
         thumbnailUrl = input.volumeInfo.imageLinks?.thumbnail.orEmpty(),
     )
+
+    companion object {
+        private const val SEPARATOR = ", "
+    }
 }

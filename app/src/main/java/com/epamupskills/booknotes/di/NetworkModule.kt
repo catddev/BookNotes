@@ -52,7 +52,7 @@ object NetworkModule {
     fun provideRetrofit(client: OkHttpClient): Retrofit = Retrofit.Builder()
         .baseUrl(BuildConfig.BASE_URL)
         .client(client)
-        .addCallAdapterFactory(CoroutineCallAdapterFactory()) //todo check
+        .addCallAdapterFactory(CoroutineCallAdapterFactory())
         .addConverterFactory(json.asConverterFactory(contentType))
         .build()
 

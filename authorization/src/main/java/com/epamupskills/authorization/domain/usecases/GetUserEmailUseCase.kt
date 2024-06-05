@@ -4,11 +4,11 @@ import com.epamupskills.authorization.domain.AccountRepository
 import javax.inject.Inject
 
 class GetUserEmailUseCase @Inject constructor(
-    private val accountRepository: AccountRepository,
+    private val repository: AccountRepository,
 ) {
 
     operator fun invoke(): Result<String> = try {
-        Result.success(accountRepository.getUserEmail())
+        Result.success(repository.getUserEmail())
     } catch (t: Throwable) {
         Result.failure(t)
     }

@@ -1,6 +1,7 @@
 package com.epamupskills.book_notes.presentation.search.adapter
 
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.epamupskills.book_notes.R
 import com.epamupskills.book_notes.databinding.ItemBookBinding
 import com.epamupskills.book_notes.presentation.models.BookUi
 import com.epamupskills.core.ImageLoader
@@ -12,33 +13,28 @@ class BookSearchResultViewHolder(
 
     fun bind(item: BookUi, onClickListener: (id: String) -> Unit) {
         with(binding) {
-            imageLoader.loadImage(
-                coverImageView,
-                item.thumbnailUrl,
-                coverImageView.layoutParams.width
-            )
-
+            titleTextView.text = item.title
+            authorTextView.text = item.authors
+            descriptionTextView.text = item.description
+            bindBookCover(item.thumbnailUrl)
             bindBookmarkState(item.isBookmarked)
             toggleBookImageButton.setOnClickListener {
                 onClickListener.invoke(item.id)
             }
-
-            titleTextView.text = item.title
-
-            authorTextView.text =
-                item.authors.joinToString(separator = SEPARATOR, postfix = "") { it }
-
-            descriptionTextView.text = item.description
         }
     }
 
     fun bindBookmarkState(isBookmarked: Boolean = false) {
         val icon =
-            if (isBookmarked) com.epamupskills.core.R.drawable.icon_bookmark_filled else com.epamupskills.core.R.drawable.icon_bookmark_blank
+            if (isBookmarked) R.drawable.icon_bookmark_filled else R.drawable.icon_bookmark_blank
         binding.toggleBookImageButton.setImageResource(icon)
     }
 
-    companion object {
-        private const val SEPARATOR = ", "
+    private fun bindBookCover(url: String) {
+        imageLoader.loadImage(
+            into = binding.coverImageView,
+            url = url,
+            widthPx = binding.coverImageView.layoutParams.width
+        )
     }
 }

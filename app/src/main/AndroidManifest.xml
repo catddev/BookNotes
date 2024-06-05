@@ -31,7 +31,8 @@
             android:name=".MainActivity"
             android:exported="false"
             android:launchMode="singleTask"
-            android:theme="@style/Base.Theme.BookNotes">
+            android:theme="@style/Base.Theme.BookNotes"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.DEFAULT" />
             </intent-filter>

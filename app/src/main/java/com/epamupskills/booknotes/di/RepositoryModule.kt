@@ -1,11 +1,12 @@
 package com.epamupskills.booknotes.di
 
 import com.epamupskills.authorization.data.AccountRepositoryImpl
+import com.epamupskills.authorization.data.UidRepositoryImpl
 import com.epamupskills.authorization.domain.AccountRepository
-import com.epamupskills.book_notes.data.repository.GoogleBooksRepository
-import com.epamupskills.book_notes.data.repository.RoomBooksRepository
+import com.epamupskills.book_notes.data.repository.BooksRepositoryImpl
 import com.epamupskills.book_notes.domain.BooksRepository
-import com.epamupskills.book_notes.domain.BookSearchRepository
+import com.epamupskills.core.repository.UidRepository
+import com.epamupskills.core.repository.UserCacheRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -19,8 +20,11 @@ interface RepositoryModule {
     fun bindAccountRepository(repository: AccountRepositoryImpl): AccountRepository
 
     @Binds
-    fun bindSearchRepository(repository: GoogleBooksRepository): BookSearchRepository
+    fun bindBooksRepository(repository: BooksRepositoryImpl): BooksRepository
 
     @Binds
-    fun bindRoomBooksRepository(repository: RoomBooksRepository): BooksRepository
+    fun bindUidRepository(repository: UidRepositoryImpl): UidRepository
+
+    @Binds
+    fun bindUserCacheRepository(repository: BooksRepositoryImpl): UserCacheRepository
 }

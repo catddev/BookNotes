@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="search_input_text_hint">Enter book title</string>
+    <string name="search_input_text_hint">Search for books by title</string>
     <string name="search_button_title">search</string>
+    <string name="books_with_notes_header_title">with notes</string>
+    <string name="books_with_no_notes_header_title">no any notes yet</string>
 </resources>

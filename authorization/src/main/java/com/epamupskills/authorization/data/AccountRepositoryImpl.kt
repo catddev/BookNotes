@@ -28,13 +28,15 @@ class AccountRepositoryImpl @Inject constructor(
 
     init {
         val scope = CoroutineScope(dispatcherIo)
-        scope.produce<Unit> {
+        scope.produce<Unit> {//todo Z!!! produce vs callBackFlow{}
             val listener = FirebaseAuth.AuthStateListener { auth ->
                 _isAuth.value = auth.currentUser != null
             }
 
             Firebase.auth.addAuthStateListener(listener)
             awaitClose {
+                //todo log
+                //todo need cancel scope or not?
                 Firebase.auth.removeAuthStateListener(listener)
                 scope.cancel()
             }
@@ -42,6 +44,8 @@ class AccountRepositoryImpl @Inject constructor(
     }
 
     override fun getUserEmail(): String = Firebase.auth.currentUser?.email.orEmpty()
+
+    override fun getUserId(): String = Firebase.auth.currentUser?.uid.orEmpty()
 
     override suspend fun signIn(userCredentials: UserCredentials): Unit =
         withContext(dispatcherIo) {
