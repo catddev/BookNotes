@@ -19,6 +19,7 @@ import com.epamupskills.core.Navigate
 import com.epamupskills.core.NavigateTo
 import com.epamupskills.core.NavigateToGraph
 import com.epamupskills.core.NavigateUp
+import com.epamupskills.core.NavigateWithNestedNavHost
 import com.epamupskills.core.NavigationEvent
 import com.epamupskills.core.Navigator
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,7 +30,7 @@ class MainActivity : AppCompatActivity(), Navigator {
 
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!
-    private val navController by lazy { getNavHostFragment().navController }
+    private val navController by lazy { getNavHostFragment(R.id.nav_host_container).navController }
     private val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -101,11 +102,13 @@ class MainActivity : AppCompatActivity(), Navigator {
             is NavigateToGraph -> navController.setGraph(event.graphId)
             is NavigateTo -> navController.navigate(event.direction)
             is NavigateUp -> navController.navigateUp()
+            is NavigateWithNestedNavHost ->
+                getNavHostFragment(event.navHostId).navController.navigate(event.direction)
         }
     }
 
-    private fun getNavHostFragment(): NavHostFragment =
-        supportFragmentManager.findFragmentById(R.id.nav_host_container) as NavHostFragment
+    private fun getNavHostFragment(id: Int): NavHostFragment =
+        supportFragmentManager.findFragmentById(id) as NavHostFragment
 
     private fun initViews() {
         with(binding.bottomNavigation) {

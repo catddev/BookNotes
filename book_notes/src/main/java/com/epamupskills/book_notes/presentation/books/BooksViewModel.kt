@@ -1,8 +1,12 @@
 package com.epamupskills.book_notes.presentation.books
 
 import androidx.lifecycle.viewModelScope
+import com.epamupskills.book_notes.NestedBookNoteNavDirections
+import com.epamupskills.book_notes.R
 import com.epamupskills.book_notes.domain.interactors.BooksInteractor
 import com.epamupskills.book_notes.presentation.mappers.BookUiMapper
+import com.epamupskills.core.NavigateTo
+import com.epamupskills.core.NavigateWithNestedNavHost
 import com.epamupskills.core.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,7 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class BooksViewModel @Inject constructor(
-    private val booksInteractor: BooksInteractor,
+    private val interactor: BooksInteractor,
     private val mapper: BookUiMapper,
 ) : BaseViewModel() {
 
@@ -22,7 +26,7 @@ class BooksViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            booksInteractor.getBooks()
+            interactor.getBooks()
                 .onSuccess { result ->
                     result.collect { books ->
                         _state.update { it.copy(books = mapper.mapAll(books)) }
@@ -32,6 +36,32 @@ class BooksViewModel @Inject constructor(
                     _state.update { it.copy(books = emptyList()) }
                 }
                 .renderBaseStateByResult()
+        }
+    }
+
+    fun onIntent(intent: BookUserIntent) {
+        when (intent) {
+            is RemoveBook -> onRemoveBook(intent.bookId)
+            is OpenBookNote -> onOpenNote(intent.bookId, intent.isTablet)
+        }
+    }
+
+    private fun onRemoveBook(bookId: String) {
+        viewModelScope.launch { interactor.removeBook(bookId) }
+    }
+
+    private fun onOpenNote(bookId: String, isTablet: Boolean) {
+        when (isTablet) {
+            true -> onNavigationEvent(
+                NavigateWithNestedNavHost(
+                    R.id.detail_fragment_container,
+                    NestedBookNoteNavDirections.toNestedNoteFragment(bookId)
+                )
+            )
+
+            false -> onNavigationEvent(
+                NavigateTo(BooksFragmentDirections.actionBooksFragmentToNoteFragment(bookId))
+            )
         }
     }
 }

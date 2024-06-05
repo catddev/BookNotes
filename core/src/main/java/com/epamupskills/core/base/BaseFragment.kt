@@ -9,11 +9,13 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.epamupskills.core.Navigate
 import com.epamupskills.core.NavigateTo
 import com.epamupskills.core.NavigateToGraph
 import com.epamupskills.core.NavigateUp
+import com.epamupskills.core.NavigateWithNestedNavHost
 import com.epamupskills.core.NavigationEvent
 import com.epamupskills.core.Navigator
 import com.google.android.material.snackbar.Snackbar
@@ -67,6 +69,7 @@ open class BaseFragment : Fragment() {
             is NavigateTo -> getNavController(event.isRoot).navigate(event.direction)
             is NavigateUp -> getNavController(event.isRoot).navigateUp()
             is NavigateToGraph -> getNavController(true).setGraph(event.graphId)
+            is NavigateWithNestedNavHost -> getNestedNavController(event.navHostId).navigate(event.direction)
         }
     }
 
@@ -78,4 +81,7 @@ open class BaseFragment : Fragment() {
 
     private fun getNavController(rootGraph: Boolean): NavController =
         if (rootGraph) (requireActivity() as Navigator).getRootNavController() else findNavController()
+
+    private fun getNestedNavController(containerId: Int) =
+        (childFragmentManager.findFragmentById(containerId) as NavHostFragment).navController
 }

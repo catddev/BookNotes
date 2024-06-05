@@ -34,11 +34,11 @@ import javax.inject.Inject
 class BooksRepositoryImpl @Inject constructor(
     private val api: GoogleBooksApiService,
     private val dao: BooksDao,
+    private val dataStore: DataStore<Preferences>,
     private val entityMapper: BookEntityMapper,
     private val dtoMapper: BookDtoMapper,
+    private val externalScope: CoroutineScope,
     @IO private val dispatcherIo: CoroutineDispatcher,
-    externalScope: CoroutineScope,
-    dataStore: DataStore<Preferences>,
 ) : BooksRepository {
 
     private val _userId = MutableStateFlow("")
@@ -46,32 +46,22 @@ class BooksRepositoryImpl @Inject constructor(
 
     private val currentUserId = dataStore.data.map { prefs ->
         prefs[stringPreferencesKey(PreferencesSettings.CURRENT_USER_ID_KEY)]
-    }
-    private val needRemoveAllBooks = dataStore.data.map { prefs ->
-        prefs[booleanPreferencesKey(IS_ACCOUNT_DELETED_KEY)]
-    }
+    }.flowOn(dispatcherIo)
 
-    init { //todo refactor
-        externalScope.launch {
-            launch {
-                needRemoveAllBooks.collect { isAccountDeleted ->
-                    if (isAccountDeleted == true) {
-                        removeAllBooks()
-                        dataStore.edit { prefs -> prefs.clear() }
-                    }
-                }
-            }
-            currentUserId.collectLatest {
-                if (!it.isNullOrBlank()) _userId.value = it
-            }
-        }
+    private val isAccountDeleted = dataStore.data.map { prefs ->
+        prefs[booleanPreferencesKey(IS_ACCOUNT_DELETED_KEY)]
+    }.flowOn(dispatcherIo)
+
+    init {
+        handleUserIdChange()
+        handleAccountDeletion()
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
     override suspend fun getAllBooks(): Flow<List<Book>> =
         userId
             .filterNot { it.isBlank() }
-            .flatMapLatest { userId -> //todo Z - every time creating new flow as no scope here
+            .flatMapLatest { userId ->
                 dao.getAllBooks(userId)
                     .map(entityMapper::mapAll)
                     .flowOn(dispatcherIo)
@@ -98,4 +88,23 @@ class BooksRepositoryImpl @Inject constructor(
                 }
             }.awaitAll()
         }
+
+    private fun handleAccountDeletion() {
+        externalScope.launch {
+            isAccountDeleted.collect { isAccountDeleted ->
+                if (isAccountDeleted == true) {
+                    removeAllBooks()
+                    dataStore.edit { prefs -> prefs.clear() }
+                }
+            }
+        }
+    }
+
+    private fun handleUserIdChange() {
+        externalScope.launch {
+            currentUserId.collectLatest {
+                if (!it.isNullOrBlank()) _userId.value = it
+            }
+        }
+    }
 }

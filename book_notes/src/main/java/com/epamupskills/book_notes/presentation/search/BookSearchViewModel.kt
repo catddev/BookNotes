@@ -28,16 +28,18 @@ class BookSearchViewModel @Inject constructor(
     }
 
     private fun onSearchBook(input: String) {
-        loading.value = true
         viewModelScope.launch {
-            interactor.searchBooks(input.trim())
-                .onSuccess { books ->
-                    _state.update {
-                        it.copy(searchResults = mapper.mapAll(books))
+            input.takeIf { it.isNotBlank() }?.let {
+                loading.value = true
+                interactor.searchBooks(input.trim())
+                    .onSuccess { books ->
+                        _state.update {
+                            it.copy(searchResults = mapper.mapAll(books))
+                        }
                     }
-                }
-                .onFailure { _state.update { it.copy(searchResults = emptyList()) } }
-                .renderBaseStateByResult()
+                    .onFailure { _state.update { it.copy(searchResults = emptyList()) } }
+                    .renderBaseStateByResult()
+            }
         }
     }
 
