@@ -7,4 +7,5 @@ object BookNotesDatabaseSettings {
     const val NOTES_TABLE = "notes_table"
     const val USER_ID_COLUMN_NAME = "userId"
     const val BOOK_ID_COLUMN_NAME = "bookId"
+    const val NOTE_ID_COLUMN_NAME = "noteId"
 }

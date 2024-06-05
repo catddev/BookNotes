@@ -2,8 +2,7 @@ package com.epamupskills.core.base
 
 abstract class BaseMapper<IN, OUT> {
 
-    abstract fun mapFrom(input: IN): OUT
-    abstract fun mapTo(input: OUT): IN
+    abstract fun transform(input: IN): OUT
 
-    fun mapAll(list: List<IN>?): List<OUT> = list?.map(::mapFrom) ?: emptyList()
+    fun transformAll(list: List<IN>?): List<OUT> = list?.map(::transform) ?: emptyList()
 }

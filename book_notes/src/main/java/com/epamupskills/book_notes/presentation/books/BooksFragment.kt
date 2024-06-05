@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.epamupskills.book_notes.databinding.FragmentBooksBinding
 import com.epamupskills.book_notes.presentation.books.adapter.BooksAdapter
 import com.epamupskills.core.ImageLoader
@@ -43,7 +44,6 @@ class BooksFragment : BaseFragment() {
         initObservers()
         initBaseObservers(viewModel, binding.loader.root, binding.errorAnimatedView.root)
         initViews()
-        //todo header - span 2, in the center
     }
 
     override fun onDestroyView() {
@@ -56,8 +56,8 @@ class BooksFragment : BaseFragment() {
     }
 
     private fun openNote(bookId: String) {
-        //todo how should be obBackPressed managed?
-        //todo what to show by default?
+        //todo managed popUp - show default placeholder
+        //todo when book is deleted -> subcribe to note and when note is deleted (id = null???)- popBackStack to default placeholder?
         viewModel.onIntent(
             OpenBookNote(
                 bookId,
@@ -75,6 +75,22 @@ class BooksFragment : BaseFragment() {
     }
 
     private fun initViews() {
-        binding.booksRecyclerView.adapter = booksAdapter
+        binding.booksRecyclerView.apply {
+            adapter = booksAdapter
+            if (!resources.getBoolean(com.epamupskills.core.R.bool.isTablet) &&
+                resources.getBoolean(com.epamupskills.core.R.bool.isLand)
+            ) {
+                layoutManager = StaggeredGridLayoutManager(
+                    LIST_ITEMS_SPAN_COUNT,
+                    StaggeredGridLayoutManager.VERTICAL
+                ).apply {
+                    gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS
+                }
+            }
+        }
+    }
+
+    companion object {
+        private const val LIST_ITEMS_SPAN_COUNT = 2
     }
 }

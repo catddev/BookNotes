@@ -5,23 +5,15 @@ import com.epamupskills.book_notes.domain.models.Book
 import com.epamupskills.core.base.BaseMapper
 import javax.inject.Inject
 
-class BookEntityMapper @Inject constructor() : BaseMapper<BookEntity, Book>() {
+class BookToEntityMapper @Inject constructor() : BaseMapper<Book, BookEntity>() {
 
-    override fun mapFrom(input: BookEntity): Book = Book(
-        id = input.bookId,
-        title = input.title,
-        authors = input.authors,
-        description = input.description,
-        thumbnailUrl = input.thumbnailUrl,
-        isBookmarked = input.isBookmarked,
-    )
-
-    override fun mapTo(input: Book): BookEntity = BookEntity(
+    override fun transform(input: Book): BookEntity = BookEntity(
         bookId = input.id,
         title = input.title,
         authors = input.authors,
         description = input.description,
         thumbnailUrl = input.thumbnailUrl,
         isBookmarked = input.isBookmarked,
+        noteId = input.noteId,
     )
 }

@@ -4,7 +4,8 @@ import androidx.lifecycle.viewModelScope
 import com.epamupskills.book_notes.NestedBookNoteNavDirections
 import com.epamupskills.book_notes.R
 import com.epamupskills.book_notes.domain.interactors.BooksInteractor
-import com.epamupskills.book_notes.presentation.mappers.BookUiMapper
+import com.epamupskills.book_notes.presentation.mappers.BookToUiMapper
+import com.epamupskills.book_notes.presentation.models.HeaderUi
 import com.epamupskills.core.NavigateTo
 import com.epamupskills.core.NavigateWithNestedNavHost
 import com.epamupskills.core.base.BaseViewModel
@@ -18,7 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 class BooksViewModel @Inject constructor(
     private val interactor: BooksInteractor,
-    private val mapper: BookUiMapper,
+    private val mapper: BookToUiMapper,
 ) : BaseViewModel() {
 
     private val _state = MutableStateFlow(BooksViewState())
@@ -26,10 +27,13 @@ class BooksViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
+            //todo check isEmpty, hide header if no items
+            //todo use header as a key in Map<Boolean, List<Book>> ?
+            //todo add headers here or in adapter?
             interactor.getBooks()
                 .onSuccess { result ->
                     result.collect { books ->
-                        _state.update { it.copy(books = mapper.mapAll(books)) }
+                        _state.update { it.copy(books = (listOf(HeaderUi(R.string.books_with_no_notes_header_title)) + mapper.transformAll(books))) }
                     }
                 }
                 .onFailure {

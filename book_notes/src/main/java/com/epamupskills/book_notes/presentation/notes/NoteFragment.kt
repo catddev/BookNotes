@@ -27,6 +27,11 @@ class NoteFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         initBaseObservers(viewModel)
         //todo set toolbar with title, icon, menu
+        //todo save button + dialog
+        //todo when deleted -> navigate to placeholder - PAW ANIMATION lottie
+        //todo when added/updated -> popUpTo SELF + inclusive=FALSE
+
+        // todo "updateBookWithNote" from BookRepo - add to addNoteUseCase success (not edit, only when is created)
     }
 
     override fun onDestroyView() {

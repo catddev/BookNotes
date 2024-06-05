@@ -8,12 +8,7 @@ import javax.inject.Inject
 class UserCredentialsUiMapper @Inject constructor() :
     BaseMapper<UserCredentialsUi, UserCredentials>() {
 
-    override fun mapFrom(input: UserCredentialsUi): UserCredentials = UserCredentials(
-        email = input.email,
-        password = input.password,
-    )
-
-    override fun mapTo(input: UserCredentials): UserCredentialsUi = UserCredentialsUi(
+    override fun transform(input: UserCredentialsUi): UserCredentials = UserCredentials(
         email = input.email,
         password = input.password,
     )

@@ -3,11 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nested_book_note_nav"
-    app:startDestination="@id/placeholder">
+    app:startDestination="@id/notePlaceholderFragment">
 
     <fragment
-        android:id="@+id/placeholder"
-        android:name="com.epamupskills.core.base.BaseFragment" />
+        android:id="@+id/notePlaceholderFragment"
+        android:name="com.epamupskills.book_notes.presentation.notes.NotePlaceholderFragment"
+        android:label="NotePlaceholderFragment"
+        tools:layout="@layout/fragment_note_placeholder" />
     <fragment
         android:id="@+id/nestedNoteFragment"
         android:name="com.epamupskills.book_notes.presentation.notes.NoteFragment"
@@ -15,10 +17,17 @@
         tools:layout="@layout/fragment_note">
         <action
             android:id="@+id/to_nested_confirm_dialog"
-            app:destination="@id/nestedConfirmDialog" />
+            app:destination="@id/nestedConfirmDialog"
+            app:popUpTo="@id/nestedNoteFragment"
+            app:popUpToInclusive="false" />
         <argument
             android:name="bookId"
             app:argType="string" />
+        <action
+            android:id="@+id/action_nestedNoteFragment_to_notePlaceholderFragment"
+            app:destination="@id/notePlaceholderFragment"
+            app:popUpTo="@navigation/nested_book_note_nav"
+            app:popUpToInclusive="false" />
     </fragment>
     <dialog
         android:id="@+id/nestedConfirmDialog"

@@ -4,9 +4,9 @@ import com.epamupskills.book_notes.domain.models.Book
 import kotlinx.coroutines.flow.Flow
 
 interface BooksRepository {
-    suspend fun getAllBooks(): Flow<List<Book>>
-    suspend fun addBook(book: Book)
-    suspend fun removeBook(bookId: String)
-    suspend fun removeAllBooks()
-    suspend fun searchBooksByTitle(title: String): List<Book>
+    fun getAllBooks(userId: String): Flow<List<Book>>
+    suspend fun addBook(book: Book, userId: String)
+    suspend fun removeBook(bookId: String, userId: String)
+    suspend fun searchBooksByTitle(title: String, userId: String): List<Book>
+    suspend fun updateBookWithNote(noteId: Int, userId: String, bookId: String)
 }

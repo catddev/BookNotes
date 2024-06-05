@@ -15,7 +15,7 @@ class GlideImageLoader @Inject constructor(
     override fun loadImage(into: ImageView, url: String, widthPx: Int) {
         Glide.with(context)
             .load(url)
-            .override(widthPx, 0) //todo cache strategy - check with no internet on main page
+            .override(widthPx, 0)
             .error(R.drawable.icon_cover_placeholder)
             .into(into)
             .waitForLayout()

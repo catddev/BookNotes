@@ -37,7 +37,7 @@ class AuthViewModel @Inject constructor(
     private fun <T> onAuthChanged(block: suspend (UserCredentials) -> Result<T>) {
         loading.value = true
         viewModelScope.launch {
-            block.invoke(mapper.mapFrom(_state.value.userCredentials)).renderBaseStateByResult()
+            block.invoke(mapper.transform(_state.value.userCredentials)).renderBaseStateByResult()
         }
     }
 

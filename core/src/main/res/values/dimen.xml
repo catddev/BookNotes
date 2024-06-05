@@ -5,6 +5,7 @@
     <dimen name="double_gutter">16dp</dimen>
 
     <dimen name="size_0dp">0dp</dimen>
+    <dimen name="size_1dp">1dp</dimen>
     <dimen name="size_2dp">2dp</dimen>
     <dimen name="size_4dp">4dp</dimen>
     <dimen name="size_8dp">8dp</dimen>
