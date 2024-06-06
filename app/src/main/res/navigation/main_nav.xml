@@ -11,15 +11,21 @@
 
     <action
         android:id="@+id/to_book_notes"
-        app:destination="@id/book_notes_nav" />
+        app:destination="@id/book_notes_nav"
+        app:popUpTo="@id/main_nav"
+        app:popUpToInclusive="false" />
 
     <action
         android:id="@+id/to_search"
-        app:destination="@id/search_nav" />
+        app:destination="@id/search_nav"
+        app:popUpTo="@id/search_nav"
+        app:popUpToInclusive="false" />
 
     <action
         android:id="@+id/to_profile"
-        app:destination="@id/profile_nav" />
+        app:destination="@id/profile_nav"
+        app:popUpTo="@id/profile_nav"
+        app:popUpToInclusive="false" />
 
     <action
         android:id="@+id/to_main"
