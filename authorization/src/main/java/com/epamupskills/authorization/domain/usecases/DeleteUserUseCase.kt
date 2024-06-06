@@ -13,12 +13,13 @@ class DeleteUserUseCase @Inject constructor(
     private val uidRepository: UidRepository,
 ) {
 
-    suspend operator fun invoke(): Result<Unit> = try { //todo correct?
+    suspend operator fun invoke(): Result<Unit> = try {
         coroutineScope {
-            val result = async { accountRepository.deleteAccount() }
-            async { cacheRepository.clearCachedUserData(uidRepository.getUserId()) }.await() //todo need wait or not?
-//            async { uidRepository.clearUserId() }.await()
-            Result.success(result.await())
+            val result = async { accountRepository.deleteAccount() }.run {
+                await()
+                cacheRepository.clearCachedUserData(uidRepository.getUserId())
+            }
+            Result.success(result)
         }
     } catch (t: Throwable) {
         Result.failure(t)
