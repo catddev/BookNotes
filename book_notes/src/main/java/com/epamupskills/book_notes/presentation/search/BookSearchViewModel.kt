@@ -1,5 +1,6 @@
 package com.epamupskills.book_notes.presentation.search
 
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewModelScope
 import com.epamupskills.book_notes.domain.interactors.BookSearchInteractor
 import com.epamupskills.book_notes.presentation.mappers.BookFromUiMapper
@@ -22,6 +23,11 @@ class BookSearchViewModel @Inject constructor(
     private val _state = MutableStateFlow(BookSearchViewState())
     val state = _state.asStateFlow()
 
+    override fun onResume(owner: LifecycleOwner) {
+        super.onResume(owner)
+        onSearchBook(state.value.searchInput)
+    }
+
     fun onIntent(intent: SearchBookUserIntent) {
         when (intent) {
             is Search -> onSearchBook(intent.input)
@@ -30,6 +36,7 @@ class BookSearchViewModel @Inject constructor(
     }
 
     private fun onSearchBook(input: String) {
+        _state.update { it.copy(searchInput = input) }
         viewModelScope.launch {
             input.takeIf { it.isNotBlank() }?.let {
                 loading.value = true

@@ -28,14 +28,13 @@ class AccountRepositoryImpl @Inject constructor(
 
     init {
         val scope = CoroutineScope(dispatcherIo)
-        scope.produce<Unit> {//todo Z!!! produce vs callBackFlow{}
+        scope.produce<Unit> {
             val listener = FirebaseAuth.AuthStateListener { auth ->
                 _isAuth.value = auth.currentUser != null
             }
 
             Firebase.auth.addAuthStateListener(listener)
             awaitClose {
-                //todo log
                 //todo need cancel scope or not?
                 Firebase.auth.removeAuthStateListener(listener)
                 scope.cancel()

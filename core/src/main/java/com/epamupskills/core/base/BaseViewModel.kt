@@ -24,7 +24,7 @@ open class BaseViewModel @Inject constructor() : ViewModel(), DefaultLifecycleOb
     private val _navEvents = Channel<NavigationEvent>()
     val navEvents = _navEvents.receiveAsFlow()
 
-    private val _errorMessage = MutableSharedFlow<String?>(replay = 0) //todo Z == Channel!!!
+    private val _errorMessage = MutableSharedFlow<String?>(replay = 0)
     val errorMessage = _errorMessage.asSharedFlow()
 
     private val _hasError = MutableStateFlow(false)
@@ -56,7 +56,7 @@ open class BaseViewModel @Inject constructor() : ViewModel(), DefaultLifecycleOb
     }
 
     protected fun launchCatching(block: suspend CoroutineScope.() -> Unit) =
-        viewModelScope.launch(context = CoroutineExceptionHandler { _, throwable -> //todo Z!!!
+        viewModelScope.launch(context = CoroutineExceptionHandler { _, throwable ->
             //todo crashlytics Non fatal error
         }, block = block)
 }

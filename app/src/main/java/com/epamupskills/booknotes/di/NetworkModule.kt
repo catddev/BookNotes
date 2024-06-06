@@ -23,7 +23,7 @@ object NetworkModule {
     private const val TIMEOUT_SECONDS = 5L
     private val json = Json {
         prettyPrint = true
-        coerceInputValues = true //todo Z
+        coerceInputValues = true
         ignoreUnknownKeys = true
     }
     private val contentType = "application/json".toMediaType()

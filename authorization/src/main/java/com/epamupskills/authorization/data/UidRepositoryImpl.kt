@@ -32,20 +32,14 @@ class UidRepositoryImpl @Inject constructor(
         }.filterNotNull()
             .flowOn(dispatcherIo)
             .onEach { _userIdFlow.value = it }
-            .launchIn(CoroutineScope(dispatcherIo)) //todo Z
+            .launchIn(CoroutineScope(dispatcherIo))
     }
 
-    override suspend fun getUserId(): String = _userIdFlow.filterNotNull().first() //todo Z
+    override suspend fun getUserId(): String = _userIdFlow.filterNotNull().first()
 
     override suspend fun saveUserId(uid: String): Unit = withContext(dispatcherIo) {
         dataStore.edit { prefs ->
             prefs[stringPreferencesKey(PreferencesSettings.CURRENT_USER_ID_KEY)] = uid
         }
     }
-
-//    override suspend fun clearUserId(): Unit = withContext(dispatcherIo) {
-//        dataStore.edit { prefs ->
-//            prefs[stringPreferencesKey(PreferencesSettings.CURRENT_USER_ID_KEY)] = ""
-//        } //todo maybe no need to clear as set null in MainVM when deleting account
-//    }
 }
