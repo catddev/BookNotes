@@ -13,7 +13,7 @@ import com.epamupskills.core.di.Glide
 
 class BookSearchResultsAdapter(
     @Glide private val imageLoader: ImageLoader,
-    private val onClickListener: (id: String) -> Unit,
+    private val onClickListener: (book: BookUi) -> Unit,
 ) : ListAdapter<BookListItem, BookSearchResultViewHolder>(BookDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookSearchResultViewHolder {
@@ -33,8 +33,8 @@ class BookSearchResultsAdapter(
     }
 
     override fun onBindViewHolder(holder: BookSearchResultViewHolder, position: Int) {
-        holder.bind(getItem(position) as BookUi) { id ->
-            onClickListener.invoke(id)
+        holder.bind(getItem(position) as BookUi) {
+            onClickListener.invoke(getItem(position) as BookUi)
         }
     }
 }

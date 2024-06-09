@@ -23,8 +23,8 @@ class MainViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             checkAuthUseCase.invoke()
-                .onSuccess { result ->
-                    result.collect { isAuthorized ->
+                .onSuccess { authFlow ->
+                    authFlow.collect { isAuthorized ->
                         _isAuth.value = isAuthorized
                         onChangeDestination(isAuthorized)
                         saveCurrentUserIdUseCase.invoke()

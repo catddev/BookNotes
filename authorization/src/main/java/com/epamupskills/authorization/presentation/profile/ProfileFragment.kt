@@ -32,7 +32,7 @@ class ProfileFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initBaseObservers(baseViewModel = viewModel, loader = binding.loader.root)
+        initBaseObservers(viewModel = viewModel, loader = binding.loader.root)
         initViews()
         setListeners()
     }

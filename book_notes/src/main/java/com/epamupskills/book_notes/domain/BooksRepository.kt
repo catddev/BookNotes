@@ -7,6 +7,6 @@ interface BooksRepository {
     fun getAllBooks(userId: String): Flow<List<Book>>
     suspend fun addBook(book: Book, userId: String)
     suspend fun removeBook(bookId: String, userId: String)
-    suspend fun searchBooksByTitle(title: String, userId: String): List<Book>
-    suspend fun updateBookWithNote(noteId: Int, userId: String, bookId: String)
+    suspend fun searchBooksByTitle(title: String): List<Book>
+    suspend fun updateBookWithNote(noteId: Long, userId: String, bookId: String)
 }

@@ -17,7 +17,7 @@ import com.epamupskills.core.di.Glide
 
 class BooksAdapter(
     @Glide private val imageLoader: ImageLoader,
-    private val onClickListener: (id: String) -> Unit,
+    private val onClickListener: (id: Long?, title: String) -> Unit,
     private val onBookmarkClickListener: (id: String) -> Unit,
 ) : ListAdapter<BookListItem, RecyclerView.ViewHolder>(BookDiffCallback()) {
 

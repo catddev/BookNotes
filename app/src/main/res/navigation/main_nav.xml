@@ -12,7 +12,7 @@
     <action
         android:id="@+id/to_book_notes"
         app:destination="@id/book_notes_nav"
-        app:popUpTo="@id/main_nav"
+        app:popUpTo="@id/book_notes_nav"
         app:popUpToInclusive="false" />
 
     <action

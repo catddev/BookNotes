@@ -19,6 +19,6 @@ import com.epamupskills.book_notes.data.db.BookNotesDatabaseSettings.NOTE_ID_COL
 )
 data class NoteEntity(
     @PrimaryKey(autoGenerate = true)
-    val noteId: Int = 0,
+    val noteId: Long?,
     val content: String,
 )
