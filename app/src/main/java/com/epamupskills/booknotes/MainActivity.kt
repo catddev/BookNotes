@@ -38,11 +38,6 @@ class MainActivity : AppCompatActivity(), Navigator {
         enableEdgeToEdge()
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.nav_host_container)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
         initViews()
         setListeners()
         initObservers()
@@ -66,6 +61,12 @@ class MainActivity : AppCompatActivity(), Navigator {
     }
 
     private fun setListeners() {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.nav_host_container)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
+
         binding.bottomNavigation.setOnItemSelectedListener { item ->
             navController.run {
                 when (item.itemId) {

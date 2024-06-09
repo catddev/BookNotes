@@ -55,13 +55,14 @@ class BooksFragment : BaseFragment() {
         viewModel.onIntent(RemoveBook(bookId))
     }
 
-    private fun openNote(bookId: String) {
+    private fun openNote(noteId: Long?, bookTitle: String) {
         //todo managed popUp - show default placeholder
         //todo when book is deleted -> subcribe to note and when note is deleted (id = null???)- popBackStack to default placeholder?
         viewModel.onIntent(
             OpenBookNote(
-                bookId,
-                resources.getBoolean(com.epamupskills.core.R.bool.isTablet)
+                noteId = noteId,
+                bookTitle = bookTitle,
+                isTablet = resources.getBoolean(com.epamupskills.core.R.bool.isTablet)
             )
         )
     }

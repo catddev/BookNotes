@@ -4,8 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.epamupskills.book_notes.NestedBookNoteNavDirections
 import com.epamupskills.book_notes.R
 import com.epamupskills.book_notes.domain.interactors.BooksInteractor
-import com.epamupskills.book_notes.presentation.mappers.BookToUiMapper
-import com.epamupskills.book_notes.presentation.models.HeaderUi
+import com.epamupskills.book_notes.presentation.mappers.BookListItemsMapper
 import com.epamupskills.core.NavigateTo
 import com.epamupskills.core.NavigateWithNestedNavHost
 import com.epamupskills.core.base.BaseViewModel
@@ -19,53 +18,62 @@ import javax.inject.Inject
 @HiltViewModel
 class BooksViewModel @Inject constructor(
     private val interactor: BooksInteractor,
-    private val mapper: BookToUiMapper,
+    private val mapper: BookListItemsMapper,
 ) : BaseViewModel() {
 
     private val _state = MutableStateFlow(BooksViewState())
     val state = _state.asStateFlow()
 
     init {
-        viewModelScope.launch {
-            //todo check isEmpty, hide header if no items
-            //todo use header as a key in Map<Boolean, List<Book>> ?
-            //todo add headers here or in adapter?
-            interactor.getBooks()
-                .onSuccess { result ->
-                    result.collect { books ->
-                        _state.update { it.copy(books = (listOf(HeaderUi(R.string.books_with_no_notes_header_title)) + mapper.transformAll(books))) }
-                    }
-                }
-                .onFailure {
-                    _state.update { it.copy(books = emptyList()) }
-                }
-                .renderBaseStateByResult()
-        }
+        onBooksChanged()
     }
 
     fun onIntent(intent: BookUserIntent) {
         when (intent) {
             is RemoveBook -> onRemoveBook(intent.bookId)
-            is OpenBookNote -> onOpenNote(intent.bookId, intent.isTablet)
+            is OpenBookNote -> onOpenNote(intent.noteId, intent.bookTitle, intent.isTablet)
         }
     }
 
-    private fun onRemoveBook(bookId: String) {
-        viewModelScope.launch { interactor.removeBook(bookId) }
-    }
+    private fun onRemoveBook(bookId: String) =
+        viewModelScope.launch { interactor.removeBook(bookId).renderBaseStateByResult() }
 
-    private fun onOpenNote(bookId: String, isTablet: Boolean) {
-        when (isTablet) {
+    private fun onOpenNote(noteId: Long?, bookTitle: String, isTablet: Boolean) {
+        val id = noteId?.toString()
+
+        when (isTablet) { //todo move check to BaseFragment or Router?
             true -> onNavigationEvent(
                 NavigateWithNestedNavHost(
                     R.id.detail_fragment_container,
-                    NestedBookNoteNavDirections.toNestedNoteFragment(bookId)
+                    NestedBookNoteNavDirections.toNestedNoteFragment(
+                        noteId = id,
+                        bookTitle = bookTitle
+                    )
                 )
             )
 
             false -> onNavigationEvent(
-                NavigateTo(BooksFragmentDirections.actionBooksFragmentToNoteFragment(bookId))
+                NavigateTo(
+                    BooksFragmentDirections.actionBooksFragmentToNoteFragment(
+                        noteId = id,
+                        bookTitle = bookTitle
+                    )
+                )
             )
+        }
+    }
+
+    private fun onBooksChanged() {
+        viewModelScope.launch {
+            interactor.getBooks()
+                .onSuccess { result ->
+                    result.collect { books ->
+                        _state.update { it.copy(books = mapper.mapWithHeadersByNotes(books)) }
+                    }
+                }
+                .onFailure {
+                    _state.update { it.copy(books = emptyList()) }
+                }.renderBaseStateByResult()
         }
     }
 }

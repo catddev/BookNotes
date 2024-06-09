@@ -12,14 +12,14 @@ import kotlinx.coroutines.flow.Flow
 interface NotesDao {
 
     @Query("SELECT * FROM $NOTES_TABLE WHERE noteId=:noteId")
-    fun getNote(noteId: Int): Flow<NoteEntity>
+    fun getNote(noteId: Long): Flow<NoteEntity?>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun addNote(note: NoteEntity)
+    suspend fun addNote(note: NoteEntity): Long
 
     @Query("DELETE FROM $NOTES_TABLE WHERE noteId=:noteId")
-    suspend fun removeNote(noteId: Int)
+    suspend fun removeNote(noteId: Long)
 
     @Query("UPDATE $NOTES_TABLE SET content=:content WHERE noteId=:noteId")
-    suspend fun updateNote(noteId: Int, content: String)
+    suspend fun updateNote(noteId: Long, content: String)
 }

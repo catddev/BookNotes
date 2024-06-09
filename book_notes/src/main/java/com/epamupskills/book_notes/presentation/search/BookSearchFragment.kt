@@ -1,15 +1,16 @@
 package com.epamupskills.book_notes.presentation.search
 
 import android.os.Bundle
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
+import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.epamupskills.book_notes.databinding.FragmentBookSearchBinding
+import com.epamupskills.book_notes.presentation.models.BookUi
 import com.epamupskills.book_notes.presentation.search.adapter.BookSearchResultsAdapter
 import com.epamupskills.core.ImageLoader
 import com.epamupskills.core.base.BaseFragment
@@ -30,10 +31,10 @@ class BookSearchFragment : BaseFragment() {
     private val booksAdapter by lazy {
         BookSearchResultsAdapter(
             imageLoader = imageLoader,
-            onClickListener = ::onToggleBook,
+            onClickListener = ::onToggleBookmark,
         )
     }
-    private val viewModel by viewModels<BookSearchViewModel>()
+    private val viewModel by activityViewModels<BookSearchViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,7 +49,7 @@ class BookSearchFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         initObservers()
         initBaseObservers(
-            baseViewModel = viewModel,
+            viewModel = viewModel,
             loader = binding.loader.root,
             errorView = binding.errorAnimatedView.root
         )
@@ -61,38 +62,30 @@ class BookSearchFragment : BaseFragment() {
         super.onDestroyView()
     }
 
-    private fun onToggleBook(id: String) {
-        viewModel.onIntent(ToggleBookmark(id))
+    private fun onToggleBookmark(book: BookUi) {
+        viewModel.onIntent(ToggleBookmark(book))
     }
 
     private fun initObservers() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                viewModel.state.collect { booksAdapter.submitList(it.searchResults) }
+                viewModel.state.collect(::renderViews)
             }
+        }
+    }
+
+    private fun renderViews(state: BookSearchViewState) {
+        if (!state.isKeyboardOpen) hideKeyboard()
+        booksAdapter.submitList(state.searchResults)
+    }
+
+    private fun setClickListeners() {
+        binding.searchEditText.root.editText?.addTextChangedListener {
+            viewModel.onIntent(Search(it.toString()))
         }
     }
 
     private fun initViews() {
         binding.searchResultRecyclerView.adapter = booksAdapter
-    }
-
-    private fun setClickListeners() {
-        binding.searchEditText.root.apply {
-            setEndIconOnClickListener { onSearchIntent() }
-
-            editText?.setOnKeyListener { _, keyCode, event ->
-                if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
-                    onSearchIntent()
-                    return@setOnKeyListener true
-                }
-                false
-            }
-        }
-    }
-
-    private fun onSearchIntent() {
-        viewModel.onIntent(Search(binding.searchEditText.root.editText?.text.toString()))
-        hideKeyboard()
     }
 }

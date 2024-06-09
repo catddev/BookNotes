@@ -7,5 +7,5 @@ data class Book(
     val description: String,
     val thumbnailUrl: String,
     val isBookmarked: Boolean = false,
-    val noteId: Int? = null,
+    val noteId: Long? = null,
 )

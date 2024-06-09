@@ -42,7 +42,7 @@ class SplashActivity : ComponentActivity() {
                         .background(MaterialTheme.colorScheme.background),
                 ) {
                     router.openMainActivity(this)
-                    finishAndRemoveTask() //todo Z-2 !!!
+                    finishAndRemoveTask()
                 }
             }
         }

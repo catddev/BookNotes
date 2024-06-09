@@ -7,5 +7,8 @@ data class BookUi(
     val description: String,
     val thumbnailUrl: String,
     val isBookmarked: Boolean,
-    val noteId: Int?,
-) : BookListItem
+    val noteId: Long?,
+) : BookListItem {
+
+    val hasNote = noteId != null
+}

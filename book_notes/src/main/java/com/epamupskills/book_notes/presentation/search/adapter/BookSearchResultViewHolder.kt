@@ -11,7 +11,7 @@ class BookSearchResultViewHolder(
     private val imageLoader: ImageLoader,
 ) : ViewHolder(binding.root) {
 
-    fun bind(item: BookUi, onClickListener: (id: String) -> Unit) {
+    fun bind(item: BookUi, onClickListener: (bookUi: BookUi) -> Unit) {
         with(binding) {
             titleTextView.text = item.title
             authorTextView.text = item.authors
@@ -19,7 +19,7 @@ class BookSearchResultViewHolder(
             bindBookCover(item.thumbnailUrl)
             bindBookmarkState(item.isBookmarked)
             toggleBookImageButton.setOnClickListener {
-                onClickListener.invoke(item.id)
+                onClickListener.invoke(item)
             }
         }
     }
