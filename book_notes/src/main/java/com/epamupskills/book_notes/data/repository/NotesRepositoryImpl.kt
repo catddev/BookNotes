@@ -25,13 +25,15 @@ class NotesRepositoryImpl @Inject constructor(
 
     override suspend fun addNote(note: Note): Long = withContext(dispatcherIo) {
         dao.addNote(noteToEntityMapper.transform(note))
+        //todo add noteId to book entity - @Transaction in dao
     }
 
     override suspend fun removeNote(noteId: Long) = withContext(dispatcherIo) {
-        TODO("Not yet implemented")
+        dao.removeNote(noteId)
+        //todo set noteId=null in book entity - @Transaction in dao
     }
 
     override suspend fun updateNote(noteId: Long, content: String) = withContext(dispatcherIo) {
-        TODO("Not yet implemented")
+        dao.updateNote(noteId, content)
     }
 }

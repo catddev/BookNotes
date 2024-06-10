@@ -10,7 +10,7 @@ import com.epamupskills.book_notes.data.db.BookNotesDatabaseSettings.NOTE_ID_COL
     tableName = NOTES_TABLE,
     foreignKeys = [
         ForeignKey(
-            entity = BookEntity::class,
+            entity = NoteEntity::class,
             parentColumns = [NOTE_ID_COLUMN_NAME],
             childColumns = [NOTE_ID_COLUMN_NAME],
             onDelete = ForeignKey.CASCADE

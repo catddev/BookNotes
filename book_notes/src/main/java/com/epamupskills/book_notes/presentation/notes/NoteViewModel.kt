@@ -1,17 +1,20 @@
 package com.epamupskills.book_notes.presentation.notes
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.epamupskills.book_notes.domain.interactors.NoteInteractor
 import com.epamupskills.book_notes.presentation.mappers.NoteFromUiMapper
 import com.epamupskills.book_notes.presentation.mappers.NoteToUiMapper
-import com.epamupskills.book_notes.presentation.models.NoteUi
+import com.epamupskills.core.NavigateUp
 import com.epamupskills.core.base.BaseViewModel
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -27,43 +30,34 @@ class NoteViewModel @AssistedInject constructor(
 ) : BaseViewModel() {
 
     private val noteId = MutableStateFlow(id)
-    private val _state = MutableStateFlow(NoteUi(null, ""))
+    private val _state = MutableStateFlow(NoteViewState())
     val state = _state.asStateFlow()
 
     init {
         onNoteIdChanged()
+        onNoteContentChanged()
     }
 
     fun onIntent(intent: NoteUserIntent) {
         when (intent) {
-            is EditNote -> onEditNote(intent.content) //todo by click?
+            is EditNote -> onEditNote(intent.content)
             is ClearNote -> onClearNote()
         }
     }
 
-    private fun onEditNote(content: String) { //todo refactor!!! - double tap + debounce {} - check on search
-        val editedNote = noteFromUiMapper.transform(state.value.copy(content = content))
-
-        viewModelScope.launch {
-            when (noteId.value) {
-                null -> interactor.createNote(editedNote).onSuccess {
-                    noteId.value = it
-                }
-
-                else -> interactor.updateNote(editedNote)
-            }.renderBaseStateByResult()
-        } //todo do not redirect
+    private fun onEditNote(content: String) {
+        _state.update { it.copy(note = it.note.copy(content = content)) }
     }
 
 
     private fun onClearNote() = viewModelScope.launch {
-        when (val id = noteId.value) {
-            null -> _state.update { it.copy(content = "") }
-
-            else -> interactor.removeNote(id).onSuccess {
+        noteId.value?.let {
+            interactor.removeNote(it).onSuccess {
                 //todo when cleared, also clear noteId for BookEntity, check booklist changes header
                 //todo emit noteId.value = null -> .also { noteId.value = null }
             }.renderBaseStateByResult()
+        } ?: _state.update { state ->
+            state.copy(note = state.note.copy(content = ""))
         }
     }
 
@@ -71,23 +65,41 @@ class NoteViewModel @AssistedInject constructor(
         noteId.filterNotNull().onEach { id ->
             interactor.getNote(id).onSuccess { result ->
                 result.collect { note -> //todo check is observed till id changes
-                    _state.value = when (note) {
+                    when (note) {
                         null -> {
-                            _state.value.copy(noteId = null, content = "")
-                            //todo check bookId is null and popBackStack
-
-                            //todo should redirect from NoteFragment: only for landscape to placeholder
-                            //todo means when popbackstack is not null?
+                            //todo check book exists by current noteId
+                            onNavigationEvent(NavigateUp())
                         }
-                        else -> noteToUiMapper.transform(note)
+
+                        else -> _state.update { it.copy(note = noteToUiMapper.transform(note)) }
                     }
                 }
             }
         }.launchIn(viewModelScope)
     }
 
+    @OptIn(FlowPreview::class)
+    private fun onNoteContentChanged() {
+        _state
+            .debounce(EDIT_DELAY)
+            .onEach { state ->
+                val editedNote = noteFromUiMapper.transform(state.note)
+
+                Log.d("NoteViewModel", "onNoteContentChanged: $editedNote")
+                noteId.value?.let {
+                    interactor.updateNote(editedNote)
+                } ?: interactor.createNote(editedNote).onSuccess {
+                    noteId.value = it
+                }.renderBaseStateByResult()
+            }.launchIn(viewModelScope)
+    }
+
     @AssistedFactory
     interface Factory {
         fun create(id: Long?): NoteViewModel
+    }
+
+    companion object {
+        private const val EDIT_DELAY = 500L
     }
 }

@@ -13,7 +13,7 @@ import com.epamupskills.book_notes.data.db.BookNotesDatabaseSettings.USER_ID_COL
     indices = [Index(value = [NOTE_ID_COLUMN_NAME], unique = true)], //todo K
 )
 data class BookEntity(
-    val bookId: String, //todo make this a foreign key instead in indices for noteId?
+    val bookId: String,
     val userId: String = "",
     val title: String,
     val authors: String,
