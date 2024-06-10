@@ -1,6 +1,5 @@
 package com.epamupskills.book_notes.presentation.notes
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.epamupskills.book_notes.domain.interactors.NoteInteractor
 import com.epamupskills.book_notes.presentation.mappers.NoteFromUiMapper
@@ -24,6 +23,7 @@ import kotlinx.coroutines.launch
 @HiltViewModel(assistedFactory = NoteViewModel.Factory::class)
 class NoteViewModel @AssistedInject constructor(
     @Assisted private val id: Long?,
+    @Assisted private val bookId: String,
     private val interactor: NoteInteractor,
     private val noteToUiMapper: NoteToUiMapper,
     private val noteFromUiMapper: NoteFromUiMapper,
@@ -53,8 +53,8 @@ class NoteViewModel @AssistedInject constructor(
     private fun onClearNote() = viewModelScope.launch {
         noteId.value?.let {
             interactor.removeNote(it).onSuccess {
-                //todo when cleared, also clear noteId for BookEntity, check booklist changes header
                 //todo emit noteId.value = null -> .also { noteId.value = null }
+                //todo when cleared, also clear noteId for BookEntity, check booklist changes header
             }.renderBaseStateByResult()
         } ?: _state.update { state ->
             state.copy(note = state.note.copy(content = ""))
@@ -62,20 +62,24 @@ class NoteViewModel @AssistedInject constructor(
     }
 
     private fun onNoteIdChanged() {
-        noteId.filterNotNull().onEach { id ->
-            interactor.getNote(id).onSuccess { result ->
-                result.collect { note -> //todo check is observed till id changes
-                    when (note) {
-                        null -> {
-                            //todo check book exists by current noteId
-                            onNavigationEvent(NavigateUp())
-                        }
+        noteId
+            .filterNotNull()
+            .onEach { id ->
+                interactor.getNote(id).onSuccess { result ->
+                    result.collect { note ->
+                        when (note) {
+                            null -> {
+                                //todo check book exists by current noteId, and if not:
+                                onNavigationEvent(NavigateUp)
+                            }
 
-                        else -> _state.update { it.copy(note = noteToUiMapper.transform(note)) }
+                            else -> _state.update {
+                                it.copy(note = noteToUiMapper.transform(note))
+                            }
+                        }
                     }
                 }
-            }
-        }.launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
     }
 
     @OptIn(FlowPreview::class)
@@ -85,18 +89,23 @@ class NoteViewModel @AssistedInject constructor(
             .onEach { state ->
                 val editedNote = noteFromUiMapper.transform(state.note)
 
-                Log.d("NoteViewModel", "onNoteContentChanged: $editedNote")
-                noteId.value?.let {
-                    interactor.updateNote(editedNote)
-                } ?: interactor.createNote(editedNote).onSuccess {
-                    noteId.value = it
-                }.renderBaseStateByResult()
-            }.launchIn(viewModelScope)
+                when { //todo refactor - separate fun for add, update, remove
+                    noteId.value != null -> interactor.updateNote(editedNote)
+
+                    editedNote.content.isNotBlank() -> interactor.createNote(editedNote).onSuccess {
+                        noteId.value = it
+                        interactor.updateBookWithNote(noteId = it, bookId = bookId) //todo debug
+                    }.renderBaseStateByResult()
+
+                    else -> onClearNote()
+                }
+            }
+            .launchIn(viewModelScope)
     }
 
     @AssistedFactory
     interface Factory {
-        fun create(id: Long?): NoteViewModel
+        fun create(id: Long?, bookId: String): NoteViewModel
     }
 
     companion object {

@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.ListAdapter
 import com.epamupskills.book_notes.databinding.ItemBookBinding
 import com.epamupskills.book_notes.presentation.models.BookUi
 import com.epamupskills.book_notes.presentation.models.BookListItem
-import com.epamupskills.book_notes.presentation.utils.BookDiffCallback
+import com.epamupskills.book_notes.presentation.utils.BookDiffUtil
 import com.epamupskills.book_notes.presentation.utils.BookPayload
 import com.epamupskills.core.ImageLoader
 import com.epamupskills.core.di.Glide
@@ -14,7 +14,7 @@ import com.epamupskills.core.di.Glide
 class BookSearchResultsAdapter(
     @Glide private val imageLoader: ImageLoader,
     private val onClickListener: (book: BookUi) -> Unit,
-) : ListAdapter<BookListItem, BookSearchResultViewHolder>(BookDiffCallback()) {
+) : ListAdapter<BookListItem, BookSearchResultViewHolder>(BookDiffUtil()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookSearchResultViewHolder {
         val binding = ItemBookBinding.inflate(LayoutInflater.from(parent.context), parent, false)

@@ -6,12 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.epamupskills.book_notes.databinding.FragmentNoteBinding
 import com.epamupskills.core.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.withCreationCallback
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class NoteFragment : BaseFragment() {
@@ -22,9 +26,10 @@ class NoteFragment : BaseFragment() {
     private val viewModel by viewModels<NoteViewModel>(
         extrasProducer = {
             defaultViewModelCreationExtras.withCreationCallback<NoteViewModel.Factory> { factory ->
-                val noteId =
-                    if (args.noteId != "null") args.noteId?.toLong() else null //todo use string?
-                factory.create(noteId)
+                factory.create(
+                    id = if (args.noteId.isNotBlank()) args.noteId.toLong() else null,
+                    bookId = args.bookId
+                )
             }
         }
     )
@@ -41,18 +46,31 @@ class NoteFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initBaseObservers(viewModel)
+        initObservers()
         initViews()
         setListeners()
         //todo set toolbar with title, icon, menu
-        //todo when book is deleted -> navigate to placeholder - PAW ANIMATION lottie
-        //todo when note is added/updated -> popUpTo SELF + inclusive=FALSE
-        // todo "updateBookWithNote" from BookRepo - add to addNoteUseCase success (not edit, only when is created)
-        //todo debounce 0.5sec send to VM (maybe cancel previous job)
     }
 
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
+    }
+
+    private fun initObservers() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                viewModel.state.collect { state ->
+                    renderViews(state)
+                }
+            }
+        }
+    }
+
+    private fun renderViews(state: NoteViewState) {
+        binding.noteContentTextInputLayout.editText?.apply {
+            if (text.isNullOrEmpty()) setText(state.note.content)
+        }
     }
 
     private fun initViews() {
@@ -61,11 +79,6 @@ class NoteFragment : BaseFragment() {
             setNavigationIcon(com.epamupskills.core.R.drawable.icon_back)
             setNavigationOnClickListener { findNavController().navigateUp() }
         }
-
-        binding.noteContentEditText.apply {
-            setText(viewModel.state.value.note.content)
-//            isFocusedByDefault = true //todo
-        }
     }
 
     private fun setListeners() {
@@ -73,6 +86,6 @@ class NoteFragment : BaseFragment() {
             viewModel.onIntent(EditNote(editable.toString()))
         }
 
-        //todo add Clear button + confirm dialog
+        //todo add Clear button on toolbar + confirm dialog
     }
 }

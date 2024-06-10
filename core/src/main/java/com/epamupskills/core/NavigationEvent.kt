@@ -2,12 +2,25 @@ package com.epamupskills.core
 
 import androidx.navigation.NavDirections
 
-sealed class NavigationEvent
-data class Navigate(val destinationId: Int, val isRoot: Boolean = false) : NavigationEvent()
-data class NavigateTo(val direction: NavDirections, val isRoot: Boolean = false) : NavigationEvent()
+sealed class NavigationEvent(
+    open val needChildNavController: Boolean = false,
+    open val navHostId: Int = 0,
+)
+
+data object NavigateUp : NavigationEvent()
+
+data class Navigate(val destinationId: Int) : NavigationEvent()
+
 data class NavigateToGraph(val graphId: Int) : NavigationEvent()
-data class NavigateUp(val isRoot: Boolean = false) : NavigationEvent()
-data class NavigateWithNestedNavHost(
-    val navHostId: Int,
-    val direction: NavDirections
+
+data class NavigateTo(
+    val direction: NavDirections,
+    override val needChildNavController: Boolean = false,
+    override val navHostId: Int = 0,
+) : NavigationEvent(needChildNavController, navHostId)
+
+data class NavigateWithConfig(
+    val configBoolRes: Int = 0,
+    val onConfigTrueNavEvent: NavigationEvent,
+    val onConfigFalseNavEvent: NavigationEvent,
 ) : NavigationEvent()

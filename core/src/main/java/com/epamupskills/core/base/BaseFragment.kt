@@ -6,16 +6,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
-import com.epamupskills.core.Navigate
-import com.epamupskills.core.NavigateTo
-import com.epamupskills.core.NavigateToGraph
-import com.epamupskills.core.NavigateUp
-import com.epamupskills.core.NavigateWithNestedNavHost
+import com.epamupskills.core.AppRouter
+import com.epamupskills.core.NavigateWithConfig
 import com.epamupskills.core.NavigationEvent
-import com.epamupskills.core.Navigator
 import com.epamupskills.core.presentation.InputManagerImpl
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,6 +18,9 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 open class BaseFragment : Fragment() {
+
+    @Inject
+    lateinit var router: AppRouter
 
     @Inject
     lateinit var inputManager: InputManagerImpl
@@ -73,17 +70,21 @@ open class BaseFragment : Fragment() {
     }
 
     private fun onNavigateByEvent(event: NavigationEvent) {
-        when (event) {
-            is Navigate -> getNavController(event.isRoot).navigate(event.destinationId)
-            is NavigateTo -> getNavController(event.isRoot).navigate(event.direction)
-            is NavigateUp -> getNavController(event.isRoot).navigateUp()
-            is NavigateToGraph -> getNavController(true).setGraph(event.graphId)
-            is NavigateWithNestedNavHost -> getNestedNavController(event.navHostId).navigate(event.direction)
-        }
-    }
+        val navEvent = if (event is NavigateWithConfig) {
+            when (requireContext().resources.getBoolean(event.configBoolRes)) {
+                true -> event.onConfigTrueNavEvent
+                false -> event.onConfigFalseNavEvent
+            }
+        } else event
 
-    private fun getNavController(rootGraph: Boolean): NavController =
-        if (rootGraph) (requireActivity() as Navigator).getRootNavController() else findNavController()
+        val childNavController =
+            if (navEvent.needChildNavController) getNestedNavController(navEvent.navHostId) else null
+
+        router.navigateOnEvent(
+            event = navEvent,
+            childNavController = childNavController,
+        )
+    }
 
     private fun getNestedNavController(containerId: Int) =
         (childFragmentManager.findFragmentById(containerId) as NavHostFragment).navController

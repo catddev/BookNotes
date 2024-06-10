@@ -19,7 +19,7 @@ class ProfileViewModel @Inject constructor(
     private val profileInteractor: ProfileInteractor,
 ) : BaseViewModel() {
 
-    private val _state = MutableStateFlow(ProfileViewState(""))
+    private val _state = MutableStateFlow(ProfileViewState())
     val state = _state.asStateFlow()
 
     init {

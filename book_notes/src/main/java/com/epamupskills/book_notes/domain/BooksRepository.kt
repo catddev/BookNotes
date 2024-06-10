@@ -8,5 +8,5 @@ interface BooksRepository {
     suspend fun addBook(book: Book, userId: String)
     suspend fun removeBook(bookId: String, userId: String)
     suspend fun searchBooksByTitle(title: String): List<Book>
-    suspend fun updateBookWithNote(noteId: Long, userId: String, bookId: String)
+    suspend fun updateBookWithNote(noteId: Long?, userId: String, bookId: String)
 }

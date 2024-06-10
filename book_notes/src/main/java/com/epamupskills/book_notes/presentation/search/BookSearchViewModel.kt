@@ -74,7 +74,7 @@ class BookSearchViewModel @Inject constructor(
         searchInput
             .debounce(SEARCH_INPUT_DELAY)
             .onEach { input ->
-                if (input.isBlank()) return@onEach //todo norm?
+                if (input.isBlank()) return@onEach
                 loading.value = true
                 _state.update { it.copy(isKeyboardOpen = false) }
 

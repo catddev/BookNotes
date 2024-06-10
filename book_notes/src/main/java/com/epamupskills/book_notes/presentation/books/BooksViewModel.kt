@@ -5,8 +5,9 @@ import com.epamupskills.book_notes.NestedBookNoteNavDirections
 import com.epamupskills.book_notes.R
 import com.epamupskills.book_notes.domain.interactors.BooksInteractor
 import com.epamupskills.book_notes.presentation.mappers.BookListItemsMapper
+import com.epamupskills.core.Constants.EMPTY
 import com.epamupskills.core.NavigateTo
-import com.epamupskills.core.NavigateWithNestedNavHost
+import com.epamupskills.core.NavigateWithConfig
 import com.epamupskills.core.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -31,36 +32,38 @@ class BooksViewModel @Inject constructor(
     fun onIntent(intent: BookUserIntent) {
         when (intent) {
             is RemoveBook -> onRemoveBook(intent.bookId)
-            is OpenBookNote -> onOpenNote(intent.noteId, intent.bookTitle, intent.isTablet)
+            is OpenBookNote -> onOpenNote(intent.noteId, intent.bookTitle, intent.bookId)
         }
     }
 
     private fun onRemoveBook(bookId: String) =
         viewModelScope.launch { interactor.removeBook(bookId).renderBaseStateByResult() }
 
-    private fun onOpenNote(noteId: Long?, bookTitle: String, isTablet: Boolean) {
-        val id = noteId?.toString()
+    private fun onOpenNote(noteId: Long?, bookTitle: String, bookId: String) {
+        //todo pattern command
+        val id = noteId?.toString() ?: EMPTY
 
-        when (isTablet) { //todo move check to BaseFragment or Router?
-            true -> onNavigationEvent(
-                NavigateWithNestedNavHost(
-                    R.id.detail_fragment_container,
-                    NestedBookNoteNavDirections.toNestedNoteFragment(
+        onNavigationEvent(
+            NavigateWithConfig(
+                configBoolRes = com.epamupskills.core.R.bool.isTablet,
+                onConfigTrueNavEvent = NavigateTo(
+                    navHostId = R.id.detail_fragment_container,
+                    needChildNavController = true,
+                    direction = NestedBookNoteNavDirections.toNestedNoteFragment(
                         noteId = id,
-                        bookTitle = bookTitle
+                        bookTitle = bookTitle,
+                        bookId = bookId,
+                    ),
+                ),
+                onConfigFalseNavEvent = NavigateTo(
+                    direction = BooksFragmentDirections.actionBooksFragmentToNoteFragment(
+                        noteId = id,
+                        bookTitle = bookTitle,
+                        bookId = bookId,
                     )
                 )
             )
-
-            false -> onNavigationEvent(
-                NavigateTo(
-                    BooksFragmentDirections.actionBooksFragmentToNoteFragment(
-                        noteId = id,
-                        bookTitle = bookTitle
-                    )
-                )
-            )
-        }
+        )
     }
 
     private fun onBooksChanged() {

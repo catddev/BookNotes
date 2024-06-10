@@ -15,22 +15,22 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.epamupskills.booknotes.databinding.ActivityMainBinding
-import com.epamupskills.core.Navigate
-import com.epamupskills.core.NavigateTo
-import com.epamupskills.core.NavigateToGraph
-import com.epamupskills.core.NavigateUp
-import com.epamupskills.core.NavigateWithNestedNavHost
+import com.epamupskills.core.AppRouter
 import com.epamupskills.core.NavigationEvent
 import com.epamupskills.core.Navigator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), Navigator {
 
+    @Inject
+    lateinit var router: AppRouter
+
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!
-    private val navController by lazy { getNavHostFragment(R.id.nav_host_container).navController }
+    private val navController by lazy { getNavigationController() }
     private val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity(), Navigator {
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                viewModel.navEvents.collect { event -> onNavigationEvent(event) }
+                viewModel.navEvents.collect(::onNavigationEvent)
             }
         }
     }
@@ -97,19 +97,10 @@ class MainActivity : AppCompatActivity(), Navigator {
         }
     }
 
-    private fun onNavigationEvent(event: NavigationEvent) {
-        when (event) {
-            is Navigate -> navController.navigate(event.destinationId)
-            is NavigateToGraph -> navController.setGraph(event.graphId)
-            is NavigateTo -> navController.navigate(event.direction)
-            is NavigateUp -> navController.navigateUp()
-            is NavigateWithNestedNavHost ->
-                getNavHostFragment(event.navHostId).navController.navigate(event.direction)
-        }
-    }
+    private fun onNavigationEvent(event: NavigationEvent) = router.navigateOnEvent(event)
 
-    private fun getNavHostFragment(id: Int): NavHostFragment =
-        supportFragmentManager.findFragmentById(id) as NavHostFragment
+    private fun getNavigationController(): NavController =
+        (supportFragmentManager.findFragmentById(R.id.nav_host_container) as NavHostFragment).navController
 
     private fun initViews() {
         with(binding.bottomNavigation) {

@@ -14,6 +14,6 @@ class BookToUiMapper @Inject constructor() : BaseMapper<Book, BookUi>() {
         description = input.description,
         thumbnailUrl = input.thumbnailUrl,
         isBookmarked = input.isBookmarked,
-        noteId = input.noteId, //todo always is mapped to 0 here! change
+        noteId = input.noteId,
     )
 }
