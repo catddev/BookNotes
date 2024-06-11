@@ -21,7 +21,8 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.epamupskills.booknotes.HiltTestRunner"
+//        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -48,6 +49,9 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+    tasks.withType<Test> {
+        useJUnitPlatform()
     }
     buildFeatures {
         compose = true
@@ -76,8 +80,19 @@ dependencies {
 
     //testing
     testImplementation(libs.junit)
+    testImplementation(libs.junit.params)
+    testRuntimeOnly(libs.junit.launcher)
+    testRuntimeOnly(libs.junit.runtime)
+    testImplementation(libs.mockk.android)
+    testImplementation(libs.mockk.agent)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.ui.test.junit4)
+    androidTestDebugImplementation(libs.androidx.test.core)
+    debugImplementation(libs.fragment.testing)
+    debugImplementation(libs.navigation.testing)
+    androidTestImplementation(libs.hilt.android.testing)
+    kspAndroidTest(libs.hilt.test.compiler)
+    androidTestImplementation(project(":core"))
+    androidTestImplementation(project(":authorization"))
 }
