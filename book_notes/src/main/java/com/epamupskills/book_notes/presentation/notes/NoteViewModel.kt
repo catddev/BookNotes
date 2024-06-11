@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -60,9 +61,12 @@ class NoteViewModel @AssistedInject constructor(
     @OptIn(FlowPreview::class)
     private fun onNoteChanged() {
         launchCatching {
-            _state.debounce(EDIT_DELAY).collectLatest { state ->
-                interactor.updateNote(note = state.note, bookId = bookId)
-            }
+            _state
+                .debounce(EDIT_DELAY)
+                .distinctUntilChanged()
+                .collectLatest { state ->
+                    interactor.updateNote(note = state.note, bookId = bookId)
+                }
         }
     }
 

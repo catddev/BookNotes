@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.epamupskills.core.NavigationEvent
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
@@ -20,6 +21,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 open class BaseViewModel @Inject constructor() : ViewModel(), DefaultLifecycleObserver {
+
+    @Inject
+    lateinit var firebaseCrashlytics: FirebaseCrashlytics
 
     private val _navEvents = Channel<NavigationEvent>()
     val navEvents = _navEvents.receiveAsFlow()
@@ -50,14 +54,14 @@ open class BaseViewModel @Inject constructor() : ViewModel(), DefaultLifecycleOb
             _errorMessage.emit(null)
             _hasError.emit(false)
         }.onFailure { error ->
-            //todo crashlytics Non fatal error
             _errorMessage.emit(error.message.orEmpty())
             _hasError.emit(true)
+            firebaseCrashlytics.recordException(error)
         }
     }
 
     protected fun launchCatching(block: suspend CoroutineScope.() -> Unit) =
         viewModelScope.launch(context = CoroutineExceptionHandler { _, throwable ->
-            //todo crashlytics Non fatal error
+            firebaseCrashlytics.recordException(throwable)
         }, block = block)
 }
