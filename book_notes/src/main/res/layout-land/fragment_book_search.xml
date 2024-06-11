@@ -5,25 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/view_toolbar"
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/search_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <include
-        android:id="@+id/search_edit_text"
-        layout="@layout/view_search"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/gutter"
-        android:layout_marginTop="@dimen/gutter"
-        app:layout_constraintEnd_toStartOf="@id/search_result_recycler_view"
-        app:layout_constraintHorizontal_bias="1"
-        app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+        android:hint="@string/search_input_text_hint"
+        app:closeIcon="@drawable/icon_clear_all"
+        app:iconifiedByDefault="false"
+        app:layout_constraintTop_toTopOf="parent"
+        app:queryHint="@string/search_input_text_hint"
+        app:searchHintIcon="@null"
+        app:searchIcon="@drawable/icon_search_24"
+        app:theme="@style/Widget.BookNotes.SearchView" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/search_result_recycler_view"
@@ -36,9 +29,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_weight="3"
-        app:layout_constraintStart_toEndOf="@id/search_edit_text"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
-        app:spanCount="2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_view"
+        app:spanCount="3"
         tools:itemCount="10"
         tools:listitem="@layout/item_book" />
 

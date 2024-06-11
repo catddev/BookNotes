@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.widget.addTextChangedListener
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -80,8 +80,15 @@ class BookSearchFragment : BaseFragment() {
     }
 
     private fun setClickListeners() {
-        binding.searchEditText.root.editText?.addTextChangedListener {
-            viewModel.onIntent(Search(it.toString()))
+        binding.searchView.apply {
+            setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean = false
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    viewModel.onIntent(Search(newText.orEmpty()))
+                    return true
+                }
+            })
         }
     }
 

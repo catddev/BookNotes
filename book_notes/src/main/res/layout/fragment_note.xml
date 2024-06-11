@@ -20,11 +20,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_marginEnd="@dimen/double_gutter"
+            android:layout_marginEnd="@dimen/gutter"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:contentDescription="@null"
             android:focusable="true"
+            android:padding="@dimen/gutter"
             android:src="@drawable/icon_clear_all" />
 
         <TextView

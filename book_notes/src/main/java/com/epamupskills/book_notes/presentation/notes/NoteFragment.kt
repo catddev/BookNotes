@@ -84,5 +84,8 @@ class NoteFragment : BaseFragment() {
         binding.clearNoteButton.setOnClickListener {
             viewModel.onIntent(ClearNote)
         }
+        binding.root.setOnClickListener {
+            binding.noteContentEditText.requestFocus()
+        }
     }
 }

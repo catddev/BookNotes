@@ -12,9 +12,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.debounce
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -60,11 +59,11 @@ class NoteViewModel @AssistedInject constructor(
 
     @OptIn(FlowPreview::class)
     private fun onNoteChanged() {
-        _state
-            .debounce(EDIT_DELAY)
-            .onEach { state ->
+        launchCatching {
+            _state.debounce(EDIT_DELAY).collectLatest { state ->
                 interactor.updateNote(note = state.note, bookId = bookId)
-            }.launchIn(viewModelScope)
+            }
+        }
     }
 
     private fun getInitialNote() {

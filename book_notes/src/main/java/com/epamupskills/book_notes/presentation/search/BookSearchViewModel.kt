@@ -10,10 +10,12 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.debounce
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -71,18 +73,24 @@ class BookSearchViewModel @Inject constructor(
 
     @OptIn(FlowPreview::class)
     private fun onSearchInputChanged() {
-        searchInput
-            .debounce(SEARCH_INPUT_DELAY)
-            .onEach { input ->
-                if (input.isBlank()) return@onEach
-                loading.value = true
-                _state.update { it.copy(isKeyboardOpen = false) }
+        launchCatching {
+            searchInput
+                .debounce(SEARCH_INPUT_DELAY)
+                .map { it.trim() }
+                .distinctUntilChanged()
+                .filter { it.isNotBlank() }
+                .collectLatest { input ->
+                    loading.value = true
+                    _state.update { it.copy(isKeyboardOpen = false) }
 
-                interactor.searchBooks(input.trim())
-                    .onSuccess { books -> searchResult.value = bookToUiMapper.transformAll(books) }
-                    .onFailure { _state.update { it.copy(searchResults = emptyList()) } }
-                    .renderBaseStateByResult()
-            }.launchIn(viewModelScope)
+                    interactor.searchBooks(input)
+                        .onSuccess { books ->
+                            searchResult.value = bookToUiMapper.transformAll(books)
+                        }
+                        .onFailure { _state.update { it.copy(searchResults = emptyList()) } }
+                        .renderBaseStateByResult()
+                }
+        }
     }
 
     companion object {
