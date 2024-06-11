@@ -25,6 +25,7 @@ class NotesRepositoryImpl @Inject constructor(
 
     override suspend fun addNote(note: Note): Long = withContext(dispatcherIo) {
         dao.addNote(noteToEntityMapper.transform(note))
+        //todo update book by id
         //todo add noteId to book entity - @Transaction in dao
     }
 

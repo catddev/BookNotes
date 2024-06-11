@@ -47,6 +47,10 @@ class BooksRepositoryImpl @Inject constructor(
             dao.updateBookWithNote(noteId = noteId, userId = userId, bookId = bookId)
         }
 
+    override suspend fun doesBookExistByNote(noteId: Long): Boolean = withContext(dispatcherIo) {
+        dao.existsByNote(noteId)
+    }
+
     override suspend fun clearCachedUserData(userId: String) = withContext(dispatcherIo) {
         dao.removeAllBooks(userId = userId)
     }

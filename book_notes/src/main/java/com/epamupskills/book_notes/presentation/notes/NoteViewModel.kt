@@ -53,8 +53,9 @@ class NoteViewModel @AssistedInject constructor(
     private fun onClearNote() = viewModelScope.launch {
         noteId.value?.let {
             interactor.removeNote(it).onSuccess {
-                //todo emit noteId.value = null -> .also { noteId.value = null }
-                //todo when cleared, also clear noteId for BookEntity, check booklist changes header
+                noteId.value = null
+                interactor.updateBookWithNote(noteId = null, bookId = bookId)
+                //todo check book changes header
             }.renderBaseStateByResult()
         } ?: _state.update { state ->
             state.copy(note = state.note.copy(content = ""))
@@ -69,8 +70,9 @@ class NoteViewModel @AssistedInject constructor(
                     result.collect { note ->
                         when (note) {
                             null -> {
-                                //todo check book exists by current noteId, and if not:
-                                onNavigationEvent(NavigateUp)
+                                interactor.checkBookExists(id).onSuccess { doesBookExist ->
+                                    if (!doesBookExist) onNavigationEvent(NavigateUp)
+                                }
                             }
 
                             else -> _state.update {
@@ -94,7 +96,7 @@ class NoteViewModel @AssistedInject constructor(
 
                     editedNote.content.isNotBlank() -> interactor.createNote(editedNote).onSuccess {
                         noteId.value = it
-                        interactor.updateBookWithNote(noteId = it, bookId = bookId) //todo debug
+                        interactor.updateBookWithNote(noteId = it, bookId = bookId)
                     }.renderBaseStateByResult()
 
                     else -> onClearNote()

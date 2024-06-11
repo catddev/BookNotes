@@ -8,7 +8,7 @@ class UpdateNoteUseCase @Inject constructor(
     private val repository: NotesRepository,
 ) {
 
-    suspend fun updateNote(note: Note): Result<Unit> = try {
+    suspend operator fun invoke(note: Note): Result<Unit> = try {
         Result.success(repository.updateNote(requireNotNull(note.noteId), note.content))
     } catch (t: Throwable) {
         Result.failure(t)

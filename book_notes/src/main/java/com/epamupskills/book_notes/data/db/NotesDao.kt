@@ -14,7 +14,7 @@ interface NotesDao {
     @Query("SELECT * FROM $NOTES_TABLE WHERE noteId=:noteId")
     fun getNote(noteId: Long): Flow<NoteEntity?>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addNote(note: NoteEntity): Long
 
     @Query("DELETE FROM $NOTES_TABLE WHERE noteId=:noteId")

@@ -9,7 +9,7 @@ class GetNoteUseCase @Inject constructor(
     private val repository: NotesRepository,
 ) {
 
-    fun getNote(noteId: Long): Result<Flow<Note?>> = try {
+    operator fun invoke(noteId: Long): Result<Flow<Note?>> = try {
         Result.success(repository.getNote(noteId))
     } catch (t: Throwable) {
         Result.failure(t)

@@ -6,7 +6,7 @@ import javax.inject.Inject
 class RemoveNoteUseCase @Inject constructor(
     private val repository: NotesRepository,
 ) {
-    suspend fun removeNote(noteId: Long): Result<Unit> = try {
+    suspend operator fun invoke(noteId: Long): Result<Unit> = try {
         Result.success(repository.removeNote(noteId))
     } catch (t: Throwable) {
         Result.failure(t)
