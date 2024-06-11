@@ -7,6 +7,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import com.epamupskills.core.AppRouter
 import com.epamupskills.core.NavigateWithConfig
 import com.epamupskills.core.NavigationEvent
@@ -78,10 +79,11 @@ open class BaseFragment : Fragment() {
         } else event
 
         val childNavController =
-            if (navEvent.needChildNavController) getNestedNavController(navEvent.navHostId) else null
+            if (navEvent.usesChildNavController) getNestedNavController(navEvent.navHostId) else null
 
         router.navigateOnEvent(
             event = navEvent,
+            currentNavController = if (event.usesRootNavController) null else findNavController(),
             childNavController = childNavController,
         )
     }

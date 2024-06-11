@@ -1,5 +1,7 @@
 package com.epamupskills.book_notes.domain.models
 
+import com.epamupskills.core.Constants.EMPTY
+
 data class Book(
     val id: String,
     val title: String,
@@ -7,5 +9,5 @@ data class Book(
     val description: String,
     val thumbnailUrl: String,
     val isBookmarked: Boolean = false,
-    val noteId: Long? = null,
+    val note: String = EMPTY,
 )

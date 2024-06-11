@@ -5,7 +5,6 @@ import com.epamupskills.book_notes.NestedBookNoteNavDirections
 import com.epamupskills.book_notes.R
 import com.epamupskills.book_notes.domain.interactors.BooksInteractor
 import com.epamupskills.book_notes.presentation.mappers.BookListItemsMapper
-import com.epamupskills.core.Constants.EMPTY
 import com.epamupskills.core.NavigateTo
 import com.epamupskills.core.NavigateWithConfig
 import com.epamupskills.core.base.BaseViewModel
@@ -32,32 +31,27 @@ class BooksViewModel @Inject constructor(
     fun onIntent(intent: BookUserIntent) {
         when (intent) {
             is RemoveBook -> onRemoveBook(intent.bookId)
-            is OpenBookNote -> onOpenNote(intent.noteId, intent.bookTitle, intent.bookId)
+            is OpenBookNote -> onOpenNote(intent.bookTitle, intent.bookId)
         }
     }
 
     private fun onRemoveBook(bookId: String) =
         viewModelScope.launch { interactor.removeBook(bookId).renderBaseStateByResult() }
 
-    private fun onOpenNote(noteId: Long?, bookTitle: String, bookId: String) {
-        //todo pattern command
-        val id = noteId?.toString() ?: EMPTY
-
+    private fun onOpenNote(bookTitle: String, bookId: String) {
         onNavigationEvent(
             NavigateWithConfig(
                 configBoolRes = com.epamupskills.core.R.bool.isTablet,
                 onConfigTrueNavEvent = NavigateTo(
                     navHostId = R.id.detail_fragment_container,
-                    needChildNavController = true,
+                    usesChildNavController = true,
                     direction = NestedBookNoteNavDirections.toNestedNoteFragment(
-                        noteId = id,
                         bookTitle = bookTitle,
                         bookId = bookId,
                     ),
                 ),
                 onConfigFalseNavEvent = NavigateTo(
                     direction = BooksFragmentDirections.actionBooksFragmentToNoteFragment(
-                        noteId = id,
                         bookTitle = bookTitle,
                         bookId = bookId,
                     )

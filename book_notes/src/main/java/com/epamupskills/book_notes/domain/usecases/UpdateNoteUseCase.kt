@@ -1,15 +1,22 @@
 package com.epamupskills.book_notes.domain.usecases
 
-import com.epamupskills.book_notes.domain.NotesRepository
-import com.epamupskills.book_notes.domain.models.Note
+import com.epamupskills.book_notes.domain.NoteRepository
+import com.epamupskills.core.repository.UidRepository
 import javax.inject.Inject
 
 class UpdateNoteUseCase @Inject constructor(
-    private val repository: NotesRepository,
+    private val noteRepository: NoteRepository,
+    private val uidRepository: UidRepository,
 ) {
 
-    suspend operator fun invoke(note: Note): Result<Unit> = try {
-        Result.success(repository.updateNote(requireNotNull(note.noteId), note.content))
+    suspend operator fun invoke(note: String, bookId: String): Result<Unit> = try {
+        Result.success(
+            noteRepository.updateNote(
+                note = note,
+                bookId = bookId,
+                userId = uidRepository.getUserId()
+            )
+        )
     } catch (t: Throwable) {
         Result.failure(t)
     }

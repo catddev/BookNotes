@@ -14,6 +14,6 @@ class BookFromUiMapper @Inject constructor() : BaseMapper<BookUi, Book>() {
         description = input.description,
         thumbnailUrl = input.thumbnailUrl,
         isBookmarked = input.isBookmarked,
-        noteId = input.noteId,
+        note = input.note,
     )
 }

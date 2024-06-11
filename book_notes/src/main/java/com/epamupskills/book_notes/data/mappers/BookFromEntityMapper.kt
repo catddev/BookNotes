@@ -14,6 +14,6 @@ class BookFromEntityMapper @Inject constructor() : BaseMapper<BookEntity, Book>(
         description = input.description,
         thumbnailUrl = input.thumbnailUrl,
         isBookmarked = input.isBookmarked,
-        noteId = input.noteId,
+        note = input.note,
     )
 }

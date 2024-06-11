@@ -42,14 +42,8 @@ class BooksRepositoryImpl @Inject constructor(
         bookDtoMapper.transformAll(result)
     }
 
-    override suspend fun updateBookWithNote(noteId: Long?, userId: String, bookId: String) =
-        withContext(dispatcherIo) {
-            dao.updateBookWithNote(noteId = noteId, userId = userId, bookId = bookId)
-        }
-
-    override suspend fun doesBookExistByNote(noteId: Long): Boolean = withContext(dispatcherIo) {
-        dao.existsByNote(noteId)
-    }
+    override fun isBookSaved(bookId: String, userId: String): Flow<Boolean> =
+        dao.isBookSaved(bookId = bookId, userId = userId).flowOn(dispatcherIo)
 
     override suspend fun clearCachedUserData(userId: String) = withContext(dispatcherIo) {
         dao.removeAllBooks(userId = userId)

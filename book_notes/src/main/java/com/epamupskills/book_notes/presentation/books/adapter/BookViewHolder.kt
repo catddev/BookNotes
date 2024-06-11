@@ -13,7 +13,7 @@ class BookViewHolder(
 
     fun bind(
         item: BookUi,
-        onClickListener: (noteId: Long?, title: String,  bookId: String) -> Unit,
+        onClickListener: (title: String,  bookId: String) -> Unit,
         onBookmarkClickListener: (id: String) -> Unit
     ) {
         with(binding) {
@@ -26,7 +26,7 @@ class BookViewHolder(
                 onBookmarkClickListener.invoke(item.id)
             }
             root.setOnClickListener {
-                onClickListener.invoke(item.noteId, item.title, item.id)
+                onClickListener.invoke(item.title, item.id)
             }
         }
     }

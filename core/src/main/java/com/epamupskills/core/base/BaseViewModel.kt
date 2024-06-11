@@ -50,6 +50,7 @@ open class BaseViewModel @Inject constructor() : ViewModel(), DefaultLifecycleOb
             _errorMessage.emit(null)
             _hasError.emit(false)
         }.onFailure { error ->
+            //todo crashlytics Non fatal error
             _errorMessage.emit(error.message.orEmpty())
             _hasError.emit(true)
         }

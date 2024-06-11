@@ -17,5 +17,5 @@ data class BookEntity(
     val description: String,
     val thumbnailUrl: String,
     val isBookmarked: Boolean,
-    val note: String?,
+    val note: String,
 )

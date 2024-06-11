@@ -26,10 +26,7 @@ class NoteFragment : BaseFragment() {
     private val viewModel by viewModels<NoteViewModel>(
         extrasProducer = {
             defaultViewModelCreationExtras.withCreationCallback<NoteViewModel.Factory> { factory ->
-                factory.create(
-                    id = if (args.noteId.isNotBlank()) args.noteId.toLong() else null,
-                    bookId = args.bookId
-                )
+                factory.create(bookId = args.bookId)
             }
         }
     )
@@ -49,7 +46,6 @@ class NoteFragment : BaseFragment() {
         initObservers()
         initViews()
         setListeners()
-        //todo set toolbar with title, icon, menu
     }
 
     override fun onDestroyView() {
@@ -69,23 +65,24 @@ class NoteFragment : BaseFragment() {
 
     private fun renderViews(state: NoteViewState) {
         binding.noteContentTextInputLayout.editText?.apply {
-            if (text.isNullOrEmpty()) setText(state.note.content)
+            if (text.isNullOrEmpty() || state.note.isEmpty()) setText(state.note)
         }
     }
 
     private fun initViews() {
-        binding.toolbar.root.apply {
-            title = args.bookTitle
+        binding.toolbar.apply {
             setNavigationIcon(com.epamupskills.core.R.drawable.icon_back)
             setNavigationOnClickListener { findNavController().navigateUp() }
         }
+        binding.toolbarTitle.text = args.bookTitle
     }
 
     private fun setListeners() {
         binding.noteContentTextInputLayout.editText?.addTextChangedListener { editable ->
             viewModel.onIntent(EditNote(editable.toString()))
         }
-
-        //todo add Clear button on toolbar + confirm dialog
+        binding.clearNoteButton.setOnClickListener {
+            viewModel.onIntent(ClearNote)
+        }
     }
 }

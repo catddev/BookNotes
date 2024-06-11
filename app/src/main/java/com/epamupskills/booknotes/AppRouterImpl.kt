@@ -20,8 +20,12 @@ class AppRouterImpl @Inject constructor(
 
     private val navController by lazy { (context as Navigator).getRootNavController() }
 
-    override fun navigateOnEvent(event: NavigationEvent, childNavController: NavController?) {
-        (childNavController ?: navController).run {
+    override fun navigateOnEvent(
+        event: NavigationEvent,
+        currentNavController: NavController?,
+        childNavController: NavController?
+    ) {
+        (childNavController ?: currentNavController ?: navController).run {
             when (event) {
                 is Navigate -> navigate(event.destinationId)
                 is NavigateTo -> navigate(event.direction)

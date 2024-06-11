@@ -32,9 +32,6 @@
             app:popUpTo="@id/noteFragment"
             app:popUpToInclusive="false" />
         <argument
-            android:name="noteId"
-            app:argType="string" />
-        <argument
             android:name="bookTitle"
             app:argType="string" />
         <argument
@@ -44,9 +41,5 @@
     <dialog
         android:id="@+id/confirmDialog"
         android:name="com.epamupskills.core.presentation.ConfirmDialog"
-        android:label="ConfirmDialog" >
-        <argument
-            android:name="title"
-            app:argType="string" />
-    </dialog>
+        android:label="ConfirmDialog" />
 </navigation>
