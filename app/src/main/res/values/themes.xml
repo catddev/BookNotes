@@ -29,6 +29,7 @@
         <item name="materialCardViewStyle">@style/Widget.BookNotes.CardView</item>
         <item name="toolbarStyle">@style/Widget.BookNotes.Toolbar</item>
         <item name="textInputStyle">@style/Widget.BookNotes.TextInputLayout</item>
+        <item name="android:searchViewStyle">@style/Widget.BookNotes.SearchView</item>
     </style>
 
     <style name="Theme.BookNotes" parent="Base.Theme.BookNotes" />

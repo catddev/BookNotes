@@ -1,6 +1,6 @@
 package com.epamupskills.booknotes.di
 
-import com.epamupskills.book_notes.data.api.GoogleBooksApiService
+import com.epamupskills.book_notes.data.api.GoogleBooksApi
 import com.epamupskills.booknotes.BuildConfig
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
@@ -27,7 +27,7 @@ object NetworkModule {
         ignoreUnknownKeys = true
     }
     private val contentType = "application/json".toMediaType()
-    private val apiKeyHeaderName = "API_KEY"
+    private const val API_KEY_HEADER_NAME = "API_KEY"
 
     @Provides
     fun provideLoggingInterceptor(): HttpLoggingInterceptor =
@@ -42,7 +42,7 @@ object NetworkModule {
             .addInterceptor(loggingInterceptor)
             .addInterceptor { chain ->
                 val request = chain.request().newBuilder()
-                    .header(apiKeyHeaderName, BuildConfig.API_KEY)
+                    .header(API_KEY_HEADER_NAME, BuildConfig.API_KEY)
                     .build()
                 chain.proceed(request)
             }.build()
@@ -58,6 +58,6 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideGoogleBooksApi(retrofit: Retrofit): GoogleBooksApiService =
-        retrofit.create(GoogleBooksApiService::class.java)
+    fun provideGoogleBooksApi(retrofit: Retrofit): GoogleBooksApi =
+        retrofit.create(GoogleBooksApi::class.java)
 }

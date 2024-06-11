@@ -1,6 +1,6 @@
 package com.epamupskills.book_notes.data.repository
 
-import com.epamupskills.book_notes.data.api.GoogleBooksApiService
+import com.epamupskills.book_notes.data.api.GoogleBooksApi
 import com.epamupskills.book_notes.data.db.BooksDao
 import com.epamupskills.book_notes.data.mappers.BookDtoMapper
 import com.epamupskills.book_notes.data.mappers.BookFromEntityMapper
@@ -17,7 +17,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class BooksRepositoryImpl @Inject constructor(
-    private val api: GoogleBooksApiService,
+    private val api: GoogleBooksApi,
     private val dao: BooksDao,
     private val bookFromEntityMapper: BookFromEntityMapper,
     private val bookToEntityMapper: BookToEntityMapper,
@@ -42,10 +42,8 @@ class BooksRepositoryImpl @Inject constructor(
         bookDtoMapper.transformAll(result)
     }
 
-    override suspend fun updateBookWithNote(noteId: Long, userId: String, bookId: String) =
-        withContext(dispatcherIo) {
-            dao.updateBookWithNote(noteId = noteId, userId = userId, bookId = bookId)
-        }
+    override fun isBookSaved(bookId: String, userId: String): Flow<Boolean> =
+        dao.isBookSaved(bookId = bookId, userId = userId).flowOn(dispatcherIo)
 
     override suspend fun clearCachedUserData(userId: String) = withContext(dispatcherIo) {
         dao.removeAllBooks(userId = userId)

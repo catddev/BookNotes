@@ -6,7 +6,7 @@ import com.epamupskills.book_notes.presentation.models.HeaderUi
 import com.epamupskills.book_notes.presentation.models.BookListItem
 import javax.inject.Inject
 
-class BookDiffCallback @Inject constructor() : DiffUtil.ItemCallback<BookListItem>() {
+class BookDiffUtil @Inject constructor() : DiffUtil.ItemCallback<BookListItem>() {
 
     override fun areItemsTheSame(oldItem: BookListItem, newItem: BookListItem): Boolean = when {
         oldItem is BookUi && newItem is BookUi -> oldItem.id == newItem.id

@@ -5,7 +5,6 @@ import androidx.room.Room
 import com.epamupskills.book_notes.data.db.BookNotesDatabase
 import com.epamupskills.book_notes.data.db.BookNotesDatabaseSettings.BOOK_NOTES_DATABASE_NAME
 import com.epamupskills.book_notes.data.db.BooksDao
-import com.epamupskills.book_notes.data.db.NotesDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,7 +27,4 @@ object DatabaseModule {
 
     @Provides
     fun provideBookDao(dataBase: BookNotesDatabase): BooksDao = dataBase.booksDao()
-
-    @Provides
-    fun provideNotesDao(dataBase: BookNotesDatabase): NotesDao = dataBase.notesDao()
 }

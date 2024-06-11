@@ -6,11 +6,12 @@ import com.epamupskills.book_notes.R
 import com.epamupskills.book_notes.domain.interactors.BooksInteractor
 import com.epamupskills.book_notes.presentation.mappers.BookListItemsMapper
 import com.epamupskills.core.NavigateTo
-import com.epamupskills.core.NavigateWithNestedNavHost
+import com.epamupskills.core.NavigateWithConfig
 import com.epamupskills.core.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -31,43 +32,42 @@ class BooksViewModel @Inject constructor(
     fun onIntent(intent: BookUserIntent) {
         when (intent) {
             is RemoveBook -> onRemoveBook(intent.bookId)
-            is OpenBookNote -> onOpenNote(intent.noteId, intent.bookTitle, intent.isTablet)
+            is OpenBookNote -> onOpenNote(intent.bookTitle, intent.bookId)
         }
     }
 
     private fun onRemoveBook(bookId: String) =
         viewModelScope.launch { interactor.removeBook(bookId).renderBaseStateByResult() }
 
-    private fun onOpenNote(noteId: Long?, bookTitle: String, isTablet: Boolean) {
-        val id = noteId?.toString()
-
-        when (isTablet) { //todo move check to BaseFragment or Router?
-            true -> onNavigationEvent(
-                NavigateWithNestedNavHost(
-                    R.id.detail_fragment_container,
-                    NestedBookNoteNavDirections.toNestedNoteFragment(
-                        noteId = id,
-                        bookTitle = bookTitle
+    private fun onOpenNote(bookTitle: String, bookId: String) {
+        onNavigationEvent(
+            NavigateWithConfig(
+                configBoolRes = com.epamupskills.core.R.bool.isTablet,
+                onConfigTrueNavEvent = NavigateTo(
+                    navHostId = R.id.detail_fragment_container,
+                    usesChildNavController = true,
+                    direction = NestedBookNoteNavDirections.toNestedNoteFragment(
+                        bookTitle = bookTitle,
+                        bookId = bookId,
+                    ),
+                ),
+                onConfigFalseNavEvent = NavigateTo(
+                    direction = BooksFragmentDirections.actionBooksFragmentToNoteFragment(
+                        bookTitle = bookTitle,
+                        bookId = bookId,
                     )
                 )
             )
-
-            false -> onNavigationEvent(
-                NavigateTo(
-                    BooksFragmentDirections.actionBooksFragmentToNoteFragment(
-                        noteId = id,
-                        bookTitle = bookTitle
-                    )
-                )
-            )
-        }
+        )
     }
 
     private fun onBooksChanged() {
         viewModelScope.launch {
             interactor.getBooks()
                 .onSuccess { result ->
-                    result.collect { books ->
+                    result
+                        .distinctUntilChanged()
+                        .collect { books ->
                         _state.update { it.copy(books = mapper.mapWithHeadersByNotes(books)) }
                     }
                 }

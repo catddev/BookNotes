@@ -107,4 +107,9 @@
         <item name="cornerSize">@dimen/size_16dp</item>
     </style>
 
+    <style name="Widget.BookNotes.SearchView" parent="Widget.AppCompat.SearchView">
+        <item name="android:editTextColor">@color/color_on_primary</item>
+        <item name="android:textColorHint">@color/color_on_surface_variant</item>
+    </style>
+
 </resources>

@@ -11,15 +11,15 @@ import com.epamupskills.book_notes.databinding.ItemHeaderBinding
 import com.epamupskills.book_notes.presentation.models.BookListItem
 import com.epamupskills.book_notes.presentation.models.BookUi
 import com.epamupskills.book_notes.presentation.models.HeaderUi
-import com.epamupskills.book_notes.presentation.utils.BookDiffCallback
+import com.epamupskills.book_notes.presentation.utils.BookDiffUtil
 import com.epamupskills.core.ImageLoader
 import com.epamupskills.core.di.Glide
 
 class BooksAdapter(
     @Glide private val imageLoader: ImageLoader,
-    private val onClickListener: (id: Long?, title: String) -> Unit,
+    private val onClickListener: (title: String, bookId: String) -> Unit,
     private val onBookmarkClickListener: (id: String) -> Unit,
-) : ListAdapter<BookListItem, RecyclerView.ViewHolder>(BookDiffCallback()) {
+) : ListAdapter<BookListItem, RecyclerView.ViewHolder>(BookDiffUtil()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         when (viewType) {
