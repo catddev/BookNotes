@@ -30,13 +30,18 @@ android {
 
     buildTypes {
         debug {
+            isMinifyEnabled = true
             buildConfigField("String", "BASE_URL", "\"https://www.googleapis.com/books/\"")
             buildConfigField("String", "API_KEY", "\"AIzaSyDC-0PS_IjUp1eH1yMA6_0hJtHmn86Bhos\"")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
         release {
             buildConfigField("String", "BASE_URL", "\"https://www.googleapis.com/books/\"")
             buildConfigField("String", "API_KEY", "\"AIzaSyDC-0PS_IjUp1eH1yMA6_0hJtHmn86Bhos\"")
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
