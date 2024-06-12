@@ -57,7 +57,6 @@ androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-util = { group = "androidx.compose.ui", name = "ui-util" }
-androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 lottie-compose = { group = "com.airbnb.android", name = "lottie-compose", version.ref = "lottieCompose" }
 datastore-prefs = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "dataStore" }
@@ -105,5 +104,3 @@ ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "daggerHilt" }
 firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebasePlugin" }
 google-services = { id = "com.google.gms.google-services", version.ref = "googleServicesPlugin" }
-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kapt" }
-
