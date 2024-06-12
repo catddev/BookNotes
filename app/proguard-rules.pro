@@ -27,6 +27,7 @@
 -keep,allowobfuscation,allowshrinking class retrofit2.Response
 -keep,allowobfuscation,allowshrinking class retrofit2.CallAdapter
 -keep,allowobfuscation,allowshrinking class kotlin.coroutines.Continuation
+-keep,allowobfuscation,allowshrinking class kotlin.coroutines.CoroutineContext
 
 #Room database
 -keep class androidx.room.RoomDatabase  { *; }
@@ -64,35 +65,30 @@
 -keep class dagger.hilt.android.internal.managers.** { *; }
 -keep class dagger.hilt.android.internal.lifecycle.** { *; }
 -keep class hilt_aggregated_deps.** { *; }
-
-#Hilt annotations
--keepattributes *Annotation*
--keep class javax.inject.** { *; }
--keep class dagger.** { *; }
--keep class dagger.hilt.** { *; }
--keep class dagger.hilt.android.** { *; }
-
-#Hilt components
 -keep class **_HiltComponents { *; }
 -keep class **_MembersInjector { *; }
 
-# Hilt rules
--keep class dagger.hilt.** { *; }
+#Hilt annotations
 -keep class javax.inject.** { *; }
--keep class dagger.** { *; }
--keep class hilt_aggregated_deps.** { *; }
--keep class androidx.hilt.** { *; }
--keep class hilt.** { *; }
--keep @dagger.hilt.codegen.OriginatingElement class ** { *; }
--keep @dagger.hilt.InstallIn class * {
-    @dagger.hilt.InstallIn <fields>;
+-keep class * extends dagger.hilt.internal.GeneratedComponentManagerHolder
+-keep class * extends dagger.hilt.components.SingletonComponent
+-keep class * extends dagger.hilt.android.internal.modules.*
+-keep @dagger.hilt.InstallIn class *
+
+-keep @dagger.hilt.* class *
+-keepclassmembers class * {
+    @dagger.hilt.* *;
 }
--keep @dagger.hilt.DefineComponent class * {
-    @dagger.hilt.DefineComponent <fields>;
-}
--keep @dagger.hilt.components.SingletonComponent class * {
-    @dagger.hilt.components.SingletonComponent <fields>;
-}
+-keepnames @dagger.hilt.android.lifecycle.HiltViewModel class * extends androidx.lifecycle.ViewModel
 
 # General rules for keeping metadata and reflection-relevant information
 -keepattributes *Annotation*, Signature, EnclosingMethod, InnerClasses
+
+-keep class com.epamupskills.core.** { *; }
+
+-keep class com.google.auto.value.AutoValue { *; }
+
+-dontwarn org.bouncycastle.**
+-dontwarn org.conscrypt.**
+-dontwarn org.openjsse.**
+-dontwarn com.google.auto.value.**

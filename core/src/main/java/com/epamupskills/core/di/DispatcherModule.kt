@@ -1,5 +1,6 @@
 package com.epamupskills.core.di
 
+import androidx.annotation.Keep
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -8,6 +9,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Qualifier
 
+@Keep
 @Module
 @InstallIn(SingletonComponent::class)
 object DispatcherModule {

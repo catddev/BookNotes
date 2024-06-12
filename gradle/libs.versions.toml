@@ -1,5 +1,5 @@
 [versions]
-agp = "8.4.1"
+agp = "8.4.2"
 kotlin = "2.0.0"
 composeCompiler = "2.0.0"
 coreKtx = "1.13.1"
@@ -15,12 +15,11 @@ lottieCompose = "6.3.0"
 room = "2.6.1"
 navigation = "2.8.0-beta02"
 ksp = "2.0.0-1.0.21"
-kapt = "2.0.0"
 serialization = "1.6.3"
 serializationPlugin = "2.0.0"
 daggerHilt = "2.51.1"
 hiltJetpack = "1.2.0"
-firebase = "33.0.0"
+firebase = "33.1.0"
 firebasePlugin = "3.0.1"
 googleServicesPlugin = "4.4.2"
 dataStore = "1.1.1"
@@ -29,12 +28,13 @@ retrofit = "2.11.0"
 squareOkHttp = "4.9.1"
 retrofitSerializationConverter = "1.0.0"
 retrofirCoroutinesAdapter = "0.9.2"
+autoValue = "1.11.0"
 
 #testing
 testCore = "1.5.0"
-junit = "5.10.0"
+junit = "5.10.2"
 junitVersion = "1.1.5"
-junitPlatformLauncher = "1.10.0"
+junitPlatformLauncher = "1.10.2"
 espressoCore = "3.5.1"
 fragmentTesting = "1.7.1"
 mockk = "1.13.10"
@@ -77,6 +77,8 @@ retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = 
 square-okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "squareOkHttp" }
 retrofit-serialization-converter = { group = "com.jakewharton.retrofit", name = "retrofit2-kotlinx-serialization-converter", version.ref = "retrofitSerializationConverter" }
 retrofit-coroutine-call-adapter = { group = "com.jakewharton.retrofit", name = "retrofit2-kotlin-coroutines-adapter", version.ref = "retrofirCoroutinesAdapter" }
+auto-value = { group = "com.google.auto.value", name = "auto-value", version.ref = "autoValue" }
+auto-value-annotations = { group = "com.google.auto.value", name = "auto-value-annotations", version.ref = "autoValue" }
 
 #testing
 junit = { group = "org.junit.jupiter", name = "junit-jupiter-api", version.ref = "junit" }

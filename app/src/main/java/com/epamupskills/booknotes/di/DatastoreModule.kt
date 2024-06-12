@@ -1,6 +1,7 @@
 package com.epamupskills.booknotes.di
 
 import android.content.Context
+import androidx.annotation.Keep
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
@@ -11,6 +12,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+@Keep
 @Module
 @InstallIn(SingletonComponent::class)
 object DatastoreModule {

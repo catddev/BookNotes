@@ -1,5 +1,6 @@
 package com.epamupskills.booknotes.di
 
+import androidx.annotation.Keep
 import com.epamupskills.book_notes.data.api.GoogleBooksApi
 import com.epamupskills.booknotes.BuildConfig
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
@@ -16,6 +17,7 @@ import retrofit2.Retrofit
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
+@Keep
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {

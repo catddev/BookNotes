@@ -1,5 +1,6 @@
 package com.epamupskills.booknotes.di
 
+import androidx.annotation.Keep
 import com.epamupskills.authorization.data.AccountRepositoryImpl
 import com.epamupskills.authorization.data.UidRepositoryImpl
 import com.epamupskills.authorization.domain.AccountRepository
@@ -14,6 +15,7 @@ import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 
+@Keep
 @Module
 @InstallIn(SingletonComponent::class)
 interface RepositoryModule {

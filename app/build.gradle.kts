@@ -1,3 +1,5 @@
+import org.gradle.internal.impldep.org.junit.experimental.categories.Categories.CategoryFilter.exclude
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -30,7 +32,7 @@ android {
 
     buildTypes {
         debug {
-            isMinifyEnabled = true
+            isMinifyEnabled = false
             buildConfigField("String", "BASE_URL", "\"https://www.googleapis.com/books/\"")
             buildConfigField("String", "API_KEY", "\"AIzaSyDC-0PS_IjUp1eH1yMA6_0hJtHmn86Bhos\"")
             proguardFiles(
@@ -58,6 +60,11 @@ android {
     tasks.withType<Test> {
         useJUnitPlatform()
     }
+//    tasks.withType<Test> {
+//        if (name.contains("release", ignoreCase = true)) {
+//            enabled = false
+//        }
+//    }
     buildFeatures {
         compose = true
         viewBinding = true
@@ -83,6 +90,10 @@ dependencies {
     ksp(libs.hilt.compiler)
     implementation(libs.hilt)
 
+    // auto-value
+    annotationProcessor(libs.auto.value)
+    implementation(libs.auto.value.annotations)
+
     //testing
     testImplementation(libs.junit)
     testImplementation(libs.junit.params)
@@ -90,6 +101,7 @@ dependencies {
     testRuntimeOnly(libs.junit.runtime)
     testImplementation(libs.mockk.android)
     testImplementation(libs.mockk.agent)
+    kspTest(libs.hilt.test.compiler)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
