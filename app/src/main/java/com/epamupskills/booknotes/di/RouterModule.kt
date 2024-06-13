@@ -1,8 +1,8 @@
 package com.epamupskills.booknotes.di
 
 import androidx.annotation.Keep
-import com.epamupskills.booknotes.AppRouterImpl
-import com.epamupskills.core.AppRouter
+import com.epamupskills.booknotes.core.AppRouterImpl
+import com.epamupskills.booknotes.core.AppRouter
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

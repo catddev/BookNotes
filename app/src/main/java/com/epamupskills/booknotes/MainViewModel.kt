@@ -3,10 +3,10 @@ package com.epamupskills.booknotes
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.epamupskills.authorization.domain.usecases.CheckAuthUseCase
-import com.epamupskills.authorization.domain.usecases.SaveCurrentUserIdUseCase
-import com.epamupskills.core.Navigate
-import com.epamupskills.core.base.BaseViewModel
+import com.epamupskills.booknotes.authorization.domain.usecases.CheckAuthUseCase
+import com.epamupskills.booknotes.authorization.domain.usecases.SaveCurrentUserIdUseCase
+import com.epamupskills.booknotes.base.BaseViewModel
+import com.epamupskills.booknotes.core.Navigate
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

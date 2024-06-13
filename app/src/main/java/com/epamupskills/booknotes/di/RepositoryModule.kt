@@ -1,15 +1,15 @@
 package com.epamupskills.booknotes.di
 
 import androidx.annotation.Keep
-import com.epamupskills.authorization.data.AccountRepositoryImpl
-import com.epamupskills.authorization.data.UidRepositoryImpl
-import com.epamupskills.authorization.domain.AccountRepository
-import com.epamupskills.book_notes.data.repository.BooksRepositoryImpl
-import com.epamupskills.book_notes.data.repository.NoteRepositoryImpl
-import com.epamupskills.book_notes.domain.BooksRepository
-import com.epamupskills.book_notes.domain.NoteRepository
-import com.epamupskills.core.repository.UidRepository
-import com.epamupskills.core.repository.UserCacheRepository
+import com.epamupskills.booknotes.authorization.data.AccountRepositoryImpl
+import com.epamupskills.booknotes.authorization.data.UidRepositoryImpl
+import com.epamupskills.booknotes.authorization.domain.AccountRepository
+import com.epamupskills.booknotes.booknotes.data.repository.BooksRepositoryImpl
+import com.epamupskills.booknotes.booknotes.data.repository.NoteRepositoryImpl
+import com.epamupskills.booknotes.booknotes.domain.BooksRepository
+import com.epamupskills.booknotes.booknotes.domain.NoteRepository
+import com.epamupskills.booknotes.core.UidRepository
+import com.epamupskills.booknotes.core.UserCacheRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

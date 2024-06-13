@@ -3,9 +3,9 @@ package com.epamupskills.booknotes.di
 import android.content.Context
 import androidx.annotation.Keep
 import androidx.room.Room
-import com.epamupskills.book_notes.data.db.BookNotesDatabase
-import com.epamupskills.book_notes.data.db.BookNotesDatabaseSettings.BOOK_NOTES_DATABASE_NAME
-import com.epamupskills.book_notes.data.db.BooksDao
+import com.epamupskills.booknotes.booknotes.data.db.BookNotesDatabase
+import com.epamupskills.booknotes.booknotes.data.db.BookNotesDatabaseSettings.BOOK_NOTES_DATABASE_NAME
+import com.epamupskills.booknotes.booknotes.data.db.BooksDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

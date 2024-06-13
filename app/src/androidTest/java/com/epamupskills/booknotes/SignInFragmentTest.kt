@@ -12,7 +12,6 @@ import androidx.test.espresso.matcher.ViewMatchers.withHint
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
-import com.epamupskills.authorization.R
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import org.hamcrest.CoreMatchers.not
@@ -96,7 +95,7 @@ class SignInFragmentTest {
             try {
                 onView(withId(com.epamupskills.booknotes.R.id.profile)).perform(click())
                 onView(withId(R.id.sign_out_button)).perform(click())
-                onView(withText(com.epamupskills.core.R.string.confirm_button_title)).perform(click())
+                onView(withText(R.string.confirm_button_title)).perform(click())
             } catch (t: Throwable) {
                 println(t.message)
             }

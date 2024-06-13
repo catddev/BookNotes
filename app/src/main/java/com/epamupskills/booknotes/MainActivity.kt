@@ -14,10 +14,10 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
+import com.epamupskills.booknotes.core.AppRouter
+import com.epamupskills.booknotes.core.NavigationEvent
+import com.epamupskills.booknotes.core.Navigator
 import com.epamupskills.booknotes.databinding.ActivityMainBinding
-import com.epamupskills.core.AppRouter
-import com.epamupskills.core.NavigationEvent
-import com.epamupskills.core.Navigator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -81,15 +81,15 @@ class MainActivity : AppCompatActivity(), Navigator {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             binding.bottomNavigation.run {
                 when (destination.parent?.id) {
-                    com.epamupskills.book_notes.R.id.search_nav -> {
+                    R.id.search_nav -> {
                         menu.findItem(R.id.search).isChecked = true
                     }
 
-                    com.epamupskills.authorization.R.id.profile_nav -> {
+                    R.id.profile_nav -> {
                         menu.findItem(R.id.profile).isChecked = true
                     }
 
-                    com.epamupskills.book_notes.R.id.book_notes_nav -> {
+                    R.id.book_notes_nav -> {
                         menu.findItem(R.id.books).isChecked = true
                     }
                 }

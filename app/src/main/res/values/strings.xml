@@ -3,4 +3,23 @@
     <string name="label_home">Home</string>
     <string name="label_search">Search</string>
     <string name="label_profile">Profile</string>
+    <string name="sign_in_button_title">sing in</string>
+    <string name="sign_up_button_title">sign up</string>
+    <string name="sign_out_button_title">sign out</string>
+    <string name="delete_account_button_title">delete account</string>
+    <string name="sign_up_confirm_password_hint">Confirm password</string>
+    <string name="auth_email_hint">Enter email</string>
+    <string name="auth_password_hint">Enter password</string>
+    <string name="account_title">You are currently signed in as:</string>
+    <string name="error_invalid_email_text">Please enter valid e-mail</string>
+    <string name="error_invalid_password_text">Password must be at least 6 characters long, contain at least 1 uppercase letter, 1 lowercase letter and 1 digit</string>
+    <string name="error_wrong_password_confirmation_text">Passwords do not match</string>
+    <string name="search_input_text_hint">Search for books by title</string>
+    <string name="search_button_title">search</string>
+    <string name="books_with_notes_header_title">with notes</string>
+    <string name="books_with_no_notes_header_title">no any notes yet</string>
+    <string name="toolbar_title">Book Notes</string>
+    <string name="confirm_dialog_title">Are you sure you want to proceed?</string>
+    <string name="confirm_button_title">Confirm</string>
+    <string name="cancel_button_title">Cancel</string>
 </resources>

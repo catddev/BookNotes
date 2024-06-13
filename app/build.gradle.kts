@@ -52,11 +52,6 @@ android {
     tasks.withType<Test> {
         useJUnitPlatform()
     }
-//    tasks.withType<Test> {
-//        if (name.contains("release", ignoreCase = true)) {
-//            enabled = false
-//        }
-//    }
     buildFeatures {
         compose = true
         viewBinding = true
@@ -73,10 +68,6 @@ android {
 }
 
 dependencies {
-
-    implementation(project(":core"))
-    implementation(project(":authorization"))
-    implementation(project(":book_notes"))
 
     //core
     implementation(libs.androidx.core.ktx)
@@ -159,6 +150,4 @@ dependencies {
     debugImplementation(libs.navigation.testing)
     androidTestImplementation(libs.hilt.android.testing)
     kspAndroidTest(libs.hilt.test.compiler)
-    androidTestImplementation(project(":core"))
-    androidTestImplementation(project(":authorization"))
 }

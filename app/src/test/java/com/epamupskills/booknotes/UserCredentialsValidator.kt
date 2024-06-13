@@ -1,6 +1,6 @@
 package com.epamupskills.booknotes
 
-import com.epamupskills.authorization.domain.UserCredentialsValidator
+import com.epamupskills.booknotes.authorization.domain.UserCredentialsValidator
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource

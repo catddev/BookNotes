@@ -1,7 +1,7 @@
 package com.epamupskills.booknotes.di
 
 import androidx.annotation.Keep
-import com.epamupskills.book_notes.data.api.GoogleBooksApi
+import com.epamupskills.booknotes.booknotes.data.api.GoogleBooksApi
 import com.epamupskills.booknotes.BuildConfig
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
