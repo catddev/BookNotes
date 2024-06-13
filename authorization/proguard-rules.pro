@@ -60,4 +60,5 @@
 
 # General rules for keeping metadata and reflection-relevant information
 -keepattributes *Annotation*, Signature, EnclosingMethod, InnerClasses
+
 -keep class com.epamupskills.core.** { *; }

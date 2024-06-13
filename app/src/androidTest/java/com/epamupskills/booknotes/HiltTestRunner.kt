@@ -2,9 +2,11 @@ package com.epamupskills.booknotes
 
 import android.app.Application
 import android.content.Context
+import androidx.annotation.Keep
 import androidx.test.runner.AndroidJUnitRunner
 import dagger.hilt.android.testing.HiltTestApplication
 
+@Keep
 class HiltTestRunner: AndroidJUnitRunner() {
     override fun newApplication(
         cl: ClassLoader?,

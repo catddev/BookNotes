@@ -14,20 +14,14 @@ import com.epamupskills.book_notes.presentation.models.BookUi
 import com.epamupskills.book_notes.presentation.search.adapter.BookSearchResultsAdapter
 import com.epamupskills.core.ImageLoader
 import com.epamupskills.core.base.BaseFragment
-import com.epamupskills.core.di.Glide
-import dagger.hilt.android.AndroidEntryPoint
+import com.epamupskills.core.presentation.GlideImageLoader
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@AndroidEntryPoint
 class BookSearchFragment : BaseFragment() {
-
-    @Inject
-    @Glide
-    lateinit var imageLoader: ImageLoader
 
     private var _binding: FragmentBookSearchBinding? = null
     private val binding get() = _binding!!
+    private val imageLoader: ImageLoader = GlideImageLoader(requireContext().applicationContext)
     private val booksAdapter by lazy {
         BookSearchResultsAdapter(
             imageLoader = imageLoader,

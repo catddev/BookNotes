@@ -12,9 +12,7 @@ import com.epamupskills.authorization.presentation.auth_shared.DeleteAccount
 import com.epamupskills.authorization.presentation.auth_shared.SignOut
 import com.epamupskills.core.base.BaseFragment
 import com.epamupskills.core.presentation.ConfirmDialog.Companion.RESULT_KEY
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class ProfileFragment : BaseFragment() {
 
     private var _binding: FragmentProfileBinding? = null

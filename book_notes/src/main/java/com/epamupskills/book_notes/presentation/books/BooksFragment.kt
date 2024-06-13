@@ -13,20 +13,14 @@ import com.epamupskills.book_notes.databinding.FragmentBooksBinding
 import com.epamupskills.book_notes.presentation.books.adapter.BooksAdapter
 import com.epamupskills.core.ImageLoader
 import com.epamupskills.core.base.BaseFragment
-import com.epamupskills.core.di.Glide
-import dagger.hilt.android.AndroidEntryPoint
+import com.epamupskills.core.presentation.GlideImageLoader
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@AndroidEntryPoint
 class BooksFragment : BaseFragment() {
-
-    @Inject
-    @Glide
-    lateinit var imageLoader: ImageLoader
 
     private var _binding: FragmentBooksBinding? = null
     private val binding get() = _binding!!
+    private val imageLoader: ImageLoader = GlideImageLoader(requireContext().applicationContext)
     private val booksAdapter by lazy { BooksAdapter(imageLoader, ::openNote, ::removeBook) }
     private val viewModel by viewModels<BooksViewModel>()
 

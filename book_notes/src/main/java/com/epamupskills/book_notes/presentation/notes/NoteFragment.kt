@@ -13,11 +13,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.epamupskills.book_notes.databinding.FragmentNoteBinding
 import com.epamupskills.core.base.BaseFragment
-import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.withCreationCallback
 import kotlinx.coroutines.launch
 
-@AndroidEntryPoint
 class NoteFragment : BaseFragment() {
 
     private val args by navArgs<NoteFragmentArgs>()

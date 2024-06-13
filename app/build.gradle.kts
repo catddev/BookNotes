@@ -24,7 +24,6 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "com.epamupskills.booknotes.HiltTestRunner"
-//        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -32,13 +31,8 @@ android {
 
     buildTypes {
         debug {
-            isMinifyEnabled = false
             buildConfigField("String", "BASE_URL", "\"https://www.googleapis.com/books/\"")
             buildConfigField("String", "API_KEY", "\"AIzaSyDC-0PS_IjUp1eH1yMA6_0hJtHmn86Bhos\"")
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
         }
         release {
             buildConfigField("String", "BASE_URL", "\"https://www.googleapis.com/books/\"")
@@ -89,10 +83,6 @@ dependencies {
     // hilt
     ksp(libs.hilt.compiler)
     implementation(libs.hilt)
-
-    // auto-value
-    annotationProcessor(libs.auto.value)
-    implementation(libs.auto.value.annotations)
 
     //testing
     testImplementation(libs.junit)

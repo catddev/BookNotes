@@ -86,8 +86,6 @@
 
 -keep class com.epamupskills.core.** { *; }
 
--keep class com.google.auto.value.AutoValue { *; }
-
 -dontwarn org.bouncycastle.**
 -dontwarn org.conscrypt.**
 -dontwarn org.openjsse.**
