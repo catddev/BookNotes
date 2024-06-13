@@ -43,11 +43,52 @@ dependencies {
 
     implementation(project(":core"))
 
-    // hilt
-    ksp(libs.hilt.compiler)
-    implementation(libs.hilt)
+    //core
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
+    implementation(libs.androidx.activity)
+    implementation(libs.androidx.constraintlayout)
+
+    //lottie
+    implementation(libs.lottie.compose)
+
+    //fragment
+    implementation(libs.androidx.fragment.ktx)
+
+    //lifecycle
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+
+    // navigation
+    implementation(libs.navigation.fragment.ktx)
+    implementation(libs.navigation.ui.ktx)
+
+    // serialization
+    implementation(libs.kotlinx.serialization)
 
     // room
     ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room)
     annotationProcessor(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
+
+    // hilt
+    ksp(libs.hilt.compiler)
+    implementation(libs.hilt)
+    implementation(libs.hilt.nav.fragment)
+
+    //glide
+    implementation(libs.glide)
+
+    //retrofit
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.serialization.converter)
+    implementation(libs.retrofit.coroutine.call.adapter)
+
+    //okhttp
+    implementation(libs.square.okhttp.logging)
+
+    //firebase
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.crashlytics)
 }

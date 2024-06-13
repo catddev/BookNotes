@@ -20,7 +20,7 @@ class BooksFragment : BaseFragment() {
 
     private var _binding: FragmentBooksBinding? = null
     private val binding get() = _binding!!
-    private val imageLoader: ImageLoader = GlideImageLoader(requireContext().applicationContext)
+    private lateinit var imageLoader: ImageLoader
     private val booksAdapter by lazy { BooksAdapter(imageLoader, ::openNote, ::removeBook) }
     private val viewModel by viewModels<BooksViewModel>()
 
@@ -35,6 +35,7 @@ class BooksFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        imageLoader = GlideImageLoader(requireContext().applicationContext)
         initObservers()
         initBaseObservers(viewModel, binding.loader.root, binding.errorAnimatedView.root)
         initViews()

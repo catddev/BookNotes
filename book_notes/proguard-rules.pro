@@ -20,6 +20,8 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
+-dontobfuscate
+
 -dontwarn org.slf4j.impl.StaticLoggerBinder
 
 #retrofit with coroutine adapter
@@ -75,9 +77,13 @@
 -keepclassmembers class * {
     @dagger.hilt.* *;
 }
--keepnames @dagger.hilt.android.lifecycle.HiltViewModel class * extends androidx.lifecycle.ViewModel
+-keep @dagger.hilt.android.lifecycle.HiltViewModel class * extends androidx.lifecycle.ViewModel
 
 # General rules for keeping metadata and reflection-relevant information
 -keepattributes *Annotation*, Signature, EnclosingMethod, InnerClasses
 
 -keep class com.epamupskills.core.** { *; }
+
+-keep class com.epamupskills.book_notes.data.** {*;}
+-keep class com.epamupskills.book_notes.domain.** {*;}
+

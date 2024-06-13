@@ -42,9 +42,42 @@ android {
 dependencies {
 
     implementation(project(":core"))
-    api(libs.firebase.auth)
+
+    //core
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
+    implementation(libs.androidx.activity)
+    implementation(libs.androidx.constraintlayout)
+
+    //lottie
+    implementation(libs.lottie.compose)
+
+    //fragment
+    implementation(libs.androidx.fragment.ktx)
+
+    //lifecycle
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+
+    // navigation
+    implementation(libs.navigation.fragment.ktx)
+    implementation(libs.navigation.ui.ktx)
+
+    //datastore
+    implementation(libs.datastore.prefs)
+    implementation(libs.datastore)
 
     // hilt
     ksp(libs.hilt.compiler)
     implementation(libs.hilt)
+    implementation(libs.hilt.nav.fragment)
+
+    //firebase
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.auth)
+    implementation(libs.firebase.analytics)
+
+    //firebase
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.crashlytics)
 }

@@ -41,67 +41,33 @@ android {
 dependencies {
 
     //core
-    api(libs.androidx.core.ktx)
-    api(libs.androidx.appcompat)
-    api(libs.material)
-    api(libs.androidx.activity)
-    api(libs.androidx.constraintlayout)
-
-    //fragment
-    api(libs.androidx.fragment.ktx)
-
-    //lifecycle
-    api(libs.androidx.lifecycle.runtime.ktx)
-
-    //compose
-    api(platform(libs.androidx.compose.bom))
-    api(libs.androidx.activity.compose)
-    api(libs.androidx.ui)
-    api(libs.androidx.ui.graphics)
-    api(libs.androidx.ui.tooling.preview)
-    api(libs.androidx.material3)
-    debugApi(libs.androidx.ui.tooling)
-    debugApi(libs.androidx.ui.test.manifest)
-    implementation(libs.androidx.ui.util)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
+    implementation(libs.androidx.activity)
+    implementation(libs.androidx.constraintlayout)
 
     //lottie
-    api(libs.lottie.compose)
+    implementation(libs.lottie.compose)
+
+    //fragment
+    implementation(libs.androidx.fragment.ktx)
+
+    //lifecycle
+    implementation(libs.androidx.lifecycle.runtime.ktx)
 
     // navigation
-    api(libs.navigation.fragment.ktx)
-    api(libs.navigation.ui.ktx)
-
-    // serialization
-    api(libs.kotlinx.serialization)
-
-    // room
-    ksp(libs.androidx.room.compiler)
-    api(libs.androidx.room)
-    annotationProcessor(libs.androidx.room.compiler)
-    api(libs.androidx.room.ktx)
-
-    //datastore
-    api(libs.datastore.prefs)
-    api(libs.datastore)
+    implementation(libs.navigation.fragment.ktx)
+    implementation(libs.navigation.ui.ktx)
 
     // hilt
     ksp(libs.hilt.compiler)
-    api(libs.hilt)
-    api(libs.hilt.nav.fragment)
+    implementation(libs.hilt)
 
     //firebase
-    api(platform(libs.firebase.bom))
-    api(libs.firebase.analytics)
-    api(libs.firebase.crashlytics)
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.crashlytics)
 
     //glide
-    api(libs.glide)
-
-    //retrofit
-    api(libs.retrofit)
-    api(libs.retrofit.serialization.converter)
-    api(libs.retrofit.coroutine.call.adapter)
-
-    //okhttp
-    api(libs.square.okhttp.logging)
+    implementation(libs.glide)
 }

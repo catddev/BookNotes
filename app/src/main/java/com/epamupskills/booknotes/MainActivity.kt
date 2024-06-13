@@ -70,23 +70,29 @@ class MainActivity : AppCompatActivity(), Navigator {
         binding.bottomNavigation.setOnItemSelectedListener { item ->
             navController.run {
                 when (item.itemId) {
-                    R.id.books -> R.id.to_book_notes
-                    R.id.search -> R.id.to_search
-                    R.id.profile -> R.id.to_profile
-                    else -> throw UnsupportedOperationException()
-                }.let { actionId -> navigate(actionId) }
+                    R.id.books -> navigate(R.id.to_book_notes)
+                    R.id.search -> navigate(R.id.to_search)
+                    R.id.profile -> navigate(R.id.to_profile)
+                }
             }
             return@setOnItemSelectedListener true
         }
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            binding.bottomNavigation.menu.run {
+            binding.bottomNavigation.run {
                 when (destination.parent?.id) {
-                    com.epamupskills.book_notes.R.id.search_nav -> findItem(R.id.search)
-                    com.epamupskills.authorization.R.id.profile_nav -> findItem(R.id.profile)
-                    com.epamupskills.book_notes.R.id.book_notes_nav -> findItem(R.id.books)
-                    else -> throw UnsupportedOperationException()
-                }.apply { isChecked = true }
+                    com.epamupskills.book_notes.R.id.search_nav -> {
+                        menu.findItem(R.id.search).isChecked = true
+                    }
+
+                    com.epamupskills.authorization.R.id.profile_nav -> {
+                        menu.findItem(R.id.profile).isChecked = true
+                    }
+
+                    com.epamupskills.book_notes.R.id.book_notes_nav -> {
+                        menu.findItem(R.id.books).isChecked = true
+                    }
+                }
             }
         }
     }

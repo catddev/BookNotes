@@ -21,7 +21,7 @@ class BookSearchFragment : BaseFragment() {
 
     private var _binding: FragmentBookSearchBinding? = null
     private val binding get() = _binding!!
-    private val imageLoader: ImageLoader = GlideImageLoader(requireContext().applicationContext)
+    private lateinit var imageLoader: ImageLoader
     private val booksAdapter by lazy {
         BookSearchResultsAdapter(
             imageLoader = imageLoader,
@@ -41,6 +41,7 @@ class BookSearchFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        imageLoader = GlideImageLoader(requireContext().applicationContext)
         initObservers()
         initBaseObservers(
             viewModel = viewModel,

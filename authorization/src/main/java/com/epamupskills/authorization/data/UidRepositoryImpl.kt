@@ -1,5 +1,6 @@
 package com.epamupskills.authorization.data
 
+import androidx.annotation.Keep
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
@@ -19,6 +20,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+@Keep
 class UidRepositoryImpl @Inject constructor(
     private val dataStore: DataStore<Preferences>,
     @IO private val dispatcherIo: CoroutineDispatcher,

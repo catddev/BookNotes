@@ -1,5 +1,3 @@
-import org.gradle.internal.impldep.org.junit.experimental.categories.Categories.CategoryFilter.exclude
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -80,9 +78,70 @@ dependencies {
     implementation(project(":authorization"))
     implementation(project(":book_notes"))
 
+    //core
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
+    implementation(libs.androidx.activity)
+    implementation(libs.androidx.constraintlayout)
+
+    //fragment
+    implementation(libs.androidx.fragment.ktx)
+
+    //lifecycle
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+
+    //compose
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.ui)
+    implementation(libs.androidx.ui.graphics)
+    implementation(libs.androidx.ui.tooling.preview)
+    implementation(libs.androidx.material3)
+    debugImplementation(libs.androidx.ui.tooling)
+    debugImplementation(libs.androidx.ui.test.manifest)
+    implementation(libs.androidx.ui.util)
+
+    //lottie
+    implementation(libs.lottie.compose)
+
+    // navigation
+    implementation(libs.navigation.fragment.ktx)
+    implementation(libs.navigation.ui.ktx)
+
+    // serialization
+    implementation(libs.kotlinx.serialization)
+
+    // room
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room)
+    annotationProcessor(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
+
+    //datastore
+    implementation(libs.datastore.prefs)
+    implementation(libs.datastore)
+
     // hilt
     ksp(libs.hilt.compiler)
     implementation(libs.hilt)
+    implementation(libs.hilt.nav.fragment)
+
+    //firebase
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.auth)
+    implementation(libs.firebase.crashlytics)
+
+    //glide
+    implementation(libs.glide)
+
+    //retrofit
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.serialization.converter)
+    implementation(libs.retrofit.coroutine.call.adapter)
+
+    //okhttp
+    implementation(libs.square.okhttp.logging)
 
     //testing
     testImplementation(libs.junit)

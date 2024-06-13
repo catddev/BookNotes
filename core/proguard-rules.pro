@@ -20,6 +20,8 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
+-dontobfuscate
+
 -dontwarn org.slf4j.impl.StaticLoggerBinder
 
 #Kotlin metadata
@@ -53,9 +55,23 @@
 -keepclassmembers class * {
     @dagger.hilt.* *;
 }
--keepnames @dagger.hilt.android.lifecycle.HiltViewModel class * extends androidx.lifecycle.ViewModel
+-keep @dagger.hilt.android.lifecycle.HiltViewModel class * extends androidx.lifecycle.ViewModel
 
 # General rules for keeping metadata and reflection-relevant information
 -keepattributes *Annotation*, Signature, EnclosingMethod, InnerClasses
 
 -keep class com.epamupskills.core.** { *; }
+
+-keep class com.epamupskills.core.ImageLoader { *; }
+-keep class com.epamupskills.core.UserIntent { *; }
+-keep class com.epamupskills.core.databinding.ViewErrorBinding
+-keep class com.epamupskills.core.databinding.ViewLoaderBinding
+-keep class com.epamupskills.core.databinding.ViewToolbarBinding
+-keep class com.epamupskills.core.di.Glide
+-keep class com.epamupskills.core.Navigate { *; }
+-keep class com.epamupskills.core.NavigateTo { *; }
+-keep class com.epamupskills.core.NavigateToGraph { *; }
+-keep class com.epamupskills.core.NavigateUp{ *; }
+-keep class com.epamupskills.core.NavigateWithConfig { *; }
+-keep class com.epamupskills.core.NavigationEvent { *; }
+-keep class com.epamupskills.core.base.BaseMapper { *; }
