@@ -34,7 +34,7 @@
     </fragment>
     <dialog
         android:id="@+id/nestedConfirmDialog"
-        android:name="com.epamupskills.booknotes.ui.ConfirmDialog"
+        android:name="com.epamupskills.booknotes.core.ConfirmDialog"
         android:label="ConfirmDialog"/>
 
     <action

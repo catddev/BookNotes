@@ -4,7 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.epamupskills.booknotes.booknotes.domain.interactors.NoteInteractor
 import com.epamupskills.booknotes.core.Constants.EMPTY
 import com.epamupskills.booknotes.core.NavigateUp
-import com.epamupskills.booknotes.base.BaseViewModel
+import com.epamupskills.booknotes.core.base.BaseViewModel
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject

@@ -2,7 +2,7 @@ package com.epamupskills.booknotes.di
 
 import androidx.annotation.Keep
 import com.epamupskills.booknotes.core.ImageLoader
-import com.epamupskills.booknotes.ui.GlideImageLoader
+import com.epamupskills.booknotes.core.GlideImageLoader
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

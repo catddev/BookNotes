@@ -16,6 +16,6 @@
     </fragment>
     <dialog
         android:id="@+id/confirmDialog"
-        android:name="com.epamupskills.booknotes.ui.ConfirmDialog"
+        android:name="com.epamupskills.booknotes.core.ConfirmDialog"
         android:label="ConfirmDialog" />
 </navigation>

@@ -5,7 +5,7 @@ import com.epamupskills.booknotes.NestedBookNoteNavDirections
 import com.epamupskills.booknotes.core.NavigateTo
 import com.epamupskills.booknotes.core.NavigateWithConfig
 import com.epamupskills.booknotes.R
-import com.epamupskills.booknotes.base.BaseViewModel
+import com.epamupskills.booknotes.core.base.BaseViewModel
 import com.epamupskills.booknotes.booknotes.domain.interactors.BooksInteractor
 import com.epamupskills.booknotes.booknotes.presentation.mappers.BookListItemsMapper
 import dagger.hilt.android.lifecycle.HiltViewModel

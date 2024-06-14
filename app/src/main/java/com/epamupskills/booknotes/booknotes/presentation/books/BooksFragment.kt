@@ -12,9 +12,9 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.epamupskills.booknotes.booknotes.presentation.books.adapter.BooksAdapter
 import com.epamupskills.booknotes.R
 import com.epamupskills.booknotes.core.ImageLoader
-import com.epamupskills.booknotes.base.BaseFragment
+import com.epamupskills.booknotes.core.base.BaseFragment
 import com.epamupskills.booknotes.databinding.FragmentBooksBinding
-import com.epamupskills.booknotes.ui.GlideImageLoader
+import com.epamupskills.booknotes.core.GlideImageLoader
 import kotlinx.coroutines.launch
 
 class BooksFragment : BaseFragment() {

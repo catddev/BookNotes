@@ -1,4 +1,4 @@
-package com.epamupskills.booknotes.ui
+package com.epamupskills.booknotes.core
 
 import android.content.Context
 import android.widget.ImageView

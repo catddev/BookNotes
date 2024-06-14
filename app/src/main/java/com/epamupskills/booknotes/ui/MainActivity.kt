@@ -1,4 +1,4 @@
-package com.epamupskills.booknotes
+package com.epamupskills.booknotes.ui
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -14,6 +14,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
+import com.epamupskills.booknotes.R
 import com.epamupskills.booknotes.core.AppRouter
 import com.epamupskills.booknotes.core.NavigationEvent
 import com.epamupskills.booknotes.core.Navigator

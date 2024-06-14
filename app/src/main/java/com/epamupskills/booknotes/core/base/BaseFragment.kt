@@ -1,4 +1,4 @@
-package com.epamupskills.booknotes.base
+package com.epamupskills.booknotes.core.base
 
 import android.view.View
 import androidx.core.view.isVisible

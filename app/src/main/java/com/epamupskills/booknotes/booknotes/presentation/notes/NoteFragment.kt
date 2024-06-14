@@ -12,7 +12,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.epamupskills.booknotes.R
-import com.epamupskills.booknotes.base.BaseFragment
+import com.epamupskills.booknotes.core.base.BaseFragment
 import com.epamupskills.booknotes.databinding.FragmentNoteBinding
 import dagger.hilt.android.lifecycle.withCreationCallback
 import kotlinx.coroutines.launch

@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.navigation.NavController
-import com.epamupskills.booknotes.MainActivity
+import com.epamupskills.booknotes.ui.MainActivity
 import dagger.hilt.android.qualifiers.ActivityContext
 import javax.inject.Inject
 

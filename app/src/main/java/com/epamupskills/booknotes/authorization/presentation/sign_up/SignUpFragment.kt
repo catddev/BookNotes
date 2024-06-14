@@ -16,7 +16,7 @@ import com.epamupskills.booknotes.authorization.presentation.auth_shared.Confirm
 import com.epamupskills.booknotes.authorization.presentation.auth_shared.EnterEmail
 import com.epamupskills.booknotes.authorization.presentation.auth_shared.EnterPassword
 import com.epamupskills.booknotes.authorization.presentation.auth_shared.SignUp
-import com.epamupskills.booknotes.base.BaseFragment
+import com.epamupskills.booknotes.core.base.BaseFragment
 import com.epamupskills.booknotes.databinding.FragmentSignUpBinding
 import kotlinx.coroutines.launch
 

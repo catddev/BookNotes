@@ -2,7 +2,7 @@ package com.epamupskills.booknotes.booknotes.data.mappers
 
 import com.epamupskills.booknotes.booknotes.data.entities.BookEntity
 import com.epamupskills.booknotes.booknotes.domain.models.Book
-import com.epamupskills.booknotes.base.BaseMapper
+import com.epamupskills.booknotes.core.base.BaseMapper
 import javax.inject.Inject
 
 class BookToEntityMapper @Inject constructor() : BaseMapper<Book, BookEntity>() {

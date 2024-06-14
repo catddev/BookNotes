@@ -12,9 +12,9 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.epamupskills.booknotes.booknotes.presentation.models.BookUi
 import com.epamupskills.booknotes.booknotes.presentation.search.adapter.BookSearchResultsAdapter
 import com.epamupskills.booknotes.core.ImageLoader
-import com.epamupskills.booknotes.base.BaseFragment
+import com.epamupskills.booknotes.core.base.BaseFragment
 import com.epamupskills.booknotes.databinding.FragmentBookSearchBinding
-import com.epamupskills.booknotes.ui.GlideImageLoader
+import com.epamupskills.booknotes.core.GlideImageLoader
 import kotlinx.coroutines.launch
 
 class BookSearchFragment : BaseFragment() {

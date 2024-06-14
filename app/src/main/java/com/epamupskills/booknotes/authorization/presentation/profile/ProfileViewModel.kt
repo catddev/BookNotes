@@ -7,7 +7,7 @@ import com.epamupskills.booknotes.authorization.presentation.auth_shared.Confirm
 import com.epamupskills.booknotes.authorization.presentation.auth_shared.DeleteAccount
 import com.epamupskills.booknotes.authorization.presentation.auth_shared.SignOut
 import com.epamupskills.booknotes.core.NavigateTo
-import com.epamupskills.booknotes.base.BaseViewModel
+import com.epamupskills.booknotes.core.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

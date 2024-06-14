@@ -9,9 +9,9 @@ import androidx.fragment.app.viewModels
 import com.epamupskills.booknotes.authorization.presentation.auth_shared.Confirm
 import com.epamupskills.booknotes.authorization.presentation.auth_shared.DeleteAccount
 import com.epamupskills.booknotes.authorization.presentation.auth_shared.SignOut
-import com.epamupskills.booknotes.base.BaseFragment
+import com.epamupskills.booknotes.core.base.BaseFragment
 import com.epamupskills.booknotes.databinding.FragmentProfileBinding
-import com.epamupskills.booknotes.ui.ConfirmDialog.Companion.RESULT_KEY
+import com.epamupskills.booknotes.core.ConfirmDialog.Companion.RESULT_KEY
 
 class ProfileFragment : BaseFragment() {
 

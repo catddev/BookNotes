@@ -5,7 +5,7 @@ import com.epamupskills.booknotes.booknotes.domain.interactors.BookSearchInterac
 import com.epamupskills.booknotes.booknotes.presentation.mappers.BookFromUiMapper
 import com.epamupskills.booknotes.booknotes.presentation.mappers.BookToUiMapper
 import com.epamupskills.booknotes.booknotes.presentation.models.BookUi
-import com.epamupskills.booknotes.base.BaseViewModel
+import com.epamupskills.booknotes.core.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow

@@ -2,7 +2,7 @@ package com.epamupskills.booknotes.booknotes.presentation.mappers
 
 import com.epamupskills.booknotes.booknotes.domain.models.Book
 import com.epamupskills.booknotes.booknotes.presentation.models.BookUi
-import com.epamupskills.booknotes.base.BaseMapper
+import com.epamupskills.booknotes.core.base.BaseMapper
 import javax.inject.Inject
 
 class BookToUiMapper @Inject constructor() : BaseMapper<Book, BookUi>() {

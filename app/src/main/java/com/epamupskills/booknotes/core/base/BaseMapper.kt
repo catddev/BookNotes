@@ -1,4 +1,4 @@
-package com.epamupskills.booknotes.base
+package com.epamupskills.booknotes.core.base
 
 abstract class BaseMapper<IN, OUT> {
 

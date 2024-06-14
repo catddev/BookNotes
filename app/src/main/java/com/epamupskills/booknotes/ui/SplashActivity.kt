@@ -1,4 +1,4 @@
-package com.epamupskills.booknotes
+package com.epamupskills.booknotes.ui
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -18,6 +18,7 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
+import com.epamupskills.booknotes.R
 import com.epamupskills.booknotes.core.AppRouter
 import com.epamupskills.booknotes.ui.theme.BookNotesTheme
 import dagger.hilt.android.AndroidEntryPoint

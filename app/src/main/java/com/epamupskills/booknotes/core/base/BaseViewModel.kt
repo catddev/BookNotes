@@ -1,4 +1,4 @@
-package com.epamupskills.booknotes.base
+package com.epamupskills.booknotes.core.base
 
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LiveData

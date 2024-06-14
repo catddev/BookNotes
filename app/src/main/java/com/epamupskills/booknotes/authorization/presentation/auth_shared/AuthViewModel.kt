@@ -5,7 +5,7 @@ import com.epamupskills.booknotes.authorization.domain.UserCredentialsValidator
 import com.epamupskills.booknotes.authorization.domain.interactors.AuthenticationInteractor
 import com.epamupskills.booknotes.authorization.domain.models.UserCredentials
 import com.epamupskills.booknotes.authorization.presentation.UserCredentialsUiMapper
-import com.epamupskills.booknotes.base.BaseViewModel
+import com.epamupskills.booknotes.core.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
