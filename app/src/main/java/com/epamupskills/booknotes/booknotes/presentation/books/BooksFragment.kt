@@ -9,19 +9,25 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.epamupskills.booknotes.booknotes.presentation.books.adapter.BooksAdapter
 import com.epamupskills.booknotes.R
+import com.epamupskills.booknotes.booknotes.presentation.books.adapter.BooksAdapter
 import com.epamupskills.booknotes.core.ImageLoader
 import com.epamupskills.booknotes.core.base.BaseFragment
 import com.epamupskills.booknotes.databinding.FragmentBooksBinding
-import com.epamupskills.booknotes.core.GlideImageLoader
+import com.epamupskills.booknotes.di.Glide
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class BooksFragment : BaseFragment() {
+
+    @Inject
+    @Glide
+    lateinit var imageLoader: ImageLoader
 
     private var _binding: FragmentBooksBinding? = null
     private val binding get() = _binding!!
-    private lateinit var imageLoader: ImageLoader
     private val booksAdapter by lazy { BooksAdapter(imageLoader, ::openNote, ::removeBook) }
     private val viewModel by viewModels<BooksViewModel>()
 
@@ -36,7 +42,6 @@ class BooksFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        imageLoader = GlideImageLoader(requireContext().applicationContext)
         initObservers()
         initBaseObservers(viewModel, binding.loader.root, binding.errorAnimatedView.root)
         initViews()

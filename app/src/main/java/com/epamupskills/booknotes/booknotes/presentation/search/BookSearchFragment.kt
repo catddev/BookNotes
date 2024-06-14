@@ -14,14 +14,20 @@ import com.epamupskills.booknotes.booknotes.presentation.search.adapter.BookSear
 import com.epamupskills.booknotes.core.ImageLoader
 import com.epamupskills.booknotes.core.base.BaseFragment
 import com.epamupskills.booknotes.databinding.FragmentBookSearchBinding
-import com.epamupskills.booknotes.core.GlideImageLoader
+import com.epamupskills.booknotes.di.Glide
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class BookSearchFragment : BaseFragment() {
+
+    @Inject
+    @Glide
+    lateinit var imageLoader: ImageLoader
 
     private var _binding: FragmentBookSearchBinding? = null
     private val binding get() = _binding!!
-    private lateinit var imageLoader: ImageLoader
     private val booksAdapter by lazy {
         BookSearchResultsAdapter(
             imageLoader = imageLoader,
@@ -41,7 +47,6 @@ class BookSearchFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        imageLoader = GlideImageLoader(requireContext().applicationContext)
         initObservers()
         initBaseObservers(
             viewModel = viewModel,
