@@ -8,5 +8,6 @@ interface BooksRepository {
     suspend fun addBook(book: Book, userId: String)
     suspend fun removeBook(bookId: String, userId: String)
     suspend fun searchBooksByTitle(title: String): List<Book>
+    suspend fun clearCachedUserData(userId: String)
     fun isBookSaved(bookId: String, userId: String): Flow<Boolean>
 }

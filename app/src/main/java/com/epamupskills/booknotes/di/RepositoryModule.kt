@@ -8,7 +8,6 @@ import com.epamupskills.booknotes.booknotes.data.repository.BooksRepositoryImpl
 import com.epamupskills.booknotes.booknotes.data.repository.NoteRepositoryImpl
 import com.epamupskills.booknotes.booknotes.domain.BooksRepository
 import com.epamupskills.booknotes.booknotes.domain.NoteRepository
-import com.epamupskills.booknotes.core.UserCacheRepository
 import com.epamupskills.booknotes.core.abstraction.UidRepository
 import dagger.Binds
 import dagger.Module
@@ -28,9 +27,6 @@ interface RepositoryModule {
 
     @Binds
     fun bindUidRepository(repository: UidRepositoryImpl): UidRepository
-
-    @Binds
-    fun bindUserCacheRepository(repository: BooksRepositoryImpl): UserCacheRepository
 
     @Binds
     fun bindNoteRepository(repository: NoteRepositoryImpl): NoteRepository

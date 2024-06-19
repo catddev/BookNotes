@@ -19,7 +19,7 @@ class AccountRepositoryImpl @Inject constructor(
     override val isAuth
         get() = callbackFlow {
             val listener = FirebaseAuth.AuthStateListener { auth ->
-                trySend(auth.currentUser != null) //todo maybe trysend is wrong
+                trySend(auth.currentUser != null)
             }
 
             firebaseAuth.addAuthStateListener(listener)

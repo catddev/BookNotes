@@ -1,7 +1,6 @@
 package com.epamupskills.booknotes.booknotes.data.repository
 
 import com.epamupskills.booknotes.booknotes.data.api.GoogleBooksApi
-import com.epamupskills.booknotes.core.UserCacheRepository
 import com.epamupskills.booknotes.booknotes.data.db.BooksDao
 import com.epamupskills.booknotes.booknotes.data.mappers.BookDtoMapper
 import com.epamupskills.booknotes.booknotes.data.mappers.BookFromEntityMapper
@@ -23,7 +22,7 @@ class BooksRepositoryImpl @Inject constructor(
     private val bookToEntityMapper: BookToEntityMapper,
     private val bookDtoMapper: BookDtoMapper,
     @IO private val dispatcherIo: CoroutineDispatcher,
-) : BooksRepository, UserCacheRepository {
+) : BooksRepository {
 
     override fun getAllBooks(userId: String): Flow<List<Book>> = dao.getAllBooks(userId)
         .map(bookFromEntityMapper::transformAll)

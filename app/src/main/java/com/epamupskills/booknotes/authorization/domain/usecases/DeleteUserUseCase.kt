@@ -1,15 +1,15 @@
 package com.epamupskills.booknotes.authorization.domain.usecases
 
 import com.epamupskills.booknotes.authorization.domain.AccountRepository
+import com.epamupskills.booknotes.booknotes.domain.BooksRepository
 import com.epamupskills.booknotes.core.abstraction.UidRepository
-import com.epamupskills.booknotes.core.UserCacheRepository
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import javax.inject.Inject
 
 class DeleteUserUseCase @Inject constructor(
     private val accountRepository: AccountRepository,
-    private val cacheRepository: UserCacheRepository,
+    private val booksRepository: BooksRepository,
     private val uidRepository: UidRepository,
 ) {
 
@@ -17,7 +17,7 @@ class DeleteUserUseCase @Inject constructor(
         coroutineScope {
             val result = async { accountRepository.deleteAccount() }.run {
                 await()
-                cacheRepository.clearCachedUserData(uidRepository.getUserId())
+                booksRepository.clearCachedUserData(uidRepository.getUserId())
             }
             Result.success(result)
         }
