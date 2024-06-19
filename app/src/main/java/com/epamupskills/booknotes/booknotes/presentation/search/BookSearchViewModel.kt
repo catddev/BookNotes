@@ -7,14 +7,18 @@ import com.epamupskills.booknotes.booknotes.presentation.mappers.BookToUiMapper
 import com.epamupskills.booknotes.booknotes.presentation.models.BookUi
 import com.epamupskills.booknotes.core.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -27,6 +31,7 @@ class BookSearchViewModel @Inject constructor(
     private val bookFromUiMapper: BookFromUiMapper,
 ) : BaseViewModel() {
 
+    private val user = MutableSharedFlow<Unit>()
     private val searchInput = MutableStateFlow("")
     private val searchResult = MutableStateFlow<List<BookUi>>(emptyList())
     private val _state = MutableStateFlow(BookSearchViewState())
@@ -34,6 +39,7 @@ class BookSearchViewModel @Inject constructor(
 
     init {
         onSearchInputChanged()
+        onUserChanged()
         onMergeBookmarks()
     }
 
@@ -57,17 +63,20 @@ class BookSearchViewModel @Inject constructor(
         }
     }
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     private fun onMergeBookmarks() {
         launchCatching {
-            interactor.getAllUserBooks().onSuccess { dbBooksFlow ->
-                combine(dbBooksFlow, searchResult) { dbBooks, searchedBooks ->
-                    searchedBooks.map { searchBook ->
-                        searchBook.copy(isBookmarked = dbBooks.any { it.id == searchBook.id })
+            user.flatMapLatest {
+                interactor.getAllUserBooks().onSuccess { dbBooksFlow ->
+                    combine(dbBooksFlow, searchResult) { dbBooks, searchedBooks ->
+                        searchedBooks.map { searchBook ->
+                            searchBook.copy(isBookmarked = dbBooks.any { it.id == searchBook.id })
+                        }
+                    }.collect { searchResultWithBookmarks ->
+                        _state.update { it.copy(searchResults = searchResultWithBookmarks) }
                     }
-                }.collect { searchResultWithBookmarks ->
-                    _state.update { it.copy(searchResults = searchResultWithBookmarks) }
-                }
-            }
+                }.getOrThrow()
+            }.collect()
         }
     }
 
@@ -93,7 +102,18 @@ class BookSearchViewModel @Inject constructor(
         }
     }
 
+    private fun onUserChanged() { //todo get from activity
+        viewModelScope.launch {
+            interactor.checkAuth().onSuccess { isAuth ->
+                isAuth.collect { isUserAuth ->
+                    user.emit(Unit)
+                    if (!isUserAuth) _state.update { it.copy(searchResults = emptyList()) }
+                }
+            }
+        }
+    }
+
     companion object {
-        private const val SEARCH_INPUT_DELAY = 500L
+        private const val SEARCH_INPUT_DELAY = 1000L
     }
 }

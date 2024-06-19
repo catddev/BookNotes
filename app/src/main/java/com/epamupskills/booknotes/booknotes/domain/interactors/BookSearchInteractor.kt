@@ -1,5 +1,6 @@
 package com.epamupskills.booknotes.booknotes.domain.interactors
 
+import com.epamupskills.booknotes.authorization.domain.usecases.CheckAuthUseCase
 import com.epamupskills.booknotes.booknotes.domain.models.Book
 import com.epamupskills.booknotes.booknotes.domain.usecases.GetBooksUseCase
 import com.epamupskills.booknotes.booknotes.domain.usecases.RemoveBookUseCase
@@ -12,10 +13,12 @@ class BookSearchInteractor @Inject constructor(
     private val saveBookUseCase: SaveBookUseCase,
     private val removeBookUseCase: RemoveBookUseCase,
     private val getBooksUseCase: GetBooksUseCase,
+    private val checkAuthUseCase: CheckAuthUseCase,
 ) {
 
     suspend fun getAllUserBooks() = getBooksUseCase.invoke()
     suspend fun searchBooks(title: String) = searchBookUseCase.invoke(title)
     suspend fun saveBook(book: Book) = saveBookUseCase.invoke(book)
     suspend fun removeBook(bookId: String) = removeBookUseCase.invoke(bookId)
+    fun checkAuth() = checkAuthUseCase.invoke()
 }
