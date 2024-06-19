@@ -1,9 +1,9 @@
-package com.epamupskills.booknotes.ui
+package com.epamupskills.booknotes.core
 
 import android.content.Context
 import android.os.IBinder
 import android.view.inputmethod.InputMethodManager
-import com.epamupskills.booknotes.core.InputManager
+import com.epamupskills.booknotes.core.abstraction.InputManager
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 

@@ -1,7 +1,7 @@
 package com.epamupskills.booknotes.booknotes.domain.usecases
 
 import com.epamupskills.booknotes.booknotes.domain.BooksRepository
-import com.epamupskills.booknotes.core.UidRepository
+import com.epamupskills.booknotes.core.abstraction.UidRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

@@ -1,6 +1,6 @@
 package com.epamupskills.booknotes.booknotes.presentation.books
 
-import com.epamupskills.booknotes.core.UserIntent
+import com.epamupskills.booknotes.core.abstraction.UserIntent
 
 sealed interface BookUserIntent : UserIntent
 

@@ -1,7 +1,7 @@
 package com.epamupskills.booknotes.booknotes.domain.usecases
 
 import com.epamupskills.booknotes.booknotes.domain.NoteRepository
-import com.epamupskills.booknotes.core.UidRepository
+import com.epamupskills.booknotes.core.abstraction.UidRepository
 import javax.inject.Inject
 
 class UpdateNoteUseCase @Inject constructor(

@@ -11,7 +11,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.epamupskills.booknotes.R
 import com.epamupskills.booknotes.booknotes.presentation.books.adapter.BooksAdapter
-import com.epamupskills.booknotes.core.ImageLoader
+import com.epamupskills.booknotes.core.abstraction.ImageLoader
 import com.epamupskills.booknotes.core.base.BaseFragment
 import com.epamupskills.booknotes.databinding.FragmentBooksBinding
 import com.epamupskills.booknotes.di.Glide

@@ -7,7 +7,7 @@ import com.epamupskills.booknotes.booknotes.presentation.models.BookUi
 import com.epamupskills.booknotes.booknotes.presentation.models.BookListItem
 import com.epamupskills.booknotes.booknotes.presentation.utils.BookDiffUtil
 import com.epamupskills.booknotes.booknotes.presentation.utils.BookPayload
-import com.epamupskills.booknotes.core.ImageLoader
+import com.epamupskills.booknotes.core.abstraction.ImageLoader
 import com.epamupskills.booknotes.databinding.ItemBookBinding
 import com.epamupskills.booknotes.di.Glide
 

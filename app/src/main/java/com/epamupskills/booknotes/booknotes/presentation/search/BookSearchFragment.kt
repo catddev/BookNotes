@@ -11,7 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.epamupskills.booknotes.booknotes.presentation.models.BookUi
 import com.epamupskills.booknotes.booknotes.presentation.search.adapter.BookSearchResultsAdapter
-import com.epamupskills.booknotes.core.ImageLoader
+import com.epamupskills.booknotes.core.abstraction.ImageLoader
 import com.epamupskills.booknotes.core.base.BaseFragment
 import com.epamupskills.booknotes.databinding.FragmentBookSearchBinding
 import com.epamupskills.booknotes.di.Glide

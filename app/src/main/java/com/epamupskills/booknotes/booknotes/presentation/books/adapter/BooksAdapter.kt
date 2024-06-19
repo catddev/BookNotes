@@ -10,7 +10,7 @@ import com.epamupskills.booknotes.booknotes.presentation.models.BookListItem
 import com.epamupskills.booknotes.booknotes.presentation.models.BookUi
 import com.epamupskills.booknotes.booknotes.presentation.models.HeaderUi
 import com.epamupskills.booknotes.booknotes.presentation.utils.BookDiffUtil
-import com.epamupskills.booknotes.core.ImageLoader
+import com.epamupskills.booknotes.core.abstraction.ImageLoader
 import com.epamupskills.booknotes.databinding.ItemBookBinding
 import com.epamupskills.booknotes.databinding.ItemHeaderBinding
 import com.epamupskills.booknotes.di.Glide
@@ -51,10 +51,7 @@ class BooksAdapter(
         }
     }
 
-    override fun getItemViewType(position: Int): Int = when (getItem(position)) {
-        is BookUi -> TYPE_BOOK
-        is HeaderUi -> TYPE_HEADER
-    }
+    override fun getItemViewType(position: Int): Int = getItem(position).getItemType()
 
     private fun setFullSpan(view: View) {
         val layoutParams = view.layoutParams as StaggeredGridLayoutManager.LayoutParams

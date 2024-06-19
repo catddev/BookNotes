@@ -4,7 +4,7 @@ import android.content.Context
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.epamupskills.booknotes.R
-import com.epamupskills.booknotes.core.ImageLoader
+import com.epamupskills.booknotes.core.abstraction.ImageLoader
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 

@@ -19,6 +19,6 @@ object DispatcherModule {
     fun provideIoDispatcher(): CoroutineDispatcher = Dispatchers.IO
 }
 
-@Retention(AnnotationRetention.BINARY)
+@Retention(AnnotationRetention.RUNTIME)
 @Qualifier
 annotation class IO

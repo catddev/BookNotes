@@ -1,8 +1,8 @@
 package com.epamupskills.booknotes.di
 
 import androidx.annotation.Keep
-import com.epamupskills.booknotes.booknotes.data.api.GoogleBooksApi
 import com.epamupskills.booknotes.BuildConfig
+import com.epamupskills.booknotes.booknotes.data.api.GoogleBooksApi
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
@@ -10,6 +10,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.json.Json
+import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -22,7 +23,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
-    private const val TIMEOUT_SECONDS = 5L
+    private const val TIMEOUT_SECONDS = 30L
     private val json = Json {
         prettyPrint = true
         coerceInputValues = true
@@ -33,7 +34,9 @@ object NetworkModule {
 
     @Provides
     fun provideLoggingInterceptor(): HttpLoggingInterceptor =
-        HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+        HttpLoggingInterceptor().setLevel(
+            if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
+        )
 
     @Provides
     @Singleton
@@ -42,12 +45,7 @@ object NetworkModule {
             .connectTimeout(TIMEOUT_SECONDS, TimeUnit.SECONDS)
             .readTimeout(TIMEOUT_SECONDS, TimeUnit.SECONDS)
             .addInterceptor(loggingInterceptor)
-            .addInterceptor { chain ->
-                val request = chain.request().newBuilder()
-                    .header(API_KEY_HEADER_NAME, BuildConfig.API_KEY)
-                    .build()
-                chain.proceed(request)
-            }.build()
+            .addInterceptor { chain -> chain.addHeader() }.build()
 
     @Provides
     @Singleton
@@ -62,4 +60,9 @@ object NetworkModule {
     @Singleton
     fun provideGoogleBooksApi(retrofit: Retrofit): GoogleBooksApi =
         retrofit.create(GoogleBooksApi::class.java)
+
+    private fun Interceptor.Chain.addHeader() =
+        request().newBuilder()
+            .header(API_KEY_HEADER_NAME, BuildConfig.API_KEY)
+            .build().run(::proceed)
 }
