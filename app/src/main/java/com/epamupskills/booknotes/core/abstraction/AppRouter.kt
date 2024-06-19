@@ -1,8 +1,9 @@
-package com.epamupskills.booknotes.core
+package com.epamupskills.booknotes.core.abstraction
 
 import android.content.Context
 import android.net.Uri
 import androidx.navigation.NavController
+import com.epamupskills.booknotes.core.NavigationEvent
 
 interface AppRouter {
     fun openMainActivity(context: Context, uri: Uri? = null)

@@ -1,34 +1,33 @@
 package com.epamupskills.booknotes.ui
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.epamupskills.booknotes.R
 import com.epamupskills.booknotes.authorization.domain.usecases.CheckAuthUseCase
-import com.epamupskills.booknotes.authorization.domain.usecases.SaveCurrentUserIdUseCase
-import com.epamupskills.booknotes.core.base.BaseViewModel
 import com.epamupskills.booknotes.core.Navigate
+import com.epamupskills.booknotes.core.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val checkAuthUseCase: CheckAuthUseCase,
-    private val saveCurrentUserIdUseCase: SaveCurrentUserIdUseCase,
 ) : BaseViewModel() {
 
-    private val _isAuth = MutableLiveData(false)
-    val isAuth: LiveData<Boolean> get() = _isAuth
+    private val _isAuth = Channel<Boolean>()
+    val isAuth = _isAuth.receiveAsFlow()
 
     init {
         viewModelScope.launch {
             checkAuthUseCase.invoke()
                 .onSuccess { authFlow ->
                     authFlow.collect { isAuthorized ->
-                        _isAuth.value = isAuthorized
+                        Log.d("MainViewModel", "isAuthorized: $isAuthorized")
+                        _isAuth.send(isAuthorized)
                         onChangeDestination(isAuthorized)
-                        saveCurrentUserIdUseCase.invoke()
                     }
                 }.renderBaseStateByResult()
         }

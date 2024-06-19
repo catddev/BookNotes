@@ -15,9 +15,9 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.epamupskills.booknotes.R
-import com.epamupskills.booknotes.core.AppRouter
 import com.epamupskills.booknotes.core.NavigationEvent
-import com.epamupskills.booknotes.core.Navigator
+import com.epamupskills.booknotes.core.abstraction.AppRouter
+import com.epamupskills.booknotes.core.abstraction.Navigator
 import com.epamupskills.booknotes.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -52,11 +52,14 @@ class MainActivity : AppCompatActivity(), Navigator {
     override fun getRootNavController(): NavController = navController
 
     private fun initObservers() {
-        viewModel.isAuth.observe(this, ::renderViews)
-
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                viewModel.navEvents.collect(::onNavigationEvent)
+                launch {
+                    viewModel.isAuth.collect(::renderViews) //todo ext
+                }
+                launch {
+                    viewModel.navEvents.collect(::onNavigationEvent)
+                }
             }
         }
     }

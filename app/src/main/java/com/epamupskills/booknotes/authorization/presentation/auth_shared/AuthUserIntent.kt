@@ -1,6 +1,6 @@
 package com.epamupskills.booknotes.authorization.presentation.auth_shared
 
-import com.epamupskills.booknotes.core.UserIntent
+import com.epamupskills.booknotes.core.abstraction.UserIntent
 
 sealed interface AuthUserIntent: UserIntent
 

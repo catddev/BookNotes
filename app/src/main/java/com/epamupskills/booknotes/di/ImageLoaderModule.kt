@@ -1,7 +1,7 @@
 package com.epamupskills.booknotes.di
 
 import androidx.annotation.Keep
-import com.epamupskills.booknotes.core.ImageLoader
+import com.epamupskills.booknotes.core.abstraction.ImageLoader
 import com.epamupskills.booknotes.core.GlideImageLoader
 import dagger.Binds
 import dagger.Module

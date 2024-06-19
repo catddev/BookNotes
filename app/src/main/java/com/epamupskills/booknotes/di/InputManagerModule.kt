@@ -1,8 +1,8 @@
 package com.epamupskills.booknotes.di
 
 import androidx.annotation.Keep
-import com.epamupskills.booknotes.core.InputManager
-import com.epamupskills.booknotes.ui.InputManagerImpl
+import com.epamupskills.booknotes.core.abstraction.InputManager
+import com.epamupskills.booknotes.core.InputManagerImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

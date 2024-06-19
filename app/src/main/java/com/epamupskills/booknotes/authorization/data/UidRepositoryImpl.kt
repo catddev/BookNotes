@@ -1,13 +1,12 @@
 package com.epamupskills.booknotes.authorization.data
 
-import androidx.annotation.Keep
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.epamupskills.booknotes.core.PreferencesSettings
+import com.epamupskills.booknotes.core.abstraction.UidRepository
 import com.epamupskills.booknotes.di.IO
-import com.epamupskills.booknotes.core.UidRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,7 +19,6 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-@Keep
 class UidRepositoryImpl @Inject constructor(
     private val dataStore: DataStore<Preferences>,
     @IO private val dispatcherIo: CoroutineDispatcher,
@@ -31,8 +29,7 @@ class UidRepositoryImpl @Inject constructor(
     init {
         dataStore.data.map { prefs ->
             prefs[stringPreferencesKey(PreferencesSettings.CURRENT_USER_ID_KEY)]
-        }.filterNotNull()
-            .flowOn(dispatcherIo)
+        }.flowOn(dispatcherIo)
             .onEach { _userIdFlow.value = it }
             .launchIn(CoroutineScope(dispatcherIo))
     }

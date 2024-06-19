@@ -8,10 +8,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
-import com.epamupskills.booknotes.core.AppRouter
+import com.epamupskills.booknotes.core.abstraction.AppRouter
 import com.epamupskills.booknotes.core.NavigateWithConfig
 import com.epamupskills.booknotes.core.NavigationEvent
-import com.epamupskills.booknotes.ui.InputManagerImpl
+import com.epamupskills.booknotes.core.InputManagerImpl
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch

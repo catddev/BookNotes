@@ -1,7 +1,7 @@
 package com.epamupskills.booknotes.authorization.domain.usecases
 
 import com.epamupskills.booknotes.authorization.domain.AccountRepository
-import com.epamupskills.booknotes.core.UidRepository
+import com.epamupskills.booknotes.core.abstraction.UidRepository
 import com.epamupskills.booknotes.core.UserCacheRepository
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope

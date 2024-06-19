@@ -3,7 +3,7 @@ package com.epamupskills.booknotes.booknotes.presentation.books.adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.epamupskills.booknotes.R
 import com.epamupskills.booknotes.booknotes.presentation.models.BookUi
-import com.epamupskills.booknotes.core.ImageLoader
+import com.epamupskills.booknotes.core.abstraction.ImageLoader
 import com.epamupskills.booknotes.databinding.ItemBookBinding
 
 class BookViewHolder(

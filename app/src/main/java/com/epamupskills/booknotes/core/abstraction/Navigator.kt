@@ -1,4 +1,4 @@
-package com.epamupskills.booknotes.core
+package com.epamupskills.booknotes.core.abstraction
 
 import androidx.navigation.NavController
 

@@ -8,16 +8,16 @@ import com.epamupskills.booknotes.booknotes.data.repository.BooksRepositoryImpl
 import com.epamupskills.booknotes.booknotes.data.repository.NoteRepositoryImpl
 import com.epamupskills.booknotes.booknotes.domain.BooksRepository
 import com.epamupskills.booknotes.booknotes.domain.NoteRepository
-import com.epamupskills.booknotes.core.UidRepository
 import com.epamupskills.booknotes.core.UserCacheRepository
+import com.epamupskills.booknotes.core.abstraction.UidRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
+import dagger.hilt.android.components.ViewModelComponent
 
 @Keep
 @Module
-@InstallIn(SingletonComponent::class)
+@InstallIn(ViewModelComponent::class)
 interface RepositoryModule {
 
     @Binds
